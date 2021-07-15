@@ -2,6 +2,7 @@ import copy
 import os
 import random
 import re
+import traceback
 from shutil import which
 
 import pandas as pd
@@ -84,7 +85,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
         # 스크래핑 실패 기록용 파일
         quarterly_complete_list = pd.read_excel("./quarterly_complete_list.xlsx")# 데이터 받은 항목 리스트
-        quarterly_error_list = open("./quarterly_error_list.txt", "a", encoding="UTF-8")# 에러 목록
+        # quarterly_error_list = open("./quarterly_error_list_"+time.strftime("%Y-%m-%d", time.localtime(time.time()))+".txt", "a", encoding="UTF-8")# 에러 목록
 
         # 메뉴바 클릭.
         menu_bar_button = self.driver.find_element_by_xpath(
@@ -277,17 +278,17 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
                     # 에러 정보 저장.
                     date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                    quarterly_error_list.write(
-                        date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "\n")
-                    quarterly_error_list.write("Exception : \n")
-                    quarterly_error_list.write(str(e) + "\n")
+                    with open("./quarterly_error_list_"+time.strftime("%Y-%m-%d", time.localtime(time.time()))+".txt", "a", encoding="UTF-8") as f:
+                        f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "\n")
+                        f.write(traceback.format_exc())
                     continue
                 except Exception as e:
                     date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                    quarterly_error_list.write(
-                        date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "\n")
-                    quarterly_error_list.write("Exception : \n")
-                    quarterly_error_list.write(str(e) + "\n")
+                    with open(
+                            "./quarterly_error_list_" + time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt",
+                            "a", encoding="UTF-8") as f:
+                        f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "\n")
+                        f.write(traceback.format_exc())
                     continue
                 # 성공시 다음 종목 스크래핑 수행.
                 else:

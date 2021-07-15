@@ -1,0 +1,238 @@
+2021-07-15 12:21:22_000225_유유제약1우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 132, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 143, in document_scraping
+    document_fail_list.to_excel("C:/Users/kai/Desktop/document_fail_list.xlsx")
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\generic.py", line 2189, in to_excel
+    formatter.write(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\formats\excel.py", line 815, in write
+    writer = ExcelWriter(  # type: ignore[abstract]
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_openpyxl.py", line 32, in __init__
+    super().__init__(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 810, in __init__
+    self.handles = get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+PermissionError: [Errno 13] Permission denied: 'C:/Users/kai/Desktop/document_fail_list.xlsx'
+2021-07-15 12:37:10_000225_유유제약1우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 132, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-15 14:58:35_000020_동화약품
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 156, in document_scraping
+    os.makedirs(folder_path, exist_ok=True)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] 파일이 이미 있으므로 만들 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/000020_동화약품'
+2021-07-15 14:59:12_000020_동화약품
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 156, in document_scraping
+    os.makedirs(folder_path, exist_ok=True)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\os.py", line 225, in makedirs
+    mkdir(name, mode)
+FileExistsError: [WinError 183] 파일이 이미 있으므로 만들 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/000020_동화약품'
+2021-07-15 15:09:43_000020_동화약품_분기보고서 (2021.03)
+Traceback (most recent call last):
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\shutil.py", line 806, in move
+    os.rename(src, real_dst)
+FileNotFoundError: [WinError 2] 지정된 파일을 찾을 수 없습니다: 'C:/Users/kai/Downloads/[동화약품]분기보고서_재무제표(2021.05.14)_ko.xls' -> 'C:/Users/kai/Desktop/korean_stock_document_list/000020_동화약품/[동화약품]분기보고서_재무제표(2021.05.14)_ko.xls'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 227, in document_scraping
+    shutil.move("C:/Users/kai/Downloads/"+file_name, folder_path+"/"+file_name)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\shutil.py", line 826, in move
+    copy_function(src, real_dst)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\shutil.py", line 435, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\shutil.py", line 264, in copyfile
+    with open(src, 'rb') as fsrc, open(dst, 'wb') as fdst:
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/[동화약품]분기보고서_재무제표(2021.05.14)_ko.xls'
+2021-07-15 15:10:04_000020_동화약품_분기보고서 (2021.03)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 200, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-15 15:10:08_000020_동화약품_분기보고서 (2021.03)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 200, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-15 15:10:08_000020_동화약품
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 200, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 257, in document_scraping
+    document_fail_list = document_fail_list.append(
+UnboundLocalError: local variable 'document_fail_list' referenced before assignment
+2021-07-15 15:19:02_000020_동화약품_감사보고서제출
+Traceback (most recent call last):
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\shutil.py", line 806, in move
+    os.rename(src, real_dst)
+FileNotFoundError: [WinError 2] 지정된 파일을 찾을 수 없습니다: 'C:/Users/kai/Downloads/[동화약품]감사보고서제출(2021.03.17).zip' -> 'C:/Users/kai/Desktop/korean_stock_document_list/000020_동화약품/[동화약품]감사보고서제출(2021.03.17).zip'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 227, in document_scraping
+    shutil.move("C:/Users/kai/Downloads/"+file_name, folder_path+"/"+file_name)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\shutil.py", line 826, in move
+    copy_function(src, real_dst)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\shutil.py", line 435, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\shutil.py", line 264, in copyfile
+    with open(src, 'rb') as fsrc, open(dst, 'wb') as fdst:
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/[동화약품]감사보고서제출(2021.03.17).zip'
+2021-07-15 15:19:04_000020_동화약품_감사보고서제출
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 200, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-15 15:19:04_000020_동화약품_감사보고서제출
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 200, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-15 15:19:04_000020_동화약품
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 200, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 257, in document_scraping
+    document_fail_list = document_fail_list.append(
+UnboundLocalError: local variable 'document_fail_list' referenced before assignment
+2021-07-15 15:19:34_000020_동화약품
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 117, in document_scraping
+    menu1_button = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class='deepsearch-app']/div[contains(@class,'drawer-container-layout')]/div[contains(@class,'drawer-container')]/div[contains(@class,'drawer-container-inner')]/div[contains(@class,'menu-item-group')][2]/div[contains(@class,'menu-item')][3]"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-15 15:45:02_000020_동화약품_분기보고서 (2021.03)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 223, in document_scraping
+    raise IOError
+OSError
+2021-07-15 15:49:05_000020_동화약품_분기보고서 (2021.03)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\document_spider.py", line 223, in document_scraping
+    raise IOError
+OSError

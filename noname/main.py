@@ -5,6 +5,7 @@
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 import os
+import traceback
 from datetime import datetime, timezone
 
 import pymongo
@@ -39,8 +40,15 @@ from scrapy import cmdline
 # cmdline.execute("cd ".split())
 # cmdline.execute()
 # cmdline.execute("scrapy crawl korean_daily_finance_spider".split())
-cmdline.execute("scrapy crawl noname".split())
-# cmdline.execute("scrapy crawl korean_documents_spider".split())
+# cmdline.execute("scrapy crawl noname".split())
+cmdline.execute("scrapy crawl korean_documents_spider".split())
+def aaa():
+    print(traceback.format_exc())
+try:
+    raise IOError
+except IOError:
+    aaa()
+
 
 # csv 파일 읽기
 import csv
@@ -52,6 +60,7 @@ import csv
 # csv_df = pd.read_csv('C:/Users/kai/Desktop/so_tags.csv')
 # print(csv_df)
 
+# 분기 데이터 스크래핑 스케줄러.
 from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
 
 # scheduler = BlockingScheduler()
