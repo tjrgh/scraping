@@ -88,7 +88,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
     #
     def document_scraping(self):
         # 디버깅용
-        self.stock_list = self.stock_list[1466:]
+        self.stock_list = self.stock_list[2307:]
 
         # 스크래핑 실패 기록용 파일
         # document_complete_list = pd.read_excel("./document_complete_list.xlsx")# 데이터 받은 항목 리스트
@@ -249,10 +249,10 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                             f.write(traceback.format_exc())
                                         if retry_count == 2:
                                             # 실패 목록 기록
-                                            document_fail_list = document_fail_list.append(
+                                            self.document_fail_list = self.document_fail_list.append(
                                                 {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
                                                  "문서명": document_title}, ignore_index=True)
-                                            document_fail_list.to_excel("C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx")
+                                            self.document_fail_list.to_excel("C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx")
                                         continue
                                     else:
                                         break
@@ -267,7 +267,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                 break
                             else:
                                 self.driver.execute_script("arguments[0].click();", button)  # 다음 페이지 클릭
-                                time.sleep(random.uniform(self.motion_term + 3, self.motion_term + 4))
+                                time.sleep(random.uniform(self.motion_term + 5, self.motion_term + 6))
 
 
 
@@ -366,10 +366,10 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                             f.write(traceback.format_exc())
                                         if retry_count == 2:
                                             # 실패 목록 기록
-                                            document_fail_list = document_fail_list.append(
+                                            self.document_fail_list = self.document_fail_list.append(
                                                 {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
                                                  "문서명": document_title}, ignore_index=True)
-                                            document_fail_list.to_excel("C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx")
+                                            self.document_fail_list.to_excel("C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx")
                                         continue
                                     else:
                                         break

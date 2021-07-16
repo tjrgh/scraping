@@ -42,12 +42,6 @@ from scrapy import cmdline
 # cmdline.execute("scrapy crawl korean_daily_finance_spider".split())
 # cmdline.execute("scrapy crawl noname".split())
 cmdline.execute("scrapy crawl korean_documents_spider".split())
-def aaa():
-    print(traceback.format_exc())
-try:
-    raise IOError
-except IOError:
-    aaa()
 
 
 # csv 파일 읽기

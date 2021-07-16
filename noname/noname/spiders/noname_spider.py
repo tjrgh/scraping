@@ -90,7 +90,7 @@ class SampleSpider(scrapy.Spider):
 
     def company_scrapy(self):
         #디버깅용
-        self.stock_list = self.stock_list[1523:]
+        # self.stock_list = self.stock_list[1523:]
 
         # 스크래핑 실패 기록용 메모장 파일
         # fail_list_detail_file = open("./fail_list_detail.txt","a", encoding="UTF-8")

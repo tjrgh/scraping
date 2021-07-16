@@ -2141,3 +2141,917 @@ Traceback (most recent call last):
   File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\retry.py", line 574, in increment
     raise MaxRetryError(_pool, url, error or ResponseError(cause))
 urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=49997): Max retries exceeded with url: /session/359abe9da78dd8b8f0cbdde75fdd0e09/element (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E5977CAE20>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다'))
+2021-07-15 20:34_096300_베트남개발1
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 283, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='income-statement']//div[contains(@class,'table-container')]//span[@class='table-export-button']"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-15 20:44:32_096775_SK이노베이션우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-15 20:50:45_097955_CJ제일제당 우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-15 22:19:16_108675_LX하우시스우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-15 23:31:11_120115_코오롱인더우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 01:56:17_145995_삼양사우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 02:25_152550_한국ANKOR유전
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 283, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='income-statement']//div[contains(@class,'table-container')]//span[@class='table-export-button']"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 03:07_168490_한국패러랠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 283, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='income-statement']//div[contains(@class,'table-container')]//span[@class='table-export-button']"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 03:48:01_18064K_한진칼우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 10:34_239890_피엔에이치테크
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    conn = connection.create_connection(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 96, in create_connection
+    raise err
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 86, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 234, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1253, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1299, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1248, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1008, in _send_output
+    self.send(msg)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 948, in send
+    self.connect()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 200, in connect
+    conn = self._new_conn()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 181, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001CC8B53A940>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 127, in company_scrapy
+    menu1_button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 319, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 374, in execute
+    return self._request(command_info[0], url, body=data)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 397, in _request
+    resp = self._conn.request(method, url, body=body, headers=headers)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 78, in request
+    return self.request_encode_body(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 170, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\poolmanager.py", line 375, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\retry.py", line 574, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=65098): Max retries exceeded with url: /session/66e3facc467577a399236e1e9eef8fee/element (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CC8B53A940>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다'))
+2021-07-16 10:34_240340_인터코스
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    conn = connection.create_connection(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 96, in create_connection
+    raise err
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 86, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 234, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1253, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1299, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1248, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1008, in _send_output
+    self.send(msg)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 948, in send
+    self.connect()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 200, in connect
+    conn = self._new_conn()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 181, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001CC8B5586D0>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 127, in company_scrapy
+    menu1_button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 319, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 374, in execute
+    return self._request(command_info[0], url, body=data)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 397, in _request
+    resp = self._conn.request(method, url, body=body, headers=headers)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 78, in request
+    return self.request_encode_body(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 170, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\poolmanager.py", line 375, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\retry.py", line 574, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=65098): Max retries exceeded with url: /session/66e3facc467577a399236e1e9eef8fee/element (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001CC8B5586D0>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다'))
+2021-07-16 18:45:06_000075_삼양홀딩스우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:45:53_000087_하이트진로2우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:46:41_000105_유한양행우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:47:27_000145_하이트진로홀딩스우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:48:15_000155_두산우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:49:02_000157_두산2우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:49:49_000215_DL우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:50:36_000225_유유제약1우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:51:24_000227_유유제약2우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:52:12_000325_노루홀딩스우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:53:00_000545_흥국화재우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:53:47_000547_흥국화재2우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:54:35_000725_현대건설우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:55:23_000815_삼성화재우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:56:11_000885_한화우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:56:58_00088K_한화3우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:57:45_000995_DB하이텍1우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:58:33_001045_CJ우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 18:59:20_00104K_CJ4우(전환)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:00:07_001065_JW중외제약우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:00:55_001067_JW중외제약2우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:01:43_001275_부국증권우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:02:31_001465_BYC우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:03:18_001515_SK증권우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:04:07_001525_동양우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:04:54_001527_동양2우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:05:42_001529_동양3우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:06:29_001685_대상우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:07:17_001725_신영증권우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:08:04_001745_SK네트웍스우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:09:16_001755_한양증권우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:10:03_001795_대한제당우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:10:51_002025_코오롱우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:11:38_002355_넥센타이어1우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:12:26_002785_진흥기업우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:13:14_002787_진흥기업2우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:14:01_002795_아모레G우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:14:49_00279K_아모레G3우(전환)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:15:36_002995_금호건설우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:16:23_003075_코오롱글로벌우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:17:10_003465_유화증권우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:17:58_003475_유안타증권우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-16 19:18:44_003495_대한항공우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\noname_spider.py", line 148, in company_scrapy
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
