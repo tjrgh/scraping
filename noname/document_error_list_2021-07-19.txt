@@ -1,0 +1,1645 @@
+2021-07-19 11:38:20_290720_푸드나무
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    conn = connection.create_connection(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 96, in create_connection
+    raise err
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 86, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 234, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1253, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1299, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1248, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1008, in _send_output
+    self.send(msg)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 948, in send
+    self.connect()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 200, in connect
+    conn = self._new_conn()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 181, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001B4E4916C40>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 208, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 319, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 374, in execute
+    return self._request(command_info[0], url, body=data)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 397, in _request
+    resp = self._conn.request(method, url, body=body, headers=headers)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 78, in request
+    return self.request_encode_body(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 170, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\poolmanager.py", line 375, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\retry.py", line 574, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=49605): Max retries exceeded with url: /session/5349ec3c77338b97ea7df17f7f05fbab/element/b33c1e71-2aa0-4fdc-8f4e-7710c702fb58/element (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B4E4916C40>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    conn = connection.create_connection(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 96, in create_connection
+    raise err
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 86, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 234, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1253, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1299, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1248, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1008, in _send_output
+    self.send(msg)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 948, in send
+    self.connect()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 200, in connect
+    conn = self._new_conn()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 181, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001B4E48F0A60>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 238, in document_scraping
+    for i in range(len(self.driver.window_handles) - 1):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 724, in window_handles
+    return self.execute(Command.W3C_GET_WINDOW_HANDLES)['value']
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 319, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 374, in execute
+    return self._request(command_info[0], url, body=data)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 397, in _request
+    resp = self._conn.request(method, url, body=body, headers=headers)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 74, in request
+    return self.request_encode_url(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 96, in request_encode_url
+    return self.urlopen(method, url, **extra_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\poolmanager.py", line 375, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\retry.py", line 574, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=49605): Max retries exceeded with url: /session/5349ec3c77338b97ea7df17f7f05fbab/window/handles (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B4E48F0A60>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다'))
+2021-07-19 11:38:28_290720_푸드나무
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    conn = connection.create_connection(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 96, in create_connection
+    raise err
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 86, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 234, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1253, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1299, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1248, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1008, in _send_output
+    self.send(msg)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 948, in send
+    self.connect()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 200, in connect
+    conn = self._new_conn()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 181, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001B4E49CB070>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 119, in document_scraping
+    menu1_button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 319, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 374, in execute
+    return self._request(command_info[0], url, body=data)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 397, in _request
+    resp = self._conn.request(method, url, body=body, headers=headers)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 78, in request
+    return self.request_encode_body(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 170, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\poolmanager.py", line 375, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\retry.py", line 574, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=49605): Max retries exceeded with url: /session/5349ec3c77338b97ea7df17f7f05fbab/element (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B4E49CB070>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다'))
+2021-07-19 11:38:36_290720_푸드나무
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 169, in _new_conn
+    conn = connection.create_connection(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 96, in create_connection
+    raise err
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\connection.py", line 86, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 699, in urlopen
+    httplib_response = self._make_request(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 394, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 234, in request
+    super(HTTPConnection, self).request(method, url, body=body, headers=headers)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1253, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1299, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1248, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 1008, in _send_output
+    self.send(msg)
+  File "C:\Users\kai\AppData\Local\Programs\Python\Python39\lib\http\client.py", line 948, in send
+    self.connect()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 200, in connect
+    conn = self._new_conn()
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connection.py", line 181, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x000001B4E49CB520>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 119, in document_scraping
+    menu1_button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 319, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 374, in execute
+    return self._request(command_info[0], url, body=data)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 397, in _request
+    resp = self._conn.request(method, url, body=body, headers=headers)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 78, in request
+    return self.request_encode_body(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\request.py", line 170, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\poolmanager.py", line 375, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 783, in urlopen
+    return self.urlopen(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\connectionpool.py", line 755, in urlopen
+    retries = retries.increment(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\urllib3\util\retry.py", line 574, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=49605): Max retries exceeded with url: /session/5349ec3c77338b97ea7df17f7f05fbab/element (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B4E49CB520>: Failed to establish a new connection: [WinError 10061] 대상 컴퓨터에서 연결을 거부했으므로 연결하지 못했습니다'))
+2021-07-19 11:47:17_291230_삼성스팩2호
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 11:48:30_291230_삼성스팩2호
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 11:49:43_291230_삼성스팩2호
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 11:53:54_290720_푸드나무
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 11:54:44_290720_푸드나무
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 11:55:34_290720_푸드나무
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 11:56:24_290740_액트로
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 11:57:14_290740_액트로
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 11:58:06_290740_액트로
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 11:59:20_291230_삼성스팩2호
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 12:00:35_291230_삼성스팩2호
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 12:01:48_291230_삼성스팩2호
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 12:03:02_291650_압타머사이언스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 12:04:15_291650_압타머사이언스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 12:05:28_291650_압타머사이언스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 12:06:19_293480_하나제약
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 12:07:08_293480_하나제약
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 12:07:56_293480_하나제약
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 12:08:46_293490_카카오게임즈
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 12:09:35_293490_카카오게임즈
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+2021-07-19 12:10:24_293490_카카오게임즈
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 195, in document_scraping
+    for document_index in reversed(len(document_list)):
+TypeError: 'int' object is not reversible
+
+2021-07-19 12:23:57_291230_삼성스팩2호
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 12:25:10_291230_삼성스팩2호
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 12:26:24_291230_삼성스팩2호
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 12:27:37_291650_압타머사이언스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 179, in document_scraping
+    last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]//div[contains(@class,'nav-button')][last()-1]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 13:02:19_000020_동화약품
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"./div[contains(@class,'doc-title')]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 265, in document_scraping
+    document_title + "\n")
+UnboundLocalError: local variable 'document_title' referenced before assignment
+2021-07-19 13:42:43_000060_메리츠화재_이병건-높아진 이익체력 , 그러나 투자이익 부분은 체크 필요-05/29/2017
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 13:42:43_000060_메리츠화재_이병건-높아진 이익체력 , 그러나 투자이익 부분은 체크 필요-05/29/2017
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 13:42:43_000060_메리츠화재_이병건-높아진 이익체력 , 그러나 투자이익 부분은 체크 필요-05/29/2017
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_title = document.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 13:48:42_000060_메리츠화재_AUERBACH GRAYSON: Asia Daily Morning Note 01-26-18: (Cahya Mata Sarawak, Gamuda, Malaysian Resources, Keppel Corporation, Malayan Banking, George Kent, Meritz Fire & Marine Insurance, Globetronics, Ascendas REIT, CapitaLand Commercial Trust)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 245, in document_scraping
+    os.rename(
+FileNotFoundError: [WinError 3] 지정된 경로를 찾을 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-03eb67516b8d2df10c2849a0baedb6d6dae202fc.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000060_메리츠화재/report/0158_AUERBACH_GRAYSON__Asia_Daily_Morning_Note_01-26-18___Cahya_Mata_Sarawak__Gamuda__Malaysian_Resources__Keppel_Corporation__Malayan_Banking__George_Kent__Meritz_Fire_&_Marine_Insurance__Globetronics__Ascendas_REIT__CapitaLand_Commercial_Trust_.pdf'
+2021-07-19 13:48:46_000060_메리츠화재_AUERBACH GRAYSON: Asia Daily Morning Note 01-26-18: (Cahya Mata Sarawak, Gamuda, Malaysian Resources, Keppel Corporation, Malayan Banking, George Kent, Meritz Fire & Marine Insurance, Globetronics, Ascendas REIT, CapitaLand Commercial Trust)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 245, in document_scraping
+    os.rename(
+FileNotFoundError: [WinError 3] 지정된 경로를 찾을 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-03eb67516b8d2df10c2849a0baedb6d6dae202fc (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000060_메리츠화재/report/0158_AUERBACH_GRAYSON__Asia_Daily_Morning_Note_01-26-18___Cahya_Mata_Sarawak__Gamuda__Malaysian_Resources__Keppel_Corporation__Malayan_Banking__George_Kent__Meritz_Fire_&_Marine_Insurance__Globetronics__Ascendas_REIT__CapitaLand_Commercial_Trust_.pdf'
+2021-07-19 13:48:50_000060_메리츠화재_AUERBACH GRAYSON: Asia Daily Morning Note 01-26-18: (Cahya Mata Sarawak, Gamuda, Malaysian Resources, Keppel Corporation, Malayan Banking, George Kent, Meritz Fire & Marine Insurance, Globetronics, Ascendas REIT, CapitaLand Commercial Trust)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 245, in document_scraping
+    os.rename(
+FileNotFoundError: [WinError 3] 지정된 경로를 찾을 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-03eb67516b8d2df10c2849a0baedb6d6dae202fc (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000060_메리츠화재/report/0158_AUERBACH_GRAYSON__Asia_Daily_Morning_Note_01-26-18___Cahya_Mata_Sarawak__Gamuda__Malaysian_Resources__Keppel_Corporation__Malayan_Banking__George_Kent__Meritz_Fire_&_Marine_Insurance__Globetronics__Ascendas_REIT__CapitaLand_Commercial_Trust_.pdf'
+2021-07-19 14:15:01_000070_삼양홀딩스_Samyang Corp - Company and Drug Portfolio Report
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_xpath+"/div[contains(@class,'doc-title')]/span"
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 14:15:01_000070_삼양홀딩스_Samyang Corp - Company and Drug Portfolio Report
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_xpath+"/div[contains(@class,'doc-title')]/span"
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 14:15:01_000070_삼양홀딩스_Samyang Corp - Company and Drug Portfolio Report
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_xpath+"/div[contains(@class,'doc-title')]/span"
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 14:15:01_000070_삼양홀딩스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_xpath+"/div[contains(@class,'doc-title')]/span"
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 272, in document_scraping
+    continue
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\generic.py", line 2189, in to_excel
+    formatter.write(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\formats\excel.py", line 815, in write
+    writer = ExcelWriter(  # type: ignore[abstract]
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_openpyxl.py", line 32, in __init__
+    super().__init__(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 810, in __init__
+    self.handles = get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+PermissionError: [Errno 13] Permission denied: 'C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx'
+2021-07-19 14:17:48_000070_삼양홀딩스_Rating Update for Samyang Holdings Corp
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_xpath+"/div[contains(@class,'doc-title')]/span"
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 14:17:48_000070_삼양홀딩스_Rating Update for Samyang Holdings Corp
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_xpath+"/div[contains(@class,'doc-title')]/span"
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 14:17:48_000070_삼양홀딩스_Rating Update for Samyang Holdings Corp
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_xpath+"/div[contains(@class,'doc-title')]/span"
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 14:17:48_000070_삼양홀딩스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 226, in document_scraping
+    document_xpath+"/div[contains(@class,'doc-title')]/span"
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 272, in document_scraping
+    continue
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\generic.py", line 2189, in to_excel
+    formatter.write(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\formats\excel.py", line 815, in write
+    writer = ExcelWriter(  # type: ignore[abstract]
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_openpyxl.py", line 32, in __init__
+    super().__init__(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 810, in __init__
+    self.handles = get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+PermissionError: [Errno 13] Permission denied: 'C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx'
+
+2021-07-19 14:18:38_000070_삼양홀딩스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 188, in document_scraping
+    last_page = last_page_button.text
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 76, in text
+    return self._execute(Command.GET_ELEMENT_TEXT)['value']
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 14:54:29_000075_삼양홀딩스우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 140, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 15:05:54_000080_하이트진로_하이트진로-탐방보고 : 3Q17 실적도 예상보다 좋다-09/20/2017
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 225, in document_scraping
+    # if is_duplicated == True:  # 이미 존재하는 문서이면, 다음 문서 반복.
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 15:06:43_000080_하이트진로_하이트진로-탐방보고 : 3Q17 실적도 예상보다 좋다-09/20/2017
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 225, in document_scraping
+    # if is_duplicated == True:  # 이미 존재하는 문서이면, 다음 문서 반복.
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 15:06:51_000080_하이트진로_하이트진로-탐방보고 : 3Q17 실적도 예상보다 좋다-09/20/2017
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 225, in document_scraping
+    # if is_duplicated == True:  # 이미 존재하는 문서이면, 다음 문서 반복.
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 15:09:32_000080_하이트진로_Hitejinro-Time to Focus on Positive Factors rather than Negative Factors-01/10/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 225, in document_scraping
+    #         is_duplicated = True
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 15:17:39_000080_하이트진로_Hitejinro-Time to Focus on Positive Factors rather than Negative Factors-01/10/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 225, in document_scraping
+    #         is_duplicated = True
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 15:17:49_000080_하이트진로_Hitejinro-Time to Focus on Positive Factors rather than Negative Factors-01/10/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 225, in document_scraping
+    #         is_duplicated = True
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 15:24:40_000080_하이트진로_하이트진로-탐방노트 : 개선의 여지가 더 많다-03/07/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 225, in document_scraping
+    #         is_duplicated = True
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 15:24:41_000080_하이트진로_하이트진로-탐방노트 : 개선의 여지가 더 많다-03/07/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 225, in document_scraping
+    #         is_duplicated = True
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 15:24:43_000080_하이트진로_하이트진로-탐방노트 : 개선의 여지가 더 많다-03/07/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 225, in document_scraping
+    #         is_duplicated = True
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 15:31:19_290720_푸드나무
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 306, in document_scraping
+    "시간": date_time}, ignore_index=True)
+UnboundLocalError: local variable 'date_time' referenced before assignment
+
+2021-07-19 15:35:06_290720_푸드나무
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 306, in document_scraping
+    "시간": date_time}, ignore_index=True)
+UnboundLocalError: local variable 'date_time' referenced before assignment
+
+2021-07-19 15:56:51_950200_소마젠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 189, in document_scraping
+    total_document_count = self.driver.find_element_by_xpath(document_div_xpath +
+IndexError: list index out of range
+
+2021-07-19 16:30:11_950200_소마젠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    total_document_count = self.driver.find_element_by_xpath(document_div_xpath +
+IndexError: list index out of range
+
+2021-07-19 16:30:56_950200_소마젠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    total_document_count = self.driver.find_element_by_xpath(document_div_xpath +
+IndexError: list index out of range
+
+2021-07-19 16:31:39_950200_소마젠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    total_document_count = self.driver.find_element_by_xpath(document_div_xpath +
+IndexError: list index out of range
+
+2021-07-19 16:32:46_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 16:33:53_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 16:34:58_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 16:35:42_950220_네오이뮨텍(Reg.S)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 문서 총 개수 확인.
+IndexError: list index out of range
+
+2021-07-19 16:36:24_950220_네오이뮨텍(Reg.S)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 문서 총 개수 확인.
+IndexError: list index out of range
+
+2021-07-19 16:37:06_950220_네오이뮨텍(Reg.S)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 문서 총 개수 확인.
+IndexError: list index out of range
+
+2021-07-19 16:37:49_950200_소마젠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 문서 총 개수 확인.
+IndexError: list index out of range
+
+2021-07-19 16:38:33_950200_소마젠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 문서 총 개수 확인.
+IndexError: list index out of range
+
+2021-07-19 16:39:18_950200_소마젠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 문서 총 개수 확인.
+IndexError: list index out of range
+
+2021-07-19 16:40:25_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 16:41:32_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 16:42:39_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 16:43:21_950220_네오이뮨텍(Reg.S)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 문서 총 개수 확인.
+IndexError: list index out of range
+
+2021-07-19 16:44:04_950220_네오이뮨텍(Reg.S)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 문서 총 개수 확인.
+IndexError: list index out of range
+
+2021-07-19 16:44:47_950220_네오이뮨텍(Reg.S)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 문서 총 개수 확인.
+IndexError: list index out of range
+
+2021-07-19 16:45:30_950200_소마젠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 리포트없으면 다음 종목.
+IndexError: list index out of range
+
+2021-07-19 16:46:13_950200_소마젠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 리포트없으면 다음 종목.
+IndexError: list index out of range
+
+2021-07-19 16:46:55_950200_소마젠
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 리포트없으면 다음 종목.
+IndexError: list index out of range
+
+2021-07-19 16:48:02_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 16:49:09_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 16:50:15_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 16:50:58_950220_네오이뮨텍(Reg.S)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 리포트없으면 다음 종목.
+IndexError: list index out of range
+
+2021-07-19 16:51:41_950220_네오이뮨텍(Reg.S)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 리포트없으면 다음 종목.
+IndexError: list index out of range
+
+2021-07-19 16:52:24_950220_네오이뮨텍(Reg.S)
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 186, in document_scraping
+    # 리포트없으면 다음 종목.
+IndexError: list index out of range
+
+2021-07-19 17:00:34_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 17:01:46_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 17:02:52_950210_프레스티지바이오파마
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 176, in document_scraping
+    button = self.driver.find_element_by_xpath(document_div_xpath +
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 17:32:21_000040_KR모터스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 200, in document_scraping
+    total_document_count = self.driver.find_element_by_xpath(document_div_xpath +
+IndexError: list index out of range
+2021-07-19 18:10:50_000060_메리츠화재_Insurance-손보주 , 구조적 개선 기대 유효-06/02/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')][5]/div[contains(@class,'doc-title')]/span"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 18:10:51_000060_메리츠화재_Insurance-손보주 , 구조적 개선 기대 유효-06/02/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 18:10:52_000060_메리츠화재_Insurance-손보주 , 구조적 개선 기대 유효-06/02/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 18:51:20_000075_삼양홀딩스우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 144, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 18:52:16_000080_하이트진로
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 200, in document_scraping
+    total_document_count = self.driver.find_element_by_xpath(document_div_xpath +
+IndexError: list index out of range
+
+2021-07-19 19:34:41_000087_하이트진로2우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 144, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 19:41:37_000100_유한양행_Pharmaceuticals-T.O.P 는 바이오를 움직이게 한다-11/30/2016
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 19:41:38_000100_유한양행_Pharmaceuticals-T.O.P 는 바이오를 움직이게 한다-11/30/2016
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 19:41:39_000100_유한양행_Pharmaceuticals-T.O.P 는 바이오를 움직이게 한다-11/30/2016
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 19:54:50_000100_유한양행_제약/바이오; 박스권 플레이
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 19:54:51_000100_유한양행_제약/바이오; 박스권 플레이
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 19:54:51_000100_유한양행_제약/바이오; 박스권 플레이
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 19:56:13_000100_유한양행_Rating Update for Yuhan Corp
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 19:56:13_000100_유한양행_Rating Update for Yuhan Corp
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 19:56:13_000100_유한양행_Rating Update for Yuhan Corp
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 20:08:29_000100_유한양행_Yuhan Corp - Company and Drug Portfolio Report
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 20:08:29_000100_유한양행_Yuhan Corp - Company and Drug Portfolio Report
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 20:08:30_000100_유한양행_Yuhan Corp - Company and Drug Portfolio Report
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 20:11:41_000100_유한양행_Healthcare Weekly Chart Book-11/05/2017
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 20:11:41_000100_유한양행_Healthcare Weekly Chart Book-11/05/2017
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+
+2021-07-19 20:11:42_000100_유한양행_Healthcare Weekly Chart Book-11/05/2017
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 351, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 658, in find_element
+    return self._execute(Command.FIND_CHILD_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
+  (Session info: chrome=91.0.4472.124)
+

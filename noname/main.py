@@ -22,65 +22,41 @@ if __name__ == '__main__':
 
 import pandas as pd
 import matplotlib.pyplot as plt
-
-
 from bs4 import BeautifulSoup
 import requests
-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-
 from bs4 import BeautifulSoup
 import time
 from scrapy import cmdline
 
-# cmdline.execute("cd ".split())
-# cmdline.execute()
 # cmdline.execute("scrapy crawl korean_daily_finance_spider".split())
 # cmdline.execute("scrapy crawl noname".split())
-cmdline.execute("scrapy crawl korean_documents_spider".split())
-
-
-# csv 파일 읽기
-import csv
-# with open('C:/Users/kai/Desktop/so_tags.csv', 'r') as csv_file:
-#     reader = csv.reader(csv_file)
-#     for row in reader:
-#         print(row)
-
-# csv_df = pd.read_csv('C:/Users/kai/Desktop/so_tags.csv')
-# print(csv_df)
+cmdline.execute("scrapy crawl report_spider".split())
 
 # 분기 데이터 스크래핑 스케줄러.
 from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
 
-# scheduler = BlockingScheduler()
-# def job():
-#     print("korean daily finance spider start")
-#     cmdline.execute("scrapy crawl korean_daily_finance_spider".split())
+scheduler = BlockingScheduler()
+def job(quarter):
+    print("korean daily finance spider start")
+    cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+quarter).split())
 # scheduler.add_job(job, 'interval', hours=24, start_date="2021-07-14 00:00:00", end_date="2021-12-31 00:00:00")
-# scheduler.start()
+
+scheduler.add_job(job, 'interval', hours=24, args=["2021-03-31"])
+scheduler.start()
 
 def store_excel_data():
     # 몽고디비 연결
     client = pymongo.MongoClient('localhost', 27017)
     db = client.noname
     kospi_list = list(db.kospi_list.find({}))
-    # a = kospi_list[136:]
-    # b = enumerate(a)
-    # for x in a:
-    #     print(x)
-    #     a.remove(x)
     # item = pd.read_excel("C:/Users/kai/Downloads/KOSPI주식목록.xlsx")
 
     # post_id = kospi_list.insert_many(item.to_dict("records"))
-    # print(post_id)
-
-    # f = open('./noname2.txt','a');
-    # f.write("hello2")
 
     # postgresql 연결
     import psycopg2
@@ -91,7 +67,6 @@ def store_excel_data():
 
     # cur.execute("select * from article_post")
     # print(cur.fetchone())
-
 
     db_update_fail_list = open("./db_update_fail_list.txt","a")
 

@@ -1,3 +1,4 @@
+
 import copy
 import os
 import random
@@ -25,7 +26,7 @@ SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
 SELENIUM_DRIVER_ARGUMENTS=['--headless']  # '--headless' if using chrome instead of firefox
 
 class KoreanDailyFinanceSpider(scrapy.Spider):
-    name = "report_spider";
+    name = "notice_report";
 
     def __init__(self):
         super(KoreanDailyFinanceSpider, self).__init__()
@@ -44,10 +45,12 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         self.stock_list = pd.read_excel("C:/Users/kai/Desktop/stock_list.xlsx")
         self.motion_term = 2
 
-        self.industry_fail_list = pd.read_excel("C:/Users/kai/Desktop/korean_stock_document_list/industry_fail_list.xlsx",
-                                                dtype={"단축코드":"str"})
-        self.industry_complete_list = pd.read_excel("C:/Users/kai/Desktop/korean_stock_document_list/industry_complete_list.xlsx"
-                                                    ,dtype={"단축코드":"str"})
+        self.notice_fail_list = pd.read_excel(
+            "C:/Users/kai/Desktop/korean_stock_document_list/notice_fail_list.xlsx",
+            dtype={"단축코드": "str"})
+        self.notice_complete_list = pd.read_excel(
+            "C:/Users/kai/Desktop/korean_stock_document_list/notice_complete_list.xlsx"
+            , dtype={"단축코드": "str"})
 
         # 스크래핑 데이터 저장할 db연결.
         # self.db = psycopg2.connect(host="112.220.72.178", dbname="openmetric", user="openmetric",
@@ -65,10 +68,6 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
     def parse(self, response):
         self.driver.get(response.url);
         self.driver.implicitly_wait(30);
-
-        # 산업 개요 스크래핑
-
-        #
 
         # 로그인
         for i in range(3):
@@ -90,12 +89,12 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
             else:
                 break
 
-        self.industry_scraping()
+        self.document_scraping()
 
     #
-    def industry_scraping(self):
+    def document_scraping(self):
         # 디버깅용
-        # self.stock_list = self.stock_list[2567:]
+        self.stock_list = self.stock_list[2307:]
 
         # 메뉴바 클릭.
         menu_bar_button = self.driver.find_element_by_xpath(
@@ -114,7 +113,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                 search_result = True
 
                 # 스크래핑 완료 종목 패스
-                temp_len = self.document_complete_list[self.document_complete_list["단축코드"] == company["단축코드"]]
+                temp_len = self.notice_complete_list[self.notice_complete_list["단축코드"] == company["단축코드"]]
                 if len(temp_len) != 0:
                     continue
 
@@ -159,6 +158,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                             self.report_fail_list(company)
                             continue
 
+                        # 문서 저장
                         # 해당 종목의 폴더 생성.
                         folder_path = "C:/Users/kai/Desktop/korean_stock_document_list/list/"+company["단축코드"]+"_"+company["한글 종목약명"]
                         if os.path.isdir(folder_path) == True:
@@ -176,10 +176,10 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                             "//div[contains(@class,'content-wrapper')]//div[@id='documents']"\
                             "//div[contains(@class,'company-document-search')]"
 
-                        # 리포트 이동.
+                        #   공시 이동.
                         button = self.driver.find_element_by_xpath(document_div_xpath +
-                            "//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"
-                        )
+                           "//div[contains(@class,'document-options')]/span[contains(text(),'공시')]"
+                       )
                         self.driver.execute_script("arguments[0].click();", button)
                         time.sleep(random.uniform(self.motion_term + 4, self.motion_term + 5))
 
@@ -193,11 +193,11 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"
                             )
                             if len(page_list) == 0:
-                                self.document_complete_list = self.document_complete_list.append(
+                                self.notice_complete_list = self.notice_complete_list.append(
                                     {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
                                      "시간": date_time}, ignore_index=True)
-                                self.document_complete_list.to_excel(
-                                    "C:/Users/kai/Desktop/korean_stock_document_list/document_complete_list.xlsx",
+                                self.notice_complete_list.to_excel(
+                                    "C:/Users/kai/Desktop/korean_stock_document_list/notice_complete_list.xlsx",
                                     index=False)
                                 break;
                             # 문서 총 개수 확인.
@@ -224,7 +224,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                             document_list = self.driver.find_elements_by_xpath(document_div_xpath +
                                "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
                                "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"
-                            )
+                           )
                             # document_list.reverse()
                             # 페이지의 문서 목록에 대해 클릭하여 데이터 스크래핑.
                             for document_index in reversed(range(len(document_list))):
@@ -236,10 +236,10 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                 #         break
                                 # if is_duplicated == True:  # 이미 존재하는 문서이면, 다음 문서 반복.
                                 #     continue
-                                document_xpath = document_div_xpath+"//div[contains(@class,'sentiment-document-view')]"\
-                                    "//div[contains(@class,'document-search-result-view')]"\
-                                    "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"\
-                                    +"["+str(document_index+1)+"]"
+                                document_xpath = document_div_xpath + "//div[contains(@class,'sentiment-document-view')]" \
+                                      "//div[contains(@class,'document-search-result-view')]" \
+                                      "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]" \
+                                     + "[" + str(document_index + 1) + "]"
                                 document = self.driver.find_element_by_xpath(document_xpath)
 
                                 for retry_count in range(3):
@@ -248,53 +248,73 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                         document_title = self.driver.find_element_by_xpath(
                                             document_xpath+"/div[contains(@class,'doc-title')]/span"
                                         ).text  # 제목 추출.
-                                        broker = self.driver.find_element_by_xpath(
-                                            document_xpath+"/div[contains(@class,'doc-metadata')]/span[2]"
-                                        ).text # 증권사 명 추출.
                                         document_date = self.driver.find_element_by_xpath(
-                                            document_xpath+"/div[contains(@class,'doc-metadata')]/span[4]"
+                                            document_xpath+"/div[contains(@class,'doc-metadata')]/span[3]"
                                         ).text  # 날짜 추출.
                                         # url 추출.
                                         button = self.driver.find_element_by_xpath(
                                             document_xpath+"/div[contains(@class,'doc-title')]/span")
-                                        self.driver.execute_script("arguments[0].click();", button)  # 문서 제목 클릭. 새 탭에서 파일 뜸.
+                                        self.driver.execute_script(
+                                            "arguments[0].click();", button)  # 문서 클릭. 새 탭에서 파일 뜸.
                                         time.sleep(random.uniform(self.motion_term + 2, self.motion_term + 3))
+                                        self.driver.switch_to.window(self.driver.window_handles[1])  # 탭 전환
+                                        document_url = self.driver.current_url  # url 추출
+                                        # 파일 다운
+                                        button = self.driver.find_element_by_xpath(
+                                            "//div[@id='north']//div[contains(@class,'view_search')]/ul/li"
+                                            "//img[contains(@title,'다운로드')]"
+                                        )
+                                        self.driver.execute_script("arguments[0].click();", button)
+                                        time.sleep(random.uniform(self.motion_term + 1, self.motion_term + 2))
+                                        self.driver.switch_to.window(self.driver.window_handles[2])  # 탭 전환
+                                        document_file_list = self.driver.find_elements_by_xpath(
+                                            "//div[contains(@class,'popFile')]//tr"
+                                        )
+                                        del document_file_list[0]
+                                        for document_file in document_file_list:
+                                            file_name = document_file.find_element_by_xpath("./td[1]").text
+                                            button = document_file.find_element_by_xpath("./td[2]/a")
+                                            self.driver.execute_script("arguments[0].click();", button)
+                                            time.sleep(random.uniform(self.motion_term + 1, self.motion_term + 2))
 
-                                        document_file = os.listdir("C:/Users/kai/Desktop/korean_stock_document_list/temp_document")
-                                        stored_document_file_name = document_title
-                                        for c in "/.,[]{}();:\"\'*?\\<> ": # 폴더명에 특수문자 제거.
-                                            stored_document_file_name = stored_document_file_name.replace(c, "_")
-                                        os.rename(
-                                            "C:/Users/kai/Desktop/korean_stock_document_list/temp_document/" + document_file[0],
-                                            folder_path + "/report/" + format(document_count + 1, "04") + "_" +
-                                            stored_document_file_name[:120]+os.path.splitext(document_file[0])[1])
-                                        document_count = document_count + 1
+                                            os.rename(
+                                                "C:/Users/kai/Desktop/korean_stock_document_list/temp_document/" + file_name,
+                                                folder_path + "/notice/" + format(document_count + 1,
+                                                                                  "04") + "_" + file_name)
+                                            document_count = document_count + 1
+                                            # shutil.move("C:/Users/kai/Downloads/"+file_name, folder_path+"/"+file_name)
+                                        self.driver.close()
+                                        time.sleep(random.uniform(self.motion_term, self.motion_term + 1))
+                                        self.driver.switch_to.window(self.driver.window_handles[1])  # 탭 돌아옴.
+                                        self.driver.close()  # 탭 닫기
+                                        time.sleep(random.uniform(self.motion_term, self.motion_term + 1))
+                                        self.driver.switch_to.window(self.driver.window_handles[0])  # 탭 돌아옴.
 
                                         # db저장
 
 
                                     except Exception as e:  # 문서데이터 추출 중 예외 발생시
                                         # 딥서치 기업 상세 창을 제외하고 나머지 창(문서 상세창, 다운창) 닫아줌
-                                        # for i in range(len(self.driver.window_handles) - 1):
-                                        #     self.driver.switch_to.window(self.driver.window_handles[1])
-                                        #     self.driver.close()
-                                        # self.driver.switch_to.window(self.driver.window_handles[0])
+                                        for i in range(len(self.driver.window_handles) - 1):
+                                            self.driver.switch_to.window(self.driver.window_handles[1])
+                                            self.driver.close()
+                                        self.driver.switch_to.window(self.driver.window_handles[0])
 
                                         date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
-                                        with open("./document_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
+                                        with open("./notice_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
                                                 time.time())) + ".txt", "a", encoding="UTF-8") as f:
                                             f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "_" +
                                                     document_title + "\n")
                                             f.write(traceback.format_exc())
+                                            f.write("\n")
                                         if retry_count == 2:
                                             # 실패 목록 기록
-                                            self.document_fail_list = self.document_fail_list.append(
+                                            self.notice_fail_list = self.notice_fail_list.append(
                                                 {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
                                                  "문서명": document_title, "시간": date_time}, ignore_index=True)
-                                            self.document_fail_list.to_excel(
-                                                "C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx",
-                                                index=False
-                                            )
+                                            self.notice_fail_list.to_excel(
+                                                "C:/Users/kai/Desktop/korean_stock_document_list/notice_fail_list.xlsx",
+                                                index=False)
                                         continue
                                     else:
                                         break
@@ -305,21 +325,21 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                    "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
                                    "//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]"
                                    "//div[contains(@class,'nav-button')][1]"
-                                )
+                               )
                                 if "disable" in button.value_of_css_property("class"):  # 마지막 페이지 이면 다음 종목 반복
                                     break
                                 else:
                                     self.driver.execute_script("arguments[0].click();", button)  # 다음 페이지 클릭
-                                    time.sleep(random.uniform(self.motion_term + 5, self.motion_term + 6))
+                                    time.sleep(random.uniform(self.motion_term + 3, self.motion_term + 4))
 
-                        # 전체 문서 개수와 다운 받은 문서 개수가 동일하면 다운 완료 목록 추가.
-                        if document_count == total_document_count:
-                            date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
-                            self.document_complete_list = self.document_complete_list.append(
-                                {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
-                                 "시간": date_time}, ignore_index=True)
-                            self.document_complete_list.to_excel(
-                                "C:/Users/kai/Desktop/korean_stock_document_list/document_complete_list.xlsx", index=False)
+                            # 전체 문서 개수와 다운 받은 문서 개수가 동일하면 다운 완료 목록 추가.
+                            if document_count == total_document_count:
+                                date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
+                                self.notice_complete_list = self.notice_complete_list.append(
+                                    {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
+                                     "시간": date_time}, ignore_index=True)
+                                self.notice_complete_list.to_excel(
+                                    "C:/Users/kai/Desktop/korean_stock_document_list/notice_complete_list.xlsx", index=False)
 
                     except NoSuchWindowException as e:
                         self.restart_chrome_driver()
@@ -351,16 +371,15 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
     def report_error(self, company):
         date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
         with open(
-                "./document_error_list_" + time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt",
+                "./notice_error_list_" + time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt",
                 "a", encoding="UTF-8") as f:
-            f.write("\n")
             f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "\n")
             f.write(traceback.format_exc())
             f.write("\n")
     def report_fail_list(self, company):
-        self.document_fail_list = self.document_fail_list.append({"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"]},
+        self.notice_fail_list = self.notice_fail_list.append({"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"]},
                                                        ignore_index=True)
-        self.document_fail_list.to_excel("C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx",index=False)
+        self.notice_fail_list.to_excel("C:/Users/kai/Desktop/korean_stock_document_list/notice_fail_list.xlsx")
 
     def restart_chrome_driver(self):
         self.driver.quit()
@@ -397,3 +416,9 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
             "//div[@class='deepsearch-appbar']//div[contains(@class,'app-bar-drawer')]")
         self.driver.execute_script("arguments[0].click();", menu_bar_button)
         time.sleep(random.uniform(2, 3))
+
+
+
+
+
+

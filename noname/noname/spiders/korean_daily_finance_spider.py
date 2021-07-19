@@ -24,10 +24,11 @@ SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
 SELENIUM_DRIVER_ARGUMENTS=['--headless']  # '--headless' if using chrome instead of firefox
 
+# 분기 종료일?을 입력받아 해당 분기의 데이터를 스크래핑하는 스파이더.
 class KoreanDailyFinanceSpider(scrapy.Spider):
     name = "korean_daily_finance_spider";
 
-    def __init__(self):
+    def __init__(self, quarter=None):
         super(KoreanDailyFinanceSpider, self).__init__()
         chrome_driver = 'C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe'
         chrome_options = Options()
@@ -36,8 +37,14 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
             "profile.content_settings.exceptions.automatic_downloads.*.setting": 1
         })
         self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)
+        self.quarter = quarter
+        # 없으면 엑셀 파일 생성
+        if os.path.isfile("C:/Users/kai/Desktop/quarterly_data_list_"+quarter+".xlsx") == False:
+            df = pd.DataFrame(columns=["단축코드","한글 종목약명","시간"])
+            df.to_excel("C:/Users/kai/Desktop/quarterly_data_list_"+quarter+".xlsx")
 
-        self.kospi_list = pd.read_excel("C:/Users/kai/Desktop/quarterly_data_list.xlsx")
+        self.kospi_list = pd.read_excel("C:/Users/kai/Desktop/quarterly_data_list_"+quarter+".xlsx",
+                                        dtype={"단축코드":"str"})# 해당 분기의 남은 목록
         self.motion_term = 2
 
         # self.db = psycopg2.connect(host="112.220.72.178", dbname="openmetric", user="openmetric",
@@ -84,7 +91,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         # self.kospi_list = self.kospi_list[836:]
 
         # 스크래핑 실패 기록용 파일
-        quarterly_complete_list = pd.read_excel("./quarterly_complete_list.xlsx")# 데이터 받은 항목 리스트
+        quarterly_complete_list = pd.read_excel("./quarterly_complete_list_"+self.quarter+".xlsx", dtype={"단축코드":"str"})# 데이터 받은 항목 리스트
         # quarterly_error_list = open("./quarterly_error_list_"+time.strftime("%Y-%m-%d", time.localtime(time.time()))+".txt", "a", encoding="UTF-8")# 에러 목록
 
         # 메뉴바 클릭.
@@ -94,17 +101,17 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         time.sleep(random.uniform(2, 3))
 
         # 누적하려는 재무제표 분기 날짜 결정. 현재 날짜 기준으로 결정하면 되겠다.
-        today = time.localtime(time.time())
-        if today.tm_mon < 4:
-            date = str(today.tm_year - 1) + "-12-31"
-        elif today.tm_mon < 6:
-            date = str(today.tm_year) + "-03-31"
-        elif today.tm_mon < 8:
-            date = str(today.tm_year) + "-06-30"
-        elif today.tm_mon < 12:
-            date = str(today.tm_year) + "-09-30"
+        # today = time.localtime(time.time())
+        # if today.tm_mon < 4:
+        #     date = str(today.tm_year - 1) + "-12-31"
+        # elif today.tm_mon < 6:
+        #     date = str(today.tm_year) + "-03-31"
+        # elif today.tm_mon < 9:
+        #     date = str(today.tm_year) + "-06-30"
+        # elif today.tm_mon < 12:
+        #     date = str(today.tm_year) + "-09-30"
         #디버깅용
-        date = "2021-03-31"
+        date = self.quarter
 
         # 분기 데이터 받아야 하는 리스트 대상으로 한번 반복.
         kospi_list_temp = copy.deepcopy(self.kospi_list)
@@ -295,10 +302,10 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                     # 분기 데이터 추출 성공항 종목은 csv파일에서 제외.
                     index = self.kospi_list.loc[(self.kospi_list["단축코드"] == company["단축코드"])].index
                     self.kospi_list = self.kospi_list.drop(index)
-                    self.kospi_list.to_excel("C:/Users/kai/Desktop/quarterly_data_list.xlsx")
+                    self.kospi_list.to_excel("C:/Users/kai/Desktop/quarterly_data_list_"+self.quarter+".xlsx",index=False)
                     # 성공 목록에 추가.
                     quarterly_complete_list = quarterly_complete_list.append({"단축코드":company["단축코드"], "한글 종목약명":company["한글 종목약명"]}, ignore_index=True)
-                    quarterly_complete_list.to_excel("./quarterly_complete_list.xlsx")
+                    quarterly_complete_list.to_excel("./quarterly_complete_list_"+self.quarter+".xlsx", index=False)
                     break;
                 finally:
                     item_count = item_count + 1
@@ -311,6 +318,9 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         df.columns = df.loc[0]
         df = df.drop([0])
         for row in df.index:  # 엑셀 파일의 row들에 대해 반복.
+            # 이미 해당 분기에 해당하는 데이터 row가 있는지 확인.
+
+
             # 컬럼에 대해 반복하여 분기를 나타내는 컬럼인 경우에 data insert.
             self.cur.execute("INSERT INTO stock_financial_statement ("
                         "created_at, updated_at, corp_code, business_year, business_month, this_term_name, subject_name, account_id, account_name, "
