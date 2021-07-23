@@ -32,110 +32,182 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import time
 from scrapy import cmdline
+import psycopg2
+import numpy as np
+import re
 
-# cmdline.execute("scrapy crawl korean_daily_finance_spider".split())
+# cmdline.execute("scrapy crawl korean_daily_finance_spider -a quarter=2021-03-31".split())
 # cmdline.execute("scrapy crawl noname".split())
 cmdline.execute("scrapy crawl report_spider".split())
+# cmdline.execute("scrapy crawl sector_spider".split())
 
 # 분기 데이터 스크래핑 스케줄러.
 from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
 
 scheduler = BlockingScheduler()
-def job(quarter):
-    print("korean daily finance spider start")
-    cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+quarter).split())
-# scheduler.add_job(job, 'interval', hours=24, start_date="2021-07-14 00:00:00", end_date="2021-12-31 00:00:00")
 
-scheduler.add_job(job, 'interval', hours=24, args=["2021-03-31"])
-scheduler.start()
+# 매일 'quarterly_date_list_분기.xlsx'파일을 체크하여 남아있는 종목이 있는지 체크하고 있다면 해당 분기에 대해 spider실행.
+def daily_check():
+    today = time.localtime(time.time())
+    if today.tm_mon < 4:
+        quarterly_date = str(today.tm_year - 1) + "-12-31"
+        pre_quarterly_date = str(today.tm_year - 1) + "-09-30"
+    elif today.tm_mon < 6:
+        quarterly_date = str(today.tm_year) + "-03-31"
+        pre_quarterly_date = str(today.tm_year - 1) + "-12-31"
+    elif today.tm_mon < 9:
+        quarterly_date = str(today.tm_year) + "-06-30"
+        pre_quarterly_date = str(today.tm_year) + "-03-31"
+    elif today.tm_mon < 12:
+        quarterly_date = str(today.tm_year) + "-09-30"
+        pre_quarterly_date = str(today.tm_year) + "-06-30"
+
+    # 엑셀에 남은 종목 있나 체크
+    pre_list = pd.read_excel("C:/Users/kai/Desktop/quarterly_data_list_"+pre_quarterly_date+".xlsx")
+    if len(pre_list.index) != 0: # 확인해야 할 데이터가 남아있다면,
+        cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+pre_quarterly_date).split())
+
+    last_list = pd.read_excel("C:/Users/kai/Desktop/quarterly_data_list_"+quarterly_date+".xlsx")
+    if len(last_list.index) != 0:
+        cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+quarterly_date).split())
+
+
+
+# def job(quarter):
+#     print("korean daily finance spider start")
+#     cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+quarter).split())
+# scheduler.add_job(job, 'interval', hours=24, start_date="2021-07-14 00:00:00", end_date="2021-12-31 00:00:00")
+# scheduler.add_job(job, 'interval', hours=24, args=["2021-03-31"])
+
+# scheduler.add_job(daily_check, 'interval', hours=24)
+# scheduler.start()
+# daily_check()
+
+# 종목 재무 엑셀 파일 다운 확인.
+# stock_list = pd.read_excel("C:/Users/kai/Desktop/stock_list.xlsx")
+# db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric",
+#                               password=")!metricAdmin01", port=2345)
+# cur = db.cursor()
+
+# self.cur.execute("select * from stocks_basic_info where corp_code != ' '")
+# self.kospi_list = self.cur.fetchall()
+# stock_list = pd.read_sql("select * from stocks_basic_info where corp_code!=' '", db)
+#
+# for index, stock in stock_list.iterrows():
+#     if (os.path.isfile("C:/Users/kai/Downloads/" + stock["name"] + "-포괄손익계산서-분기(3개월)_연결.xlsx") == True
+#         and os.path.isfile("C:/Users/kai/Downloads/" + stock["name"] + "-재무상태표-분기(3개월)_연결.xlsx") == True
+#         and os.path.isfile("C:/Users/kai/Downloads/" + stock["name"] + "-현금흐름표-분기(3개월)_연결.xlsx") == True):
+#         pass
+#     else:
+#         with open("./no_data_stock_list.txt", "a", encoding="UTF-8") as f:
+#             f.write(stock["code"]+"_"+stock["name"]+"\n")
+
 
 def store_excel_data():
     # 몽고디비 연결
-    client = pymongo.MongoClient('localhost', 27017)
-    db = client.noname
-    kospi_list = list(db.kospi_list.find({}))
-    # item = pd.read_excel("C:/Users/kai/Downloads/KOSPI주식목록.xlsx")
+    # client = pymongo.MongoClient('localhost', 27017)
+    # db = client.noname
+    # kospi_list = list(db.kospi_list.find({}))
+    kospi_list = pd.read_excel("C:/Users/kai/Desktop/stock_list.xlsx",dtype={"단축코드":"str"})
 
     # post_id = kospi_list.insert_many(item.to_dict("records"))
 
     # postgresql 연결
-    import psycopg2
-    import numpy as np
-    import re
-    db = psycopg2.connect(host="112.220.72.178", dbname="openmetric", user="openmetric", password=")!metricAdmin01", port=2345)
+    db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric", password=")!metricAdmin01", port=2345)
     cur = db.cursor()
 
     # cur.execute("select * from article_post")
     # print(cur.fetchone())
 
-    db_update_fail_list = open("./db_update_fail_list.txt","a")
+    kospi_list = kospi_list[1073:]
 
     # 종목 리스트 반복
-    for stock in kospi_list:
+    for index, stock in kospi_list.iterrows():
         #엑셀 데이터 DataFrame으로 가져오기.
         try:
             # 포괄손익계산서
-            pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx")
+            pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+                               dtype={"단축코드":"str"})
             # 재무상태표
-            bs = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-재무상태표-분기(3개월)_연결.xlsx")
+            bs = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-재무상태표-분기(3개월)_연결.xlsx",
+                               dtype={"단축코드":"str"})
             # 현금흐름표
-            cf = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-현금흐름표-분기(3개월)_연결.xlsx")
-        except:
+            cf = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-현금흐름표-분기(3개월)_연결.xlsx",
+                               dtype={"단축코드":"str"})
+
+            # dataframe의 컬럼명 변경.
+            pl.columns = pl.loc[0]
+            pl = pl.drop([0])
+            bs.columns = bs.loc[0]
+            bs = bs.drop([0])
+            cf.columns = cf.loc[0]
+            cf = cf.drop([0])
+
+            # corp_code가져오기
+            cur.execute("select corp_code from stocks_basic_info where code='A"+str(stock["단축코드"])+"' ")
+            corp_code = cur.fetchone()[0]
+
+            def insert_db(df, file_type):
+                insert_sql = ""
+                # 포괄손익계산서 저장.
+                for row in df.index:  # 엑셀 파일의 row들에 대해 반복.
+                    # 컬럼에 대해 반복하여 분기를 나타내는 컬럼인 경우에 data insert.
+                    for i in df.columns:
+                        if None != re.search(r"\d{4}-\d{2}-\d{2}", i):  # yyyy-MM-dd형태의 컬럼명이면 분기데이터 컬럼으로 판단. data insert.
+                            # this_term_amount
+                            amount = df.loc[row][i]
+                            if np.isnan(df.loc[row][i]):
+                                amount = 'null'
+                            # account_name
+                            account_name = df.loc[row]["계정명"].replace(" ", "")
+                            lv = int(df.loc[row]["LV"])
+                            row_sub_count = 1
+                            while lv != 0:
+                                if lv - 1 != int(df.loc[row - row_sub_count]["LV"]):
+                                    row_sub_count = row_sub_count + 1
+                                    continue
+                                lv = int(df.loc[row - row_sub_count]["LV"])
+                                account_name = df.loc[row - row_sub_count]["계정명"].replace(" ", "") + "_" + account_name
+                                row_sub_count = row_sub_count + 1
+
+                            sql_value = ("("+
+                                "'"+str(datetime.now(timezone.utc))+"', '"+str(datetime.now(timezone.utc))+"', "+
+                                "'"+corp_code+"', '"+i.split("-")[0]+"', '"+i.split("-")[1]+"', '"+i+"', '"+file_type+"', "+
+                                "'"+str(df.loc[row]["account_id"])+"', '"+account_name+"', '"+str(df.loc[row]["LV"])+"', "+
+                                ""+str(amount)+", '"+str(df.loc[row]["LV"])+"', 'A"+str(stock["단축코드"])+"')")
+                            insert_sql = insert_sql + ", "+sql_value
+
+                            # cur.execute("INSERT INTO stock_financial_statement ("
+                            #             "created_at, updated_at, corp_code, business_year, business_month, this_term_name, "
+                            #             "subject_name, account_id, account_name, "
+                            #             "account_level, this_term_amount, ordering, code_id) "
+                            #             "VALUES ('"+
+                            #                 str(datetime.now(timezone.utc)) + "', '" +
+                            #                 str( datetime.now(timezone.utc)) + "', "
+                            #                 "'" + corp_code + "', '" + i.split("-")[0] + "', '" +
+                            #                 i.split("-")[1] + "', '" + i + "', '" + file_type + "', '" +
+                            #                 str(df.loc[row]["account_id"]) + "', "
+                            #                 "'" + account_name + "', '" + str(df.loc[row]["LV"]) + "', " +
+                            #                 str(amount) + ", '" + str(df.loc[row]["LV"]) + "', 'A" + stock["단축코드"] + "') ")
+
+                insert_sql = insert_sql[1:]
+                # cur.execute(insert_sql)
+                cur.execute("INSERT INTO stock_financial_statement ("
+                            "created_at, updated_at, corp_code, business_year, business_month, this_term_name, "
+                            "subject_name, account_id, account_name, "
+                            "account_level, this_term_amount, ordering, code_id) "
+                            "VALUES "+insert_sql)
+                db.commit()
+
+            insert_db(pl, "포괄손익계산서")
+            insert_db(bs, "재무상태표")
+            insert_db(cf, "현금흐름표")
+        except Exception as e:
             date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-            db_update_fail_list.write(date_time + "_" + stock["단축코드"] + "_" + stock["한글 종목약명"] + "\n")
+            with open("./db_update_fail_list.txt", "a", encoding="UTF-8") as f:
+                f.write(date_time + "_" + str(stock["단축코드"]) + "_" + stock["한글 종목약명"])
+                f.write(traceback.format_exc()+"\n")
             continue
 
-        # dataframe의 컬럼명 변경.
-        pl.columns = pl.loc[0]
-        pl = pl.drop([0])
-        bs.columns = bs.loc[0]
-        bs = bs.drop([0])
-        cf.columns = cf.loc[0]
-        cf = cf.drop([0])
-
-        # 포괄손익계산서 저장.
-        for row in pl.index: # 엑셀 파일의 row들에 대해 반복.
-            # 컬럼에 대해 반복하여 분기를 나타내는 컬럼인 경우에 data insert.
-            for i in pl.columns:
-                if None != re.search(r"\d{4}-\d{2}-\d{2}", i):# yyyy-MM-dd형태의 컬럼명이면 분기데이터 컬럼으로 판단. data insert.
-                    cur.execute("INSERT INTO stock_financial_statement ("
-                                "created_at, updated_at, corp_code, business_year, business_month, this_term_name, subject_name, account_id, account_name, "
-                                "account_level, this_term_amount, ordering) "
-                                "VALUES ("
-                                "'"+str(datetime.now(timezone.utc))+"', '"+str(datetime.now(timezone.utc))+"', "
-                                "'???', '???', '???', '"+i+"', '포괄손익계산서', '"+str(pl.loc[row]["account_id"])+"', "
-                                "'"+pl.loc[row]["계정명"]+"', '"+str(pl.loc[row]["LV"])+"', '"+str(pl.loc[row][i])+"', '"+str(pl.loc[row]["LV"])+"') ")
-                    db.commit()
-
-        # 재무상태표 저장
-        for row in bs.index: # 엑셀 파일의 row들에 대해 반복.
-            # 컬럼에 대해 반복하여 분기를 나타내는 컬럼인 경우에 data insert.
-            for i in bs.columns:
-                if None != re.search(r"\d{4}-\d{2}-\d{2}", i):# yyyy-MM-dd형태의 컬럼명이면 분기데이터 컬럼으로 판단. data insert.
-                    # amount = bs.loc[row][i]
-                    # if np.isnan(bs.loc[row][i]) :
-                    #     amount = 0
-                    cur.execute("INSERT INTO stock_financial_statement ("
-                                "created_at, updated_at, corp_code, business_year, business_month, this_term_name, subject_name, account_id, account_name, "
-                                "account_level, this_term_amount, ordering) "
-                                "VALUES ("
-                                "'"+str(datetime.now(timezone.utc))+"', '"+str(datetime.now(timezone.utc))+"', "
-                                "'???', '???', '???', '"+i+"', '재무상태표', '"+str(bs.loc[row]["account_id"])+"', "
-                                "'"+bs.loc[row]["계정명"]+"', '"+str(bs.loc[row]["LV"])+"', '"+str(bs.loc[row][i])+"', '"+str(bs.loc[row]["LV"])+"') ")
-                    db.commit()
-
-        # 현금흐름표 저장.
-        for row in cf.index: # 엑셀 파일의 row들에 대해 반복.
-            # 컬럼에 대해 반복하여 분기를 나타내는 컬럼인 경우에 data insert.
-            for i in cf.columns:
-                if None != re.search(r"\d{4}-\d{2}-\d{2}", i):# yyyy-MM-dd형태의 컬럼명이면 분기데이터 컬럼으로 판단. data insert.
-                    cur.execute("INSERT INTO stock_financial_statement ("
-                                "created_at, updated_at, corp_code, business_year, business_month, this_term_name, subject_name, account_id, account_name, "
-                                "account_level, this_term_amount, ordering) "
-                                "VALUES ("
-                                "'"+str(datetime.now(timezone.utc))+"', '"+str(datetime.now(timezone.utc))+"', "
-                                "'???', '???', '???', '"+i+"', '현금흐름표', '"+str(cf.loc[row]["account_id"])+"', "
-                                "'"+cf.loc[row]["계정명"]+"', '"+str(cf.loc[row]["LV"])+"', '"+str(cf.loc[row][i])+"', '"+str(cf.loc[row]["LV"])+"') ")
-                    db.commit()
-
+# store_excel_data()
 

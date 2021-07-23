@@ -4,7 +4,6 @@ import random
 import re
 import shutil
 from shutil import which
-
 import traceback
 import pandas as pd
 import psycopg2
@@ -25,7 +24,7 @@ SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
 SELENIUM_DRIVER_ARGUMENTS=['--headless']  # '--headless' if using chrome instead of firefox
 
 class KoreanDailyFinanceSpider(scrapy.Spider):
-    name = "report_spider";
+    name = "sector_spider";
 
     def __init__(self):
         super(KoreanDailyFinanceSpider, self).__init__()
@@ -44,10 +43,10 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         self.stock_list = pd.read_excel("C:/Users/kai/Desktop/stock_list.xlsx")
         self.motion_term = 2
 
-        self.industry_fail_list = pd.read_excel("C:/Users/kai/Desktop/korean_stock_document_list/industry_fail_list.xlsx",
-                                                dtype={"단축코드":"str"})
-        self.industry_complete_list = pd.read_excel("C:/Users/kai/Desktop/korean_stock_document_list/industry_complete_list.xlsx"
-                                                    ,dtype={"단축코드":"str"})
+        # self.industry_fail_list = pd.read_excel("C:/Users/kai/Desktop/korean_stock_document_list/industry_fail_list.xlsx",
+        #                                         dtype={"단축코드":"str"})
+        # self.industry_complete_list = pd.read_excel("C:/Users/kai/Desktop/korean_stock_document_list/industry_complete_list.xlsx"
+        #                                             ,dtype={"단축코드":"str"})
 
         # 스크래핑 데이터 저장할 db연결.
         # self.db = psycopg2.connect(host="112.220.72.178", dbname="openmetric", user="openmetric",
@@ -56,7 +55,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
     def start_requests(self):
         url_list = [
-            "https://www.deepsearch.com/?auth=login"
+            "https://finance.naver.com/"
         ]
 
         for url in url_list:
@@ -66,31 +65,188 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         self.driver.get(response.url);
         self.driver.implicitly_wait(30);
 
-        # 산업 개요 스크래핑
+        db = psycopg2.connect(
+            host="112.220.72.179", dbname="openmetric", user="openmetric", password=")!metricAdmin01", port=2345)
+        cur = db.cursor()
 
-        #
+        # 네이버 금융 페이지 이동
+        temp_button = self.driver.find_element_by_xpath(
+            "//div[@id='header']//div[contains(@class,'lnb_area')]//div[@id='menu']/ul/li//span[contains(text(),'국내증시')]"
+        )
+        self.driver.execute_script("arguments[0].click();", temp_button)
+        time.sleep(random.uniform(2, 3))
 
-        # 로그인
-        for i in range(3):
-            try:
-                self.driver.find_element_by_xpath(
-                    "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@placeholder='계정']").send_keys(
-                    "sooryong@gmail.com")
-                time.sleep(random.uniform(2, 3))
-                self.driver.find_element_by_xpath(
-                    "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@placeholder='비밀번호']").send_keys(
-                    ")!kaimobile01")
-                time.sleep(random.uniform(2, 3))
-                self.driver.find_element_by_xpath(
-                    "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@class='button login']").click()
-                time.sleep(random.uniform(3, 4))
-            except Exception as e:
-                print(e)
-                continue
-            else:
-                break
+        # 업종 선택
+        temp_button = self.driver.find_element_by_xpath(
+            "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'업종')]"
+        )
+        self.driver.execute_script("arguments[0].click();", temp_button)
+        time.sleep(random.uniform(2, 3))
 
-        self.industry_scraping()
+        # 업종별 종목 스크래핑
+        category_xpath = "//div[@id='contentarea']/div[@id='contentarea_left']/table/tbody/tr/td/a"
+        category_count = len(self.driver.find_elements_by_xpath(category_xpath))
+        # 업종 목록에 대해 반복.
+        for category_count_num in range(category_count):
+            # 업종 목록 하나 클릭.
+            # s = category_xpath#+"["+str(3)+"]"
+            temp_button = self.driver.find_elements_by_xpath(category_xpath)
+            sector_name = temp_button[category_count_num].text
+            self.driver.execute_script("arguments[0].click();", temp_button[category_count_num])
+            time.sleep(random.uniform(2, 3))
+
+            # 수익(손), 자산총계(재), 부채총계(재), 자본총계(재), 등등...
+            df = pd.DataFrame(columns=["code", "stock_name", "account_id", "term", "value"])# 섹터에 대한 데이터들 저장할 df.
+
+            # 종목 추출
+            sector_stock_list = self.driver.find_elements_by_xpath(
+                "//div[@id='contentarea']/div[contains(@class,'box_type_l')][2]/table/tbody/tr/td[contains(@class,'name')]//a"
+            )
+
+            # stock_name_list = ["KR모터스", "경방"]
+            for stock in sector_stock_list:
+            # for i in stock_name_list:
+                stock_name = stock.text
+                # stock_name = i
+
+                cur.execute("select code from stocks_basic_info where name='" + stock_name + "' ")
+                code = cur.fetchone()[0]
+
+                # !!!!!최신 분기 데이터 스크래핑시, 조건에 'this_term_name'으로 해당 분기 값을 넘겨주면 해당 분기 데이터에 대해서만 select하고, df에 추가하고, 합하여 섹터테이블에 추가할 것.
+                # 아직 해당 종목이 최신 분기의 데이터가 없는 경우는? 해당 데이터들은 빠진 상태로 합이 계산된다. 정확도가 떨어짐. 연단위 업데이트..? 연말 보고서는 늦게 올리지 않을테니..?
+                cur.execute("select account_id, this_term_name, this_term_amount, code_id, subject_name from stock_financial_statement "
+                            "where code_id='"+code+"' and ((subject_name='포괄손익계산서' and account_id='1000') "
+                                   "or (subject_name='재무상태표' and (account_id='5000' or account_id='8000' or account_id='8900')))")
+                revenues_list = cur.fetchall()
+                # row 반복하며 필요한 데이터들 df에 추가.
+                for revenues in revenues_list:
+                    df = df.append({"code":code, "stock_name":stock_name, "account_id":revenues[0], "term":revenues[1],
+                               "value":revenues[2]}, ignore_index=True)
+
+            # df로부터 섹터 데이터 계산
+            sector_sum = df.groupby([df["account_id"], df["term"]]).sum() # 데이터 종류, 분기 기준으로 묶어서 합 계산.
+                # 데이터 없는 경우, 제외하고 합.
+            for index in range(len(sector_sum)):
+                sector_sum.iloc[index] # 해당 데이터의 값
+                sector_sum.index[index] # account_id, term 튜플
+                account_name = ""
+                if sector_sum.index[index][0] == '1000':
+                    account_name = "매출액"
+                elif sector_sum.index[index][0] == '5000':
+                    account_name = "자산"
+                elif sector_sum.index[index][0] == '8000':
+                    account_name = "부채"
+                elif sector_sum.index[index][0] == '8900':
+                    account_name = "자본"
+
+                cur.execute(
+                    "insert into stock_sector_statement("
+                    "   created_at, updated_at, sector_name, date, account_name, amount"
+                    ") "
+                    "values ("
+                    "   '" + str(datetime.datetime.now(datetime.timezone.utc)) + "', '" +
+                            str(datetime.datetime.now(datetime.timezone.utc)) + "', '"+
+                        sector_name+"', '"+sector_sum.index[index][1]+"', '"+account_name+"', '"+str(sector_sum.iloc[index]["value"])+"'"+
+                    ")"
+                )
+                db.commit()
+
+            # 업종 목록으로 뒤로가기.
+            # temp_button = self.driver.find_element_by_xpath(
+            #     "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'업종')]"
+            # )
+            # self.driver.execute_script("arguments[0].click();", temp_button)
+            self.driver.back()
+            time.sleep(random.uniform(2, 3))
+
+
+        # 테마 선택.
+        temp_button = self.driver.find_element_by_xpath(
+            "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'테마')]"
+        )
+        self.driver.execute_script("arguments[0].click();", temp_button)
+        time.sleep(random.uniform(2, 3))
+        temp_button = self.driver.find_element_by_xpath(
+            "//div[@id='newarea']//div[@id='contentarea_left']/table[2]//tr[1]/th[1]/a"
+        )
+        self.driver.execute_script("arguments[0].click();", temp_button)
+
+        # 테마별 종목 스크래핑
+        category_xpath = "//div[@id='contentarea']//div[@id='contentarea_left']/table//tr//a"
+        category_count = len(self.driver.find_elements_by_xpath(category_xpath))
+        # 테마 목록에 대해 반복.
+        for category_count_num in range(category_count):
+            # 테마 목록 하나 클릭.
+            temp_button = self.driver.find_elements_by_xpath(category_xpath)
+            theme_name = temp_button[category_count_num].text
+            self.driver.execute_script("arguments[0].click();", temp_button[category_count_num])
+            time.sleep(random.uniform(2, 3))
+
+            # 수익(손), 자산총계(재), 부채총계(재), 자본총계(재), 등등...
+            df = pd.DataFrame(columns=["code", "stock_name", "account_id", "term", "value"])  # 섹터에 대한 데이터들 저장할 df.
+
+            # 종목 추출
+            sector_stock_list = self.driver.find_elements_by_xpath(
+                "//div[@id='contentarea']/div[contains(@class,'box_type_l')][2]/table/tbody/tr/td[contains(@class,'name')]//a"
+            )
+
+            # stock_name_list = ["KR모터스", "경방"]
+            for stock in sector_stock_list:
+            # for i in stock_name_list:
+            #     stock_name = i
+                stock_name = stock.text
+
+                cur.execute("select code from stocks_basic_info where name='" + stock_name + "' ")
+                code = cur.fetchone()[0]
+
+                cur.execute("select account_id, this_term_name, this_term_amount from stock_financial_statement "
+                            "where code_id='" + code + "' and ((subject_name='포괄손익계산서' and account_id='1000') "
+                                                       "or (subject_name='재무상태표' and (account_id='5000' or account_id='8000' or account_id='8900')))")
+                revenues_list = cur.fetchall()
+                # row 반복하며 필요한 데이터들 df에 추가.
+                for revenues in revenues_list:
+                    df = df.append(
+                        {"code": code, "stock_name": stock_name, "account_id": revenues[0], "term": revenues[1],
+                         "value": revenues[2]}, ignore_index=True)
+
+            # df로부터 섹터 데이터 계산
+            sector_sum = df.groupby([df["account_id"], df["term"]]).sum()  # 데이터 종류, 분기 기준으로 묶어서 합 계산.
+            for index in range(len(sector_sum)):
+                sector_sum.iloc[index]  # 해당 데이터의 값
+                sector_sum.index[index]  # account_id, term 튜플
+                account_name = ""
+                if sector_sum.index[index][0] == '1000':
+                    account_name = "매출액"
+                elif sector_sum.index[index][0] == '5000':
+                    account_name = "자산"
+                elif sector_sum.index[index][0] == '8000':
+                    account_name = "부채"
+                elif sector_sum.index[index][0] == '8900':
+                    account_name = "자본"
+
+                cur.execute(
+                    "insert into stock_sector_statement("
+                    "   created_at, updated_at, sector_name, date, account_name, amount"
+                    ") "
+                    "values ("
+                    "   '" + str(datetime.datetime.now(datetime.timezone.utc)) + "', '" +
+                    str(datetime.datetime.now(datetime.timezone.utc)) + "', '" +
+                    sector_name + "', '" + sector_sum.index[index][1] + "', '" + account_name + "', '" + str(
+                        sector_sum.iloc[index]["value"]) + "'" +
+                    ")"
+                )
+                db.commit()
+
+            # 업종 목록으로 뒤로가기.
+            # temp_button = self.driver.find_element_by_xpath(
+            #     "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'업종')]"
+            # )
+            # self.driver.execute_script("arguments[0].click();", temp_button)
+            self.driver.back()
+            time.sleep(random.uniform(2, 3))
+
+
+
 
     #
     def industry_scraping(self):

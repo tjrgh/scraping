@@ -1643,3 +1643,267 @@ Traceback (most recent call last):
 selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: element is not attached to the page document
   (Session info: chrome=91.0.4472.124)
 
+2021-07-19 20:23:23_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: Lessons From the Next Generation of Moats in the Fast-Casual Restaurant Industry
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-54a252b3f0fa6677de1ea8f409c77a9720c373ae.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0094_Morningstar_|_Consumer_Cyclical_Observer__Lessons_From_the_Next_Generation_of_Moats_in_the_Fast-Casual_Restaurant_Indust.pdf'
+2021-07-19 20:23:28_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: Lessons From the Next Generation of Moats in the Fast-Casual Restaurant Industry
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-54a252b3f0fa6677de1ea8f409c77a9720c373ae (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0094_Morningstar_|_Consumer_Cyclical_Observer__Lessons_From_the_Next_Generation_of_Moats_in_the_Fast-Casual_Restaurant_Indust.pdf'
+2021-07-19 20:23:33_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: Lessons From the Next Generation of Moats in the Fast-Casual Restaurant Industry
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-54a252b3f0fa6677de1ea8f409c77a9720c373ae (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0094_Morningstar_|_Consumer_Cyclical_Observer__Lessons_From_the_Next_Generation_of_Moats_in_the_Fast-Casual_Restaurant_Indust.pdf'
+2021-07-19 20:24:52_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: Charged Up: Adoption Will Take Off as Electric Vehicles Reach Cost Parity
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-8dddb0dbfda4c65f1159be1d35704e455b502949.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0108_Morningstar_|_Consumer_Cyclical_Observer__Charged_Up__Adoption_Will_Take_Off_as_Electric_Vehicles_Reach_Cost_Parity.pdf'
+2021-07-19 20:24:56_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: Charged Up: Adoption Will Take Off as Electric Vehicles Reach Cost Parity
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-8dddb0dbfda4c65f1159be1d35704e455b502949 (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0108_Morningstar_|_Consumer_Cyclical_Observer__Charged_Up__Adoption_Will_Take_Off_as_Electric_Vehicles_Reach_Cost_Parity.pdf'
+2021-07-19 20:25:01_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: Charged Up: Adoption Will Take Off as Electric Vehicles Reach Cost Parity
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-8dddb0dbfda4c65f1159be1d35704e455b502949 (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0108_Morningstar_|_Consumer_Cyclical_Observer__Charged_Up__Adoption_Will_Take_Off_as_Electric_Vehicles_Reach_Cost_Parity.pdf'
+2021-07-19 20:30:26_000120_CJ대한통운_Morningstar | Consumer Observer: Instead of Focusing on the Threat, What if Meal-Kit Services Are the Key to Accelerating Online Grocery and CPG Sales?
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-050643b6ab11feb5aee39d886c649b6bc2214988.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0167_Morningstar_|_Consumer_Observer__Instead_of_Focusing_on_the_Threat__What_if_Meal-Kit_Services_Are_the_Key_to_Acceleratin.pdf'
+2021-07-19 20:30:31_000120_CJ대한통운_Morningstar | Consumer Observer: Instead of Focusing on the Threat, What if Meal-Kit Services Are the Key to Accelerating Online Grocery and CPG Sales?
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-050643b6ab11feb5aee39d886c649b6bc2214988 (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0167_Morningstar_|_Consumer_Observer__Instead_of_Focusing_on_the_Threat__What_if_Meal-Kit_Services_Are_the_Key_to_Acceleratin.pdf'
+2021-07-19 20:30:36_000120_CJ대한통운_Morningstar | Consumer Observer: Instead of Focusing on the Threat, What if Meal-Kit Services Are the Key to Accelerating Online Grocery and CPG Sales?
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-050643b6ab11feb5aee39d886c649b6bc2214988 (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0167_Morningstar_|_Consumer_Observer__Instead_of_Focusing_on_the_Threat__What_if_Meal-Kit_Services_Are_the_Key_to_Acceleratin.pdf'
+2021-07-19 20:33:03_000120_CJ대한통운_Morningstar | The First 100 Days: Does the Likelihood and Nature of Trump’s Tax and Trade Proposals Warrant Investors Shopping the Consumer Discretionary Space?
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-bc687e7ac3a1a6ed6c258a355f46ecfa33538004.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0193_Morningstar_|_The_First_100_Days__Does_the_Likelihood_and_Nature_of_Trump’s_Tax_and_Trade_Proposals_Warrant_Investors_Sh.pdf'
+2021-07-19 20:33:08_000120_CJ대한통운_Morningstar | The First 100 Days: Does the Likelihood and Nature of Trump’s Tax and Trade Proposals Warrant Investors Shopping the Consumer Discretionary Space?
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-bc687e7ac3a1a6ed6c258a355f46ecfa33538004 (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0193_Morningstar_|_The_First_100_Days__Does_the_Likelihood_and_Nature_of_Trump’s_Tax_and_Trade_Proposals_Warrant_Investors_Sh.pdf'
+2021-07-19 20:33:13_000120_CJ대한통운_Morningstar | The First 100 Days: Does the Likelihood and Nature of Trump’s Tax and Trade Proposals Warrant Investors Shopping the Consumer Discretionary Space?
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-bc687e7ac3a1a6ed6c258a355f46ecfa33538004 (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0193_Morningstar_|_The_First_100_Days__Does_the_Likelihood_and_Nature_of_Trump’s_Tax_and_Trade_Proposals_Warrant_Investors_Sh.pdf'
+2021-07-19 20:33:36_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: The Rising Sun Will Shine Bright on Japanese Integrated Resorts; Las Vegas Sands and MGM Positioned to Win Gaming Concessions
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-bc687e7ac3a1a6ed6c258a355f46ecfa33538004.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0197_Morningstar_|_Consumer_Cyclical_Observer__The_Rising_Sun_Will_Shine_Bright_on_Japanese_Integrated_Resorts__Las_Vegas_San.pdf'
+2021-07-19 20:33:41_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: The Rising Sun Will Shine Bright on Japanese Integrated Resorts; Las Vegas Sands and MGM Positioned to Win Gaming Concessions
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-bc687e7ac3a1a6ed6c258a355f46ecfa33538004.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0197_Morningstar_|_Consumer_Cyclical_Observer__The_Rising_Sun_Will_Shine_Bright_on_Japanese_Integrated_Resorts__Las_Vegas_San.pdf'
+2021-07-19 20:33:45_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: The Rising Sun Will Shine Bright on Japanese Integrated Resorts; Las Vegas Sands and MGM Positioned to Win Gaming Concessions
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-bc687e7ac3a1a6ed6c258a355f46ecfa33538004.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0197_Morningstar_|_Consumer_Cyclical_Observer__The_Rising_Sun_Will_Shine_Bright_on_Japanese_Integrated_Resorts__Las_Vegas_San.pdf'
+2021-07-19 20:40:40_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: Breaking Down the Year of Amazon: How Its 2017 Moves Set the Stage for the Next Evolution of Its Longer-Term Cash Flow Story
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-917fd7798c70b78017907f92da37e48942abf4e6.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0272_Morningstar_|_Consumer_Cyclical_Observer__Breaking_Down_the_Year_of_Amazon__How_Its_2017_Moves_Set_the_Stage_for_the_Nex.pdf'
+2021-07-19 20:40:45_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: Breaking Down the Year of Amazon: How Its 2017 Moves Set the Stage for the Next Evolution of Its Longer-Term Cash Flow Story
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-917fd7798c70b78017907f92da37e48942abf4e6 (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0272_Morningstar_|_Consumer_Cyclical_Observer__Breaking_Down_the_Year_of_Amazon__How_Its_2017_Moves_Set_the_Stage_for_the_Nex.pdf'
+2021-07-19 20:40:49_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: Breaking Down the Year of Amazon: How Its 2017 Moves Set the Stage for the Next Evolution of Its Longer-Term Cash Flow Story
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-917fd7798c70b78017907f92da37e48942abf4e6 (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0272_Morningstar_|_Consumer_Cyclical_Observer__Breaking_Down_the_Year_of_Amazon__How_Its_2017_Moves_Set_the_Stage_for_the_Nex.pdf'
+2021-07-19 20:41:03_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: All That Glitters Is Not Gold: Identifying Enduring Moats in the Luxury Industry
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-3b13a1c8b6eabeaea4807c2c24a4e2af944f23c8.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0274_Morningstar_|_Consumer_Cyclical_Observer__All_That_Glitters_Is_Not_Gold__Identifying_Enduring_Moats_in_the_Luxury_Indust.pdf'
+2021-07-19 20:41:08_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: All That Glitters Is Not Gold: Identifying Enduring Moats in the Luxury Industry
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-3b13a1c8b6eabeaea4807c2c24a4e2af944f23c8 (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0274_Morningstar_|_Consumer_Cyclical_Observer__All_That_Glitters_Is_Not_Gold__Identifying_Enduring_Moats_in_the_Luxury_Indust.pdf'
+2021-07-19 20:41:12_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: All That Glitters Is Not Gold: Identifying Enduring Moats in the Luxury Industry
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-3b13a1c8b6eabeaea4807c2c24a4e2af944f23c8 (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0274_Morningstar_|_Consumer_Cyclical_Observer__All_That_Glitters_Is_Not_Gold__Identifying_Enduring_Moats_in_the_Luxury_Indust.pdf'
+2021-07-19 20:51:30_000120_CJ대한통운_[인터넷/게임/미디어] 누가 한국의 이커머스 시장을 지배할 것인가 11/19/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-64ee871e993ee912f36b1eeca71b81bdd1dd9b6b.pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0385__인터넷_게임_미디어__누가_한국의_이커머스_시장을_지배할_것인가_11_19_2018.crdownload'
+2021-07-19 20:51:35_000120_CJ대한통운_[인터넷/게임/미디어] 누가 한국의 이커머스 시장을 지배할 것인가 11/19/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-64ee871e993ee912f36b1eeca71b81bdd1dd9b6b (1).pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0385__인터넷_게임_미디어__누가_한국의_이커머스_시장을_지배할_것인가_11_19_2018.crdownload'
+2021-07-19 20:51:39_000120_CJ대한통운_[인터넷/게임/미디어] 누가 한국의 이커머스 시장을 지배할 것인가 11/19/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-64ee871e993ee912f36b1eeca71b81bdd1dd9b6b (1).pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0385__인터넷_게임_미디어__누가_한국의_이커머스_시장을_지배할_것인가_11_19_2018.crdownload'
+2021-07-19 20:51:44_000120_CJ대한통운_[메리츠종금증권/이종현] 운송:Beyond All Uncertainty 2018/11/26
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-1c57c93bf01a0ab85b8eb2cd039b464d415f8431.pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0385__메리츠종금증권_이종현__운송_Beyond_All_Uncertainty_2018_11_26.crdownload'
+2021-07-19 20:52:52_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: The Restaurant Industry Is Evolving--Your Key Performance Benchmarks Need to, Too
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-3811941cb54f1271376d4ebba1982c06934f1bde.pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0394_Morningstar_|_Consumer_Cyclical_Observer__The_Restaurant_Industry_Is_Evolving--Your_Key_Performance_Benchmarks_Need_to__.pdf'
+2021-07-19 20:52:56_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: The Restaurant Industry Is Evolving--Your Key Performance Benchmarks Need to, Too
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-3811941cb54f1271376d4ebba1982c06934f1bde (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0394_Morningstar_|_Consumer_Cyclical_Observer__The_Restaurant_Industry_Is_Evolving--Your_Key_Performance_Benchmarks_Need_to__.pdf'
+2021-07-19 20:53:00_000120_CJ대한통운_Morningstar | Consumer Cyclical Observer: The Restaurant Industry Is Evolving--Your Key Performance Benchmarks Need to, Too
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+OSError: [WinError 123] 파일 이름, 디렉터리 이름 또는 볼륨 레이블 구문이 잘못되었습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-3811941cb54f1271376d4ebba1982c06934f1bde (1).pdf' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0394_Morningstar_|_Consumer_Cyclical_Observer__The_Restaurant_Industry_Is_Evolving--Your_Key_Performance_Benchmarks_Need_to__.pdf'
+
+2021-07-19 21:18:14_000145_하이트진로홀딩스우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 144, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+
+2021-07-19 21:21:14_000150_두산_조선/기계(비중확대) 치킨게임. 끝나진 않았지만 한국이 우세한 상황.
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-cae26fd795649e375c596d47ec1868a383f8a88e.pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000150_두산/report/0022_조선_기계_비중확대__치킨게임__끝나진_않았지만_한국이_우세한_상황_.crdownload'
+
+2021-07-19 21:49:59_000155_두산우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 144, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+
+
+2021-07-19 21:50:59_000157_두산2우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 144, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+
+
+2021-07-19 21:58:37_000215_DL우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 144, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+
+
+2021-07-19 22:12:33_000225_유유제약1우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 144, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+
+
+2021-07-19 22:13:32_000227_유유제약2우B
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 144, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+
+
+2021-07-19 22:59:07_000325_노루홀딩스우
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 144, in document_scraping
+    button = self.driver.find_element_by_xpath(
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "c:\users\kai\pycharmprojects\pythonproject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[@id='info-list']//div[contains(@class,'search-company-info-view')]/div[contains(@class,'company-info-header')]/a"}
+  (Session info: chrome=91.0.4472.124)
+
+

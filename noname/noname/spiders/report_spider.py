@@ -41,7 +41,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)
 
         # 스크래핑 대상인 종목 리스트 로드.
-        self.stock_list = pd.read_excel("C:/Users/kai/Desktop/stock_list.xlsx")
+        self.stock_list = pd.read_excel("C:/Users/kai/Desktop/stock_list.xlsx", dtype={"단축코드":"str"})
         self.motion_term = 2
 
         self.document_fail_list = pd.read_excel("C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx",
@@ -91,7 +91,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
     #
     def document_scraping(self):
         # 디버깅용
-        self.stock_list = self.stock_list[10:]
+        # self.stock_list = self.stock_list[45:]
 
         # 메뉴바 클릭.
         menu_bar_button = self.driver.find_element_by_xpath(
@@ -200,7 +200,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                             total_document_count = self.driver.find_element_by_xpath(document_div_xpath +
                                  "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
                                  "//div[contains(@class,'document-count')]"
-                             ).text.split(" ")[1].split("건")[0]
+                             ).text.split(" ")[1].split("건")[0].replace(",","")
                             total_document_count = int(total_document_count)
                             # 페이지 번호 확인.
                             last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
@@ -258,7 +258,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
                                         document_file = os.listdir("C:/Users/kai/Desktop/korean_stock_document_list/temp_document")
                                         stored_document_file_name = document_title
-                                        for c in "/.,[]{}();:\"\'*?\\<> ": # 폴더명에 특수문자 제거.
+                                        for c in "|/.,[]{}();:\"\'*?\\<> ": # 폴더명에 특수문자 제거.
                                             stored_document_file_name = stored_document_file_name.replace(c, "_")
                                         os.rename(
                                             "C:/Users/kai/Desktop/korean_stock_document_list/temp_document/" + document_file[0],
@@ -316,6 +316,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                  "시간": date_time}, ignore_index=True)
                             self.document_complete_list.to_excel(
                                 "C:/Users/kai/Desktop/korean_stock_document_list/document_complete_list.xlsx", index=False)
+                        # downloaded_doc_count = downloaded_doc_count + document_count
 
                     except NoSuchWindowException as e:
                         self.restart_chrome_driver()
@@ -339,9 +340,10 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                         # document_complete_list.to_excel("C:/Users/kai/Desktop/document_complete_list.xlsx")
                         break;
                     finally:
-                        # 종목 30개 스크래핑마다 크롬창을 닫았다 새로 열어줌.
+                        # 문서 다운 개수가 300개 이상이면 크롬창을 닫았다 새로 열어줌.
                         item_count = item_count + 1
                         if item_count % 30 == 0:
+                            # downloaded_doc_count = 0
                             self.restart_chrome_driver()
 
     def report_error(self, company):
@@ -363,7 +365,9 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         chrome_driver = 'C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe'
         chrome_options = Options()
         chrome_options.add_experimental_option("prefs", {
-            "profile.content_settings.exceptions.automatic_downloads.*.setting": 1
+            "download.default_directory": "C:\\Users\\kai\\Desktop\\korean_stock_document_list\\temp_document",
+            "profile.content_settings.exceptions.automatic_downloads.*.setting": 1,
+            "plugins.always_open_pdf_externally": True
         })
         self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)
         self.driver.get('https://www.deepsearch.com/?auth=login')
