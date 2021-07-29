@@ -20,36 +20,41 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import pymongo
+from . import constant_var as constant
 
 SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
 SELENIUM_DRIVER_ARGUMENTS=['--headless']  # '--headless' if using chrome instead of firefox
 
 class KoreanDailyFinanceSpider(scrapy.Spider):
-    name = "notice_report";
+    name = "notice_spider";
 
     def __init__(self):
         super(KoreanDailyFinanceSpider, self).__init__()
 
         # 크롬 드라이버 생성
-        chrome_driver = 'C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe'
+        chrome_driver = constant.chrome_driver_path
         chrome_options = Options()
         chrome_options.add_experimental_option("prefs", {
-            "download.default_directory": "C:\\Users\\kai\\Desktop\\korean_stock_document_list\\temp_document",
+            "download.default_directory": constant.document_folder_path.replace("/", "\\")+"\\temp_document",
             "profile.content_settings.exceptions.automatic_downloads.*.setting": 1,
             "plugins.always_open_pdf_externally": True
         })
         self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)
 
         # 스크래핑 대상인 종목 리스트 로드.
-        self.stock_list = pd.read_excel("C:/Users/kai/Desktop/stock_list.xlsx")
+        self.db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric",
+                                   password=")!metricAdmin01", port=2345)
+        self.cur = self.db.cursor()
+        self.stock_list = pd.read_sql("select * from stocks_basic_info where corp_code!=' '", self.db).sort_values(
+            by="code", ascending=False)
         self.motion_term = 2
 
         self.notice_fail_list = pd.read_excel(
-            "C:/Users/kai/Desktop/korean_stock_document_list/notice_fail_list.xlsx",
+            constant.document_folder_path+"/notice_fail_list.xlsx",
             dtype={"단축코드": "str"})
         self.notice_complete_list = pd.read_excel(
-            "C:/Users/kai/Desktop/korean_stock_document_list/notice_complete_list.xlsx"
+            constant.document_folder_path+"/notice_complete_list.xlsx"
             , dtype={"단축코드": "str"})
 
         # 스크래핑 데이터 저장할 db연결.
@@ -94,7 +99,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
     #
     def document_scraping(self):
         # 디버깅용
-        self.stock_list = self.stock_list[2307:]
+        # self.stock_list = self.stock_list[2307:]
 
         # 메뉴바 클릭.
         menu_bar_button = self.driver.find_element_by_xpath(
@@ -113,7 +118,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                 search_result = True
 
                 # 스크래핑 완료 종목 패스
-                temp_len = self.notice_complete_list[self.notice_complete_list["단축코드"] == company["단축코드"]]
+                temp_len = self.notice_complete_list[self.notice_complete_list["단축코드"] == company["code"][1:]]
                 if len(temp_len) != 0:
                     continue
 
@@ -137,7 +142,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                         )
                         search_bar.send_keys("")
                         time.sleep(random.uniform(self.motion_term, self.motion_term + 1))
-                        search_bar.send_keys(company["단축코드"])
+                        search_bar.send_keys(company["code"][1:])
                         time.sleep(random.uniform(self.motion_term, self.motion_term + 1))
                         search_bar.send_keys(Keys.RETURN)
                         time.sleep(random.uniform(self.motion_term+15, self.motion_term + 16))
@@ -160,14 +165,14 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
                         # 문서 저장
                         # 해당 종목의 폴더 생성.
-                        folder_path = "C:/Users/kai/Desktop/korean_stock_document_list/list/"+company["단축코드"]+"_"+company["한글 종목약명"]
+                        folder_path = constant.document_folder_path+"/list/"+company["code"][1:]+"_"+company["name"]+"/notice"
                         if os.path.isdir(folder_path) == True:
                                 # 있으면 폴더 삭제 후 생성.(공시 문서의 제목이 같은 것들이 있고 문서를 구분할 값이 따로 존재하지 않아,
                                 # 중간부터 다시 받게 될 경우, 겹치는 문서를 가려낼 수 없다. 해서 삭제하고 처음부터 다시 받음.
                             shutil.rmtree(folder_path, ignore_errors=True)
                         os.makedirs(folder_path, exist_ok=True)
-                        os.makedirs(folder_path + "/report", exist_ok=True)
-                        os.makedirs(folder_path + "/notice", exist_ok=True)
+                        # os.makedirs(folder_path + "/report", exist_ok=True)
+                        # os.makedirs(folder_path + "/notice", exist_ok=True)
 
                         #   해당 기업의 문서 리스트 가져옴.(제목)
                         # stored_document_list = []
@@ -193,11 +198,12 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"
                             )
                             if len(page_list) == 0:
+                                date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
                                 self.notice_complete_list = self.notice_complete_list.append(
-                                    {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
+                                    {"단축코드": company["code"][1:], "한글 종목약명": company["name"],
                                      "시간": date_time}, ignore_index=True)
                                 self.notice_complete_list.to_excel(
-                                    "C:/Users/kai/Desktop/korean_stock_document_list/notice_complete_list.xlsx",
+                                    constant.document_folder_path+"/notice_complete_list.xlsx",
                                     index=False)
                                 break;
                             # 문서 총 개수 확인.
@@ -278,8 +284,8 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                             time.sleep(random.uniform(self.motion_term + 1, self.motion_term + 2))
 
                                             os.rename(
-                                                "C:/Users/kai/Desktop/korean_stock_document_list/temp_document/" + file_name,
-                                                folder_path + "/notice/" + format(document_count + 1,
+                                                constant.document_folder_path+"/temp_document/" + file_name,
+                                                folder_path + "/" + format(document_count + 1,
                                                                                   "04") + "_" + file_name)
                                             document_count = document_count + 1
                                             # shutil.move("C:/Users/kai/Downloads/"+file_name, folder_path+"/"+file_name)
@@ -301,19 +307,19 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                         self.driver.switch_to.window(self.driver.window_handles[0])
 
                                         date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
-                                        with open("./notice_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
+                                        with open(constant.error_file_path+"/notice_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
                                                 time.time())) + ".txt", "a", encoding="UTF-8") as f:
-                                            f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "_" +
+                                            f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "_" +
                                                     document_title + "\n")
                                             f.write(traceback.format_exc())
                                             f.write("\n")
                                         if retry_count == 2:
                                             # 실패 목록 기록
                                             self.notice_fail_list = self.notice_fail_list.append(
-                                                {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
+                                                {"단축코드": company["code"][1:], "한글 종목약명": company["name"],
                                                  "문서명": document_title, "시간": date_time}, ignore_index=True)
                                             self.notice_fail_list.to_excel(
-                                                "C:/Users/kai/Desktop/korean_stock_document_list/notice_fail_list.xlsx",
+                                                constant.document_folder_path+"/notice_fail_list.xlsx",
                                                 index=False)
                                         continue
                                     else:
@@ -336,10 +342,10 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                             if document_count == total_document_count:
                                 date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
                                 self.notice_complete_list = self.notice_complete_list.append(
-                                    {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
+                                    {"단축코드": company["code"][1:], "한글 종목약명": company["name"],
                                      "시간": date_time}, ignore_index=True)
                                 self.notice_complete_list.to_excel(
-                                    "C:/Users/kai/Desktop/korean_stock_document_list/notice_complete_list.xlsx", index=False)
+                                    constant.document_folder_path+"/notice_complete_list.xlsx", index=False)
 
                     except NoSuchWindowException as e:
                         self.restart_chrome_driver()
@@ -371,22 +377,24 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
     def report_error(self, company):
         date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
         with open(
-                "./notice_error_list_" + time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt",
+                constant.error_file_path+"/notice_error_list_" + time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt",
                 "a", encoding="UTF-8") as f:
-            f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "\n")
+            f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
             f.write(traceback.format_exc())
             f.write("\n")
     def report_fail_list(self, company):
-        self.notice_fail_list = self.notice_fail_list.append({"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"]},
+        self.notice_fail_list = self.notice_fail_list.append({"단축코드": company["code"][1:], "한글 종목약명": company["name"]},
                                                        ignore_index=True)
-        self.notice_fail_list.to_excel("C:/Users/kai/Desktop/korean_stock_document_list/notice_fail_list.xlsx")
+        self.notice_fail_list.to_excel(constant.document_folder_path+"/notice_fail_list.xlsx")
 
     def restart_chrome_driver(self):
         self.driver.quit()
-        chrome_driver = 'C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe'
+        chrome_driver = constant.chrome_driver_path
         chrome_options = Options()
         chrome_options.add_experimental_option("prefs", {
-            "profile.content_settings.exceptions.automatic_downloads.*.setting": 1
+            "download.default_directory": constant.document_folder_path.replace("/", "\\") + "\\temp_document",
+            "profile.content_settings.exceptions.automatic_downloads.*.setting": 1,
+            "plugins.always_open_pdf_externally": True
         })
         self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)
         self.driver.get('https://www.deepsearch.com/?auth=login')

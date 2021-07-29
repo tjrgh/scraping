@@ -11732,3 +11732,1638 @@ TypeError: 'NoneType' object is not subscriptable
     handle = open(handle, ioargs.mode)
 FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/베트남개발1-포괄손익계산서-분기(3개월)_연결.xlsx'
 
+2021-07-23 20:14_103660_씨앗Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 20:28_107640_한중엔시에스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 20:44_112190_KC산업Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 20:50_114920_대주이엔티Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 20:59_116100_태양기계Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 21:09_121060_유니포인트Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 21:17_122830_원포유Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 21:59_135160_지오씨Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:01_136660_큐엠씨Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:13_140290_청광건설Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:15_140610_엔솔바이오사이언스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:15_140660_위월드Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:30_148780_비플라이소프트Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:30_149010_아이케이세미콘Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:30_149300_아퓨어스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:32_150440_피노텍Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:35_152550_한국ANKOR유전Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 121, in store_excel_data
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/한국ANKOR유전-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-23 22:40_158300_에스에이티이엔지Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:49_162120_루켄테크놀러지스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:49_163430_디피코Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 22:51_168490_한국패러랠Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 121, in store_excel_data
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/한국패러랠-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-23 23:00_176750_듀켐바이오Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:02_178600_대동고려삼Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:03_179530_애드바이오텍Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:03_179720_렌딩머신Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:03_180060_탑선Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:08_183410_골프존데카Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:09_185190_수프로Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:13_189350_코셋Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:16_191600_블루탑Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:28_199150_데이터스트림즈Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:28_199290_바이오프로테크Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:28_199800_툴젠Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:30_200350_래몽래인Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:30_200580_메디쎄이Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:32_202960_판도라티비Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:32_203400_에이비온Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:39_206950_볼빅Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:39_207490_에이펙스인텍Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:41_208850_이비테크Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:41_208890_미래엔에듀파트너Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:41_210120_빅텐츠Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:43_211050_인카금융서비스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:43_212310_휴벡셀Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:52_215050_비엔디생활건강Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:54_215570_크로넥스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:56_216280_원텍Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:56_216400_인바이츠바이오코아Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:57_217320_썬테크Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:59_217880_틸론Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:59_217910_에스제이켐Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-23 23:59_217950_파마리서치바이오Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:03_221800_유투바이오Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:05_222160_바이옵트로Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:05_222670_플럼라인생명과학Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:06_223220_아이피몬스터Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:07_224020_에스케이씨에스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:08_224760_엔에스컴퍼니Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:08_224810_엄지하우스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:09_225850_미애부Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:09_225860_엠앤씨생명과학Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:11_227420_도부마스크Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:13_229500_노브메타파마Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:14_232530_이엠티Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:15_232830_시큐센Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:15_233250_메디안디노스틱Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:15_233990_질경이Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:15_234070_에이원알폼Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:16_236030_씨알푸드Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:17_236340_메디젠휴먼케어Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:19_238170_엔에스엠Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:19_238500_로보쓰리Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:19_240340_인터코스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:23_242350_피엔아이컴퍼니Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:23_243870_굿센Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:24_244880_나눔테크Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:24_245450_씨앤에스링크Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:24_246250_에스엘에스바이오Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:26_250030_진코스텍Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:28_251280_안지오랩Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:29_253610_루트락Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:31_257990_나우코스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:31_258050_테크트랜스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:31_258250_셀젠텍Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:31_258540_스템랩Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:32_260870_시그넷이브이Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:33_260970_에스앤디Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:38_266170_뿌리깊은나무들Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:38_266470_바이오인프라생명과학Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:38_266870_파워풀엑스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:38_267060_명진홀딩스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:40_267810_앙츠Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:41_270020_이십일스토어Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:41_270210_에스알바이오텍Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:41_270660_에브리봇Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:42_271850_다이오진Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:44_276240_엘리비젼Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:44_278990_EMBTraceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:44_279060_이노벡스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:45_281310_바이오시네틱스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:46_284420_휴럼Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:46_285770_라이프사이언스테크놀로지Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:46_286000_씨엔티드림Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:47_288490_나라소프트Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:53_299480_지앤이헬스케어Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:53_299670_에스엠비나Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:54_302920_더콘텐츠온Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:54_303360_프로테옴텍Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:57_308700_테크엔Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:57_309900_티티씨디펜스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:57_311060_엘에이티Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 00:59_317860_노드메이슨Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:00_318660_타임기술Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:00_322190_에이스캠퍼Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:01_322970_무진메디Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:01_323350_다원넥스뷰Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:01_327610_펨토바이오메드Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:01_327970_케어룸의료산업Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:01_329020_오션스톤Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:01_331660_한국미라클피플사Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:02_336040_이도바이오Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:02_337840_유엑스엔Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:03_341310_이앤에치Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:03_343090_단디바이오Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:03_344860_이노진Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:04_348840_데이드림엔터Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:05_354230_폭스소프트Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:06_377400_하이제6호스팩Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 121, in store_excel_data
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/하이제6호스팩-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-24 01:06_377630_삼성스팩4호Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 121, in store_excel_data
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/삼성스팩4호-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-24 01:06_379390_이성씨엔아이Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 140, in store_excel_data
+    pl = pl.drop([0])
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-24 01:06_380320_삼성머스트스팩5호Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 121, in store_excel_data
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/삼성머스트스팩5호-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-24 01:06_380440_엔에이치스팩19호Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 121, in store_excel_data
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/엔에이치스팩19호-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-24 01:06_383220_F&FTraceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 121, in store_excel_data
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/F&F-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-24 01:06_383310_에코프로에이치엔Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 121, in store_excel_data
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/에코프로에이치엔-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-24 01:06_383800_LX홀딩스Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 121, in store_excel_data
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/LX홀딩스-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-24 01:13_950210_프레스티지바이오파마Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\main.py", line 121, in store_excel_data
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/프레스티지바이오파마-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:36_136660_큐엠씨Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 149, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:50_028150_GS홈쇼핑Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:51_043290_케이맥Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:51_044990_에이치엔에스하이텍Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:52_058970_엠로Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:52_066830_제노텍Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:56_067370_선바이오Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:56_076340_관악산업Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_084440_유비온Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_086080_다이노나Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_086220_네추럴FNPTraceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_086460_에스엔피제네틱스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_092590_럭스피아Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_093510_엔지브이아이Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_096300_베트남개발1Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/베트남개발1-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:57_103660_씨앗Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_107640_한중엔시에스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_112190_KC산업Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_114920_대주이엔티Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_116100_태양기계Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_121060_유니포인트Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_122830_원포유Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_135160_지오씨Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_136660_큐엠씨Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_140290_청광건설Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_140610_엔솔바이오사이언스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_140660_위월드Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_148780_비플라이소프트Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_149010_아이케이세미콘Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_149300_아퓨어스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_150440_피노텍Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_152550_한국ANKOR유전Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/한국ANKOR유전-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:57_158300_에스에이티이엔지Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_162120_루켄테크놀러지스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_163430_디피코Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_168490_한국패러랠Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/한국패러랠-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:57_176750_듀켐바이오Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_178600_대동고려삼Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_179530_애드바이오텍Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_179720_렌딩머신Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_180060_탑선Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_183410_골프존데카Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_185190_수프로Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_189350_코셋Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_191600_블루탑Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_199150_데이터스트림즈Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_199290_바이오프로테크Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_199800_툴젠Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_200350_래몽래인Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_200580_메디쎄이Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_202960_판도라티비Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_203400_에이비온Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_206950_볼빅Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_207490_에이펙스인텍Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_208850_이비테크Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_208890_미래엔에듀파트너Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_210120_빅텐츠Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_211050_인카금융서비스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_212310_휴벡셀Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_215050_비엔디생활건강Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_215570_크로넥스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_216280_원텍Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_216400_인바이츠바이오코아Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_217320_썬테크Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_217880_틸론Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_217910_에스제이켐Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_217950_파마리서치바이오Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_221800_유투바이오Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_222160_바이옵트로Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_222670_플럼라인생명과학Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_223220_아이피몬스터Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_224020_에스케이씨에스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_224760_엔에스컴퍼니Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_224810_엄지하우스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_225850_미애부Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_225860_엠앤씨생명과학Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_227420_도부마스크Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_229500_노브메타파마Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_232530_이엠티Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_232830_시큐센Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_233250_메디안디노스틱Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_233990_질경이Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_234070_에이원알폼Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_236030_씨알푸드Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_236340_메디젠휴먼케어Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_238170_엔에스엠Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_238500_로보쓰리Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:57_240340_인터코스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_242350_피엔아이컴퍼니Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_243870_굿센Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_244880_나눔테크Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_245450_씨앤에스링크Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_246250_에스엘에스바이오Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_250030_진코스텍Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_251280_안지오랩Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_253610_루트락Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_257990_나우코스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_258050_테크트랜스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_258250_셀젠텍Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_258540_스템랩Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_260870_시그넷이브이Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_260970_에스앤디Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_266170_뿌리깊은나무들Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_266470_바이오인프라생명과학Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_266870_파워풀엑스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_267060_명진홀딩스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_267810_앙츠Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_270020_이십일스토어Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_270210_에스알바이오텍Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_270660_에브리봇Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_271850_다이오진Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_276240_엘리비젼Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_278990_EMBTraceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_279060_이노벡스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_281310_바이오시네틱스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_284420_휴럼Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_285770_라이프사이언스테크놀로지Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_286000_씨엔티드림Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_288490_나라소프트Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_299480_지앤이헬스케어Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_299670_에스엠비나Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_302920_더콘텐츠온Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_303360_프로테옴텍Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_308700_테크엔Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_309900_티티씨디펜스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_311060_엘에이티Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_317860_노드메이슨Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_318660_타임기술Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_322190_에이스캠퍼Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_322970_무진메디Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_323350_다원넥스뷰Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_327610_펨토바이오메드Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_327970_케어룸의료산업Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_329020_오션스톤Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_331660_한국미라클피플사Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_336040_이도바이오Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_337840_유엑스엔Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_341310_이앤에치Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_343090_단디바이오Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_344860_이노진Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_348840_데이드림엔터Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_354230_폭스소프트Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_377400_하이제6호스팩Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/하이제6호스팩-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:58_377630_삼성스팩4호Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/삼성스팩4호-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:58_379390_이성씨엔아이Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 154, in store_excel_data
+    corp_code = cur.fetchone()[0]
+TypeError: 'NoneType' object is not subscriptable
+
+2021-07-26 12:58_380320_삼성머스트스팩5호Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/삼성머스트스팩5호-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:58_380440_엔에이치스팩19호Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/엔에이치스팩19호-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:58_383220_F&FTraceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/F&F-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:58_383310_에코프로에이치엔Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/에코프로에이치엔-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:58_383800_LX홀딩스Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/LX홀딩스-포괄손익계산서-분기(3개월)_연결.xlsx'
+
+2021-07-26 12:58_950210_프레스티지바이오파마Traceback (most recent call last):
+  File "C:/Users/kai/PycharmProjects/pythonProject/noname/main.py", line 135, in store_excel_data
+    pl = pd.read_excel("C:/Users/kai/Downloads/" + stock["한글 종목약명"] + "-포괄손익계산서-분기(3개월)_연결.xlsx",
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\util\_decorators.py", line 299, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 336, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 1071, in __init__
+    ext = inspect_excel_format(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 949, in inspect_excel_format
+    with get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/kai/Downloads/프레스티지바이오파마-포괄손익계산서-분기(3개월)_연결.xlsx'
+

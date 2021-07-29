@@ -18,6 +18,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import pymongo
+from . import constant_var as constant
 
 SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
@@ -26,21 +27,21 @@ SELENIUM_DRIVER_ARGUMENTS=['--headless']  # '--headless' if using chrome instead
 class KoreanDailyFinanceSpider(scrapy.Spider):
     name = "sector_spider";
 
-    def __init__(self):
+    def __init__(self, target_term=None, pre_target_term=None):
         super(KoreanDailyFinanceSpider, self).__init__()
+        self.target_term = target_term
+        self.pre_target_term = pre_target_term
 
         # 크롬 드라이버 생성
-        chrome_driver = 'C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe'
+        chrome_driver = constant.chrome_driver_path
         chrome_options = Options()
         chrome_options.add_experimental_option("prefs", {
-            "download.default_directory": "C:\\Users\\kai\\Desktop\\korean_stock_document_list\\temp_document",
             "profile.content_settings.exceptions.automatic_downloads.*.setting": 1,
             "plugins.always_open_pdf_externally": True
         })
         self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)
 
         # 스크래핑 대상인 종목 리스트 로드.
-        self.stock_list = pd.read_excel("C:/Users/kai/Desktop/stock_list.xlsx")
         self.motion_term = 2
 
         # self.industry_fail_list = pd.read_excel("C:/Users/kai/Desktop/korean_stock_document_list/industry_fail_list.xlsx",
@@ -64,450 +65,303 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
     def parse(self, response):
         self.driver.get(response.url);
         self.driver.implicitly_wait(30);
+        try:
+            db = psycopg2.connect(
+                host="112.220.72.179", dbname="openmetric", user="openmetric", password=")!metricAdmin01", port=2345)
+            cur = db.cursor()
 
-        db = psycopg2.connect(
-            host="112.220.72.179", dbname="openmetric", user="openmetric", password=")!metricAdmin01", port=2345)
-        cur = db.cursor()
-
-        # 네이버 금융 페이지 이동
-        temp_button = self.driver.find_element_by_xpath(
-            "//div[@id='header']//div[contains(@class,'lnb_area')]//div[@id='menu']/ul/li//span[contains(text(),'국내증시')]"
-        )
-        self.driver.execute_script("arguments[0].click();", temp_button)
-        time.sleep(random.uniform(2, 3))
-
-        # 업종 선택
-        temp_button = self.driver.find_element_by_xpath(
-            "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'업종')]"
-        )
-        self.driver.execute_script("arguments[0].click();", temp_button)
-        time.sleep(random.uniform(2, 3))
-
-        # 업종별 종목 스크래핑
-        category_xpath = "//div[@id='contentarea']/div[@id='contentarea_left']/table/tbody/tr/td/a"
-        category_count = len(self.driver.find_elements_by_xpath(category_xpath))
-        # 업종 목록에 대해 반복.
-        for category_count_num in range(category_count):
-            # 업종 목록 하나 클릭.
-            # s = category_xpath#+"["+str(3)+"]"
-            temp_button = self.driver.find_elements_by_xpath(category_xpath)
-            sector_name = temp_button[category_count_num].text
-            self.driver.execute_script("arguments[0].click();", temp_button[category_count_num])
-            time.sleep(random.uniform(2, 3))
-
-            # 수익(손), 자산총계(재), 부채총계(재), 자본총계(재), 등등...
-            df = pd.DataFrame(columns=["code", "stock_name", "account_id", "term", "value"])# 섹터에 대한 데이터들 저장할 df.
-
-            # 종목 추출
-            sector_stock_list = self.driver.find_elements_by_xpath(
-                "//div[@id='contentarea']/div[contains(@class,'box_type_l')][2]/table/tbody/tr/td[contains(@class,'name')]//a"
+            # 네이버 금융 페이지 이동
+            temp_button = self.driver.find_element_by_xpath(
+                "//div[@id='header']//div[contains(@class,'lnb_area')]//div[@id='menu']/ul/li//span[contains(text(),'국내증시')]"
             )
-
-            # stock_name_list = ["KR모터스", "경방"]
-            for stock in sector_stock_list:
-            # for i in stock_name_list:
-                stock_name = stock.text
-                # stock_name = i
-
-                cur.execute("select code from stocks_basic_info where name='" + stock_name + "' ")
-                code = cur.fetchone()[0]
-
-                # !!!!!최신 분기 데이터 스크래핑시, 조건에 'this_term_name'으로 해당 분기 값을 넘겨주면 해당 분기 데이터에 대해서만 select하고, df에 추가하고, 합하여 섹터테이블에 추가할 것.
-                # 아직 해당 종목이 최신 분기의 데이터가 없는 경우는? 해당 데이터들은 빠진 상태로 합이 계산된다. 정확도가 떨어짐. 연단위 업데이트..? 연말 보고서는 늦게 올리지 않을테니..?
-                cur.execute("select account_id, this_term_name, this_term_amount, code_id, subject_name from stock_financial_statement "
-                            "where code_id='"+code+"' and ((subject_name='포괄손익계산서' and account_id='1000') "
-                                   "or (subject_name='재무상태표' and (account_id='5000' or account_id='8000' or account_id='8900')))")
-                revenues_list = cur.fetchall()
-                # row 반복하며 필요한 데이터들 df에 추가.
-                for revenues in revenues_list:
-                    df = df.append({"code":code, "stock_name":stock_name, "account_id":revenues[0], "term":revenues[1],
-                               "value":revenues[2]}, ignore_index=True)
-
-            # df로부터 섹터 데이터 계산
-            sector_sum = df.groupby([df["account_id"], df["term"]]).sum() # 데이터 종류, 분기 기준으로 묶어서 합 계산.
-                # 데이터 없는 경우, 제외하고 합.
-            for index in range(len(sector_sum)):
-                sector_sum.iloc[index] # 해당 데이터의 값
-                sector_sum.index[index] # account_id, term 튜플
-                account_name = ""
-                if sector_sum.index[index][0] == '1000':
-                    account_name = "매출액"
-                elif sector_sum.index[index][0] == '5000':
-                    account_name = "자산"
-                elif sector_sum.index[index][0] == '8000':
-                    account_name = "부채"
-                elif sector_sum.index[index][0] == '8900':
-                    account_name = "자본"
-
-                cur.execute(
-                    "insert into stock_sector_statement("
-                    "   created_at, updated_at, sector_name, date, account_name, amount"
-                    ") "
-                    "values ("
-                    "   '" + str(datetime.datetime.now(datetime.timezone.utc)) + "', '" +
-                            str(datetime.datetime.now(datetime.timezone.utc)) + "', '"+
-                        sector_name+"', '"+sector_sum.index[index][1]+"', '"+account_name+"', '"+str(sector_sum.iloc[index]["value"])+"'"+
-                    ")"
-                )
-                db.commit()
-
-            # 업종 목록으로 뒤로가기.
-            # temp_button = self.driver.find_element_by_xpath(
-            #     "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'업종')]"
-            # )
-            # self.driver.execute_script("arguments[0].click();", temp_button)
-            self.driver.back()
+            self.driver.execute_script("arguments[0].click();", temp_button)
             time.sleep(random.uniform(2, 3))
 
-
-        # 테마 선택.
-        temp_button = self.driver.find_element_by_xpath(
-            "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'테마')]"
-        )
-        self.driver.execute_script("arguments[0].click();", temp_button)
-        time.sleep(random.uniform(2, 3))
-        temp_button = self.driver.find_element_by_xpath(
-            "//div[@id='newarea']//div[@id='contentarea_left']/table[2]//tr[1]/th[1]/a"
-        )
-        self.driver.execute_script("arguments[0].click();", temp_button)
-
-        # 테마별 종목 스크래핑
-        category_xpath = "//div[@id='contentarea']//div[@id='contentarea_left']/table//tr//a"
-        category_count = len(self.driver.find_elements_by_xpath(category_xpath))
-        # 테마 목록에 대해 반복.
-        for category_count_num in range(category_count):
-            # 테마 목록 하나 클릭.
-            temp_button = self.driver.find_elements_by_xpath(category_xpath)
-            theme_name = temp_button[category_count_num].text
-            self.driver.execute_script("arguments[0].click();", temp_button[category_count_num])
-            time.sleep(random.uniform(2, 3))
-
-            # 수익(손), 자산총계(재), 부채총계(재), 자본총계(재), 등등...
-            df = pd.DataFrame(columns=["code", "stock_name", "account_id", "term", "value"])  # 섹터에 대한 데이터들 저장할 df.
-
-            # 종목 추출
-            sector_stock_list = self.driver.find_elements_by_xpath(
-                "//div[@id='contentarea']/div[contains(@class,'box_type_l')][2]/table/tbody/tr/td[contains(@class,'name')]//a"
+            # 업종 선택
+            temp_button = self.driver.find_element_by_xpath(
+                "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'업종')]"
             )
-
-            # stock_name_list = ["KR모터스", "경방"]
-            for stock in sector_stock_list:
-            # for i in stock_name_list:
-            #     stock_name = i
-                stock_name = stock.text
-
-                cur.execute("select code from stocks_basic_info where name='" + stock_name + "' ")
-                code = cur.fetchone()[0]
-
-                cur.execute("select account_id, this_term_name, this_term_amount from stock_financial_statement "
-                            "where code_id='" + code + "' and ((subject_name='포괄손익계산서' and account_id='1000') "
-                                                       "or (subject_name='재무상태표' and (account_id='5000' or account_id='8000' or account_id='8900')))")
-                revenues_list = cur.fetchall()
-                # row 반복하며 필요한 데이터들 df에 추가.
-                for revenues in revenues_list:
-                    df = df.append(
-                        {"code": code, "stock_name": stock_name, "account_id": revenues[0], "term": revenues[1],
-                         "value": revenues[2]}, ignore_index=True)
-
-            # df로부터 섹터 데이터 계산
-            sector_sum = df.groupby([df["account_id"], df["term"]]).sum()  # 데이터 종류, 분기 기준으로 묶어서 합 계산.
-            for index in range(len(sector_sum)):
-                sector_sum.iloc[index]  # 해당 데이터의 값
-                sector_sum.index[index]  # account_id, term 튜플
-                account_name = ""
-                if sector_sum.index[index][0] == '1000':
-                    account_name = "매출액"
-                elif sector_sum.index[index][0] == '5000':
-                    account_name = "자산"
-                elif sector_sum.index[index][0] == '8000':
-                    account_name = "부채"
-                elif sector_sum.index[index][0] == '8900':
-                    account_name = "자본"
-
-                cur.execute(
-                    "insert into stock_sector_statement("
-                    "   created_at, updated_at, sector_name, date, account_name, amount"
-                    ") "
-                    "values ("
-                    "   '" + str(datetime.datetime.now(datetime.timezone.utc)) + "', '" +
-                    str(datetime.datetime.now(datetime.timezone.utc)) + "', '" +
-                    sector_name + "', '" + sector_sum.index[index][1] + "', '" + account_name + "', '" + str(
-                        sector_sum.iloc[index]["value"]) + "'" +
-                    ")"
-                )
-                db.commit()
-
-            # 업종 목록으로 뒤로가기.
-            # temp_button = self.driver.find_element_by_xpath(
-            #     "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'업종')]"
-            # )
-            # self.driver.execute_script("arguments[0].click();", temp_button)
-            self.driver.back()
+            self.driver.execute_script("arguments[0].click();", temp_button)
             time.sleep(random.uniform(2, 3))
 
+            # 업종별 종목 스크래핑
+            category_xpath = "//div[@id='contentarea']/div[@id='contentarea_left']/table/tbody/tr/td/a"
+            sector_list = self.driver.find_elements_by_xpath(category_xpath)
+            sector_name_list = []
+            for sector in sector_list:
+                sector_name_list.append(sector.text)
 
+            # 업종 목록에 대해 반복.
+            for sector_name in sector_name_list:
+                # if len(sector_name)>8:
+                #     continue
+                insert_sql = ""
 
+                # 업종 목록 하나 클릭.
+                # s = category_xpath#+"["+str(3)+"]"
+                temp_button = self.driver.find_element_by_xpath(category_xpath+"[contains(text(),'"+sector_name+"')]")
+                sector_name = temp_button.text
+                self.driver.execute_script("arguments[0].click();", temp_button)
+                time.sleep(random.uniform(2, 3))
 
-    #
-    def industry_scraping(self):
-        # 디버깅용
-        # self.stock_list = self.stock_list[2567:]
+                # 종목 추출
+                sector_stock_list = self.driver.find_elements_by_xpath(
+                    "//div[@id='contentarea']/div[contains(@class,'box_type_l')][2]/table/tbody/tr/td[contains(@class,'name')]//a"
+                )
 
-        # 메뉴바 클릭.
-        menu_bar_button = self.driver.find_element_by_xpath(
-            "//div[@class='deepsearch-appbar']//div[contains(@class,'app-bar-drawer')]")
-        self.driver.execute_script("arguments[0].click();", menu_bar_button)
-        time.sleep(random.uniform(2, 3))
+                gross_profit_ratio_list = pd.Series()
+                operating_profit_ratio_list = pd.Series()
+                net_profit_ratio_list = pd.Series()
+                net_income_list = pd.Series()
+                ebitda_list = pd.Series()
+                roa_list = pd.Series()
+                roe_list = pd.Series()
+                eps_list = pd.Series()
+                bps_list = pd.Series()
+                gross_profit_growth_ratio_list = pd.Series()
+                operating_profit_growth_ratio_list = pd.Series()
+                net_profit_growth_ratio_list = pd.Series()
+                total_asset_growth_ratio_list = pd.Series()
+                current_asset_growth_ratio_list = pd.Series()
+                tangible_asset_growth_ratio_list = pd.Series()
+                capital_asset_growth_ratio_list = pd.Series()
+                share_price_list = pd.Series()
+                transaction_volume_list = pd.Series()
+                market_cap_list = pd.Series()
+                per_list = pd.Series()
+                pbr_list =pd.Series()
 
-        a = 0
-        # 종목 목록에서 성공한
-        while a < 5:
-            a += a + 1;
-            stock_list_temp = copy.deepcopy(self.stock_list)
-            item_count = 0 #반복시마다 증가하는 카운트.(크롬 out of memory오류 방지를 위해 체크)
-            # 임시 항목 리스트에 대해 분기 데이터 추출.
-            for index, company in stock_list_temp.iterrows():
-                search_result = True
+                # stock_name_list = ["KR모터스", "경방", "삼영에스앤씨"]
+                for stock in sector_stock_list:
+                # for i in stock_name_list:
+                    stock_name = stock.text
+                    # stock_name = i
 
-                # 스크래핑 완료 종목 패스
-                temp_len = self.document_complete_list[self.document_complete_list["단축코드"] == company["단축코드"]]
-                if len(temp_len) != 0:
-                    continue
-
-                # 실패시 해당 종목을 3번까지 반복.
-                for try_count in range(3):
-                    if search_result == False:
-                        break;
                     try:
-                        # '기업검색'항목 이동
-                        menu1_button = self.driver.find_element_by_xpath(
-                            "//div[@class='deepsearch-app']/div[contains(@class,'drawer-container-layout')]/"
-                            "div[contains(@class,'drawer-container')]/div[contains(@class,'drawer-container-inner')]/"
-                            "div[contains(@class,'menu-item-group')][2]/div[contains(@class,'menu-item')][3]")
-                        self.driver.execute_script("arguments[0].click();", menu1_button)
-                        time.sleep(random.uniform(self.motion_term+4, self.motion_term + 5))
-
-                        # 통합검색창 기업 단축코드 검색.
-                        search_bar = self.driver.find_element_by_xpath(
-                            "//div[contains(@class,'deepsearch-appbar')]//div[contains(@class,'search-box')]"
-                            "//div[contains(@class,'top-search-conatiner')]//div[contains(@class,'search-bar')]/input"
-                        )
-                        search_bar.send_keys("")
-                        time.sleep(random.uniform(self.motion_term, self.motion_term + 1))
-                        search_bar.send_keys(company["단축코드"])
-                        time.sleep(random.uniform(self.motion_term, self.motion_term + 1))
-                        search_bar.send_keys(Keys.RETURN)
-                        time.sleep(random.uniform(self.motion_term+15, self.motion_term + 16))
-
-                        # 검색된 기업 클릭
-                        try:
-                            button = self.driver.find_element_by_xpath(
-                                "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]"
-                                "//div[@id='info-list']//div[contains(@class,'search-company-info-view')]"
-                                "/div[contains(@class,'company-info-header')]/a"
-                            )
-                            self.driver.execute_script("arguments[0].click();", button)
-                            time.sleep(random.uniform(self.motion_term+5, self.motion_term + 6))
-                        except NoSuchElementException as e:
-                            self.report_error(company)
-                            search_result = False
-                            # 실패 목록 기록
-                            self.report_fail_list(company)
-                            continue
-
-                        # 해당 종목의 폴더 생성.
-                        folder_path = "C:/Users/kai/Desktop/korean_stock_document_list/list/"+company["단축코드"]+"_"+company["한글 종목약명"]
-                        if os.path.isdir(folder_path) == True:
-                                # 있으면 폴더 삭제 후 생성.(공시 문서의 제목이 같은 것들이 있고 문서를 구분할 값이 따로 존재하지 않아,
-                                # 중간부터 다시 받게 될 경우, 겹치는 문서를 가려낼 수 없다. 해서 삭제하고 처음부터 다시 받음.
-                            shutil.rmtree(folder_path, ignore_errors=True)
-                        os.makedirs(folder_path, exist_ok=True)
-                        os.makedirs(folder_path + "/report", exist_ok=True)
-                        os.makedirs(folder_path + "/notice", exist_ok=True)
-
-                        #   해당 기업의 문서 리스트 가져옴.(제목)
-                        # stored_document_list = []
-
-                        document_div_xpath = "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]"\
-                            "//div[contains(@class,'content-wrapper')]//div[@id='documents']"\
-                            "//div[contains(@class,'company-document-search')]"
-
-                        # 리포트 이동.
-                        button = self.driver.find_element_by_xpath(document_div_xpath +
-                            "//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"
-                        )
-                        self.driver.execute_script("arguments[0].click();", button)
-                        time.sleep(random.uniform(self.motion_term + 4, self.motion_term + 5))
-
-                        #   페이지 순환하며 문서 스크래핑.
-                        last_page = 1
-                        total_document_count = 0
-                        try:
-                            # 리포트없으면 완료 처리 후, 다음 종목.
-                            page_list = self.driver.find_elements_by_xpath(document_div_xpath +
-                               "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
-                               "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"
-                            )
-                            if len(page_list) == 0:
-                                self.document_complete_list = self.document_complete_list.append(
-                                    {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
-                                     "시간": date_time}, ignore_index=True)
-                                self.document_complete_list.to_excel(
-                                    "C:/Users/kai/Desktop/korean_stock_document_list/document_complete_list.xlsx",
-                                    index=False)
-                                break;
-                            # 문서 총 개수 확인.
-                            total_document_count = self.driver.find_element_by_xpath(document_div_xpath +
-                                 "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
-                                 "//div[contains(@class,'document-count')]"
-                             ).text.split(" ")[1].split("건")[0]
-                            total_document_count = int(total_document_count)
-                            # 페이지 번호 확인.
-                            last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
-                                 "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
-                                 "//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]"
-                                 "//div[contains(@class,'nav-button')][last()-1]/span"
-                            )
-                            self.driver.execute_script("arguments[0].click();", last_page_button)  # 마지막 페이지로 이동.
-                            time.sleep(random.uniform(self.motion_term + 4, self.motion_term + 5))
-                            last_page = last_page_button.text
-
-                        except NoSuchElementException as e:
-                            pass
-
-                        document_count = 0
-                        for page_num in range(int(last_page)):
-                            document_list = self.driver.find_elements_by_xpath(document_div_xpath +
-                               "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
-                               "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"
-                            )
-                            # document_list.reverse()
-                            # 페이지의 문서 목록에 대해 클릭하여 데이터 스크래핑.
-                            for document_index in reversed(range(len(document_list))):
-                                # 제목으로 중복인지 확인
-                                # is_duplicated = False
-                                # for stored_document in stored_document_list:
-                                #     if stored_document["title"] == document.text:  # 제목이 같으면 다음 반복.
-                                #         is_duplicated = True
-                                #         break
-                                # if is_duplicated == True:  # 이미 존재하는 문서이면, 다음 문서 반복.
-                                #     continue
-                                document_xpath = document_div_xpath+"//div[contains(@class,'sentiment-document-view')]"\
-                                    "//div[contains(@class,'document-search-result-view')]"\
-                                    "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"\
-                                    +"["+str(document_index+1)+"]"
-                                document = self.driver.find_element_by_xpath(document_xpath)
-
-                                for retry_count in range(3):
-                                    try:
-                                        # 문서 데이터 추출.
-                                        document_title = self.driver.find_element_by_xpath(
-                                            document_xpath+"/div[contains(@class,'doc-title')]/span"
-                                        ).text  # 제목 추출.
-                                        broker = self.driver.find_element_by_xpath(
-                                            document_xpath+"/div[contains(@class,'doc-metadata')]/span[2]"
-                                        ).text # 증권사 명 추출.
-                                        document_date = self.driver.find_element_by_xpath(
-                                            document_xpath+"/div[contains(@class,'doc-metadata')]/span[4]"
-                                        ).text  # 날짜 추출.
-                                        # url 추출.
-                                        button = self.driver.find_element_by_xpath(
-                                            document_xpath+"/div[contains(@class,'doc-title')]/span")
-                                        self.driver.execute_script("arguments[0].click();", button)  # 문서 제목 클릭. 새 탭에서 파일 뜸.
-                                        time.sleep(random.uniform(self.motion_term + 2, self.motion_term + 3))
-
-                                        document_file = os.listdir("C:/Users/kai/Desktop/korean_stock_document_list/temp_document")
-                                        stored_document_file_name = document_title
-                                        for c in "/.,[]{}();:\"\'*?\\<> ": # 폴더명에 특수문자 제거.
-                                            stored_document_file_name = stored_document_file_name.replace(c, "_")
-                                        os.rename(
-                                            "C:/Users/kai/Desktop/korean_stock_document_list/temp_document/" + document_file[0],
-                                            folder_path + "/report/" + format(document_count + 1, "04") + "_" +
-                                            stored_document_file_name[:120]+os.path.splitext(document_file[0])[1])
-                                        document_count = document_count + 1
-
-                                        # db저장
-
-
-                                    except Exception as e:  # 문서데이터 추출 중 예외 발생시
-                                        # 딥서치 기업 상세 창을 제외하고 나머지 창(문서 상세창, 다운창) 닫아줌
-                                        # for i in range(len(self.driver.window_handles) - 1):
-                                        #     self.driver.switch_to.window(self.driver.window_handles[1])
-                                        #     self.driver.close()
-                                        # self.driver.switch_to.window(self.driver.window_handles[0])
-
-                                        date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
-                                        with open("./document_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
-                                                time.time())) + ".txt", "a", encoding="UTF-8") as f:
-                                            f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "_" +
-                                                    document_title + "\n")
-                                            f.write(traceback.format_exc())
-                                        if retry_count == 2:
-                                            # 실패 목록 기록
-                                            self.document_fail_list = self.document_fail_list.append(
-                                                {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
-                                                 "문서명": document_title, "시간": date_time}, ignore_index=True)
-                                            self.document_fail_list.to_excel(
-                                                "C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx",
-                                                index=False
-                                            )
-                                        continue
-                                    else:
-                                        break
-
-                            # 다음 페이지 이동
-                            if last_page != 1:
-                                button = self.driver.find_element_by_xpath(document_div_xpath +
-                                   "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
-                                   "//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]"
-                                   "//div[contains(@class,'nav-button')][1]"
-                                )
-                                if "disable" in button.value_of_css_property("class"):  # 마지막 페이지 이면 다음 종목 반복
-                                    break
-                                else:
-                                    self.driver.execute_script("arguments[0].click();", button)  # 다음 페이지 클릭
-                                    time.sleep(random.uniform(self.motion_term + 5, self.motion_term + 6))
-
-                        # 전체 문서 개수와 다운 받은 문서 개수가 동일하면 다운 완료 목록 추가.
-                        if document_count == total_document_count:
-                            date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
-                            self.document_complete_list = self.document_complete_list.append(
-                                {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"],
-                                 "시간": date_time}, ignore_index=True)
-                            self.document_complete_list.to_excel(
-                                "C:/Users/kai/Desktop/korean_stock_document_list/document_complete_list.xlsx", index=False)
-
-                    except NoSuchWindowException as e:
-                        self.restart_chrome_driver()
-
-                        # 에러 정보 저장.
-                        self.report_error(company)
-                        if try_count == 2:
-                            self.report_fail_list(company)
-                        continue
+                        cur.execute("select code from stocks_basic_info where name='" + stock_name + "' ")
+                        code = cur.fetchone()[0]
                     except Exception as e:
-                        self.report_error(company)
-                        if try_count == 2:
-                            self.report_fail_list(company)
                         continue
-                    else:# 성공시 다음 종목 스크래핑 수행.
-                        # 분기 데이터 추출 성공항 종목은 파일에서 제외.
-                        # index = self.stock_list.loc[(self.stock_list["단축코드"] == company["단축코드"])].index
-                        # self.stock_list = self.stock_list.drop(index)
-                        # 성공 목록에 추가.
-                        # document_complete_list = document_complete_list.append({"단축코드":company["단축코드"], "한글 종목약명":company["한글 종목약명"]}, ignore_index=True)
-                        # document_complete_list.to_excel("C:/Users/kai/Desktop/document_complete_list.xlsx")
-                        break;
-                    finally:
-                        # 종목 30개 스크래핑마다 크롬창을 닫았다 새로 열어줌.
-                        item_count = item_count + 1
-                        if item_count % 30 == 0:
-                            self.restart_chrome_driver()
+
+                    # 재무 데이터 (분기별). 해당 종목에 대해 필요한 재무 데이터를 가져옴.
+                    financial_data = pd.read_sql(
+                        "select account_id, this_term_name, this_term_amount, code_id, subject_name from stock_financial_statement "
+                        "where "
+                        "   code_id='" + code + "' "
+                        "   and ("
+                                "(subject_name='포괄손익계산서' "
+                                "and (this_term_name='"+self.target_term+"' or this_term_name='"+self.pre_target_term+"') "
+                        "        and (account_id='1000' or account_id='3000' or account_id='5000' or account_id='8200' )) "
+                        "        or "
+                                "(subject_name='재무상태표' "
+                                "and (this_term_name='"+self.target_term+"' or this_term_name='"+self.pre_target_term+"') "
+                                "and (account_id='5000' or account_id='8000' or account_id='8900' or account_id='8111' "
+                                                "or account_id='2000' or account_id='3200')) "
+                                "or "
+                                "(subject_name='현금흐름표' "
+                                "and (this_term_name='"+self.target_term+"' or this_term_name='"+self.pre_target_term+"') "
+                                "and (account_id='1211' or account_id='1212')))"
+                    , db)
+                    financial_data = financial_data.dropna(axis=0)
+
+                    # 시장 데이터
+                    market_data = pd.read_sql(
+                        "select AVG(close_price) as price_avg, AVG(transaction_volume) as transaction_volume_avg, code_id "
+                        "from stocks_historic_data "
+                        "where code_id='"+code+"' "
+                        "   and date BETWEEN '"+self.pre_target_term+"' AND '"+self.target_term+"' "
+                        "group by code_id ",
+                        db
+                    )
+
+                    def set_data(subject_name, account_id, term_name):
+                        data = financial_data.loc[(financial_data["subject_name"] == subject_name)  # 총 이익
+                                                    & (financial_data["account_id"] == account_id)
+                                                    & (financial_data["this_term_name"] == term_name)]
+                        if data.empty == True:
+                            data = None
+                        else:
+                            data = data.iloc[0]["this_term_amount"]
+
+                        return data
+
+                    # 데이터 계산
+                    profit = set_data("포괄손익계산서","3000",self.target_term) # 매출 이익
+                    revenue = set_data("포괄손익계산서","1000",self.target_term)# 매출액
+                    pre_revenue = set_data("포괄손익계산서","1000",self.pre_target_term)
+                    operating_profit = set_data("포괄손익계산서","5000",self.target_term)# 영업이익
+                    pre_operating_profit = set_data("포괄손익계산서","5000",self.pre_target_term)
+                    net_income = set_data("포괄손익계산서","8200",self.target_term)# 당기순이익
+                    pre_net_income = set_data("포괄손익계산서","8200",self.pre_target_term)
+                    current_asset = set_data("재무상태표","2000",self.target_term)# 유동자산
+                    pre_current_asset = set_data("재무상태표","2000",self.pre_target_term)
+                    total_asset = set_data("재무상태표","5000",self.target_term)#총 자산
+                    pre_total_asset = set_data("재무상태표","5000",self.pre_target_term)
+                    total_debt = set_data("재무상태표","8000",self.target_term)#총부채
+                    total_capital = set_data("재무상태표","8900",self.target_term)#총자본
+                    pre_total_capital = set_data("재무상태표","8900",self.pre_target_term)
+                    issued_share_count = set_data("재무상태표","8111",self.target_term)#발행주식수
+                    tangible_asset = set_data("재무상태표","3200",self.target_term)#유형자산
+                    pre_tangible_asset = set_data("재무상태표","3200",self.pre_target_term)
+                    a1211 = set_data("현금흐름표","1211",self.target_term)
+                    a1212 = set_data("현금흐름표","1212",self.target_term)
+
+                    if (profit != None) & (revenue != None):
+                        gross_profit_ratio = profit/revenue *100 # 매출 총 이익율
+                        gross_profit_ratio_list = gross_profit_ratio_list.append(pd.Series(data=gross_profit_ratio))
+                    if (operating_profit != None) & (revenue != None):
+                        operating_profit_ratio = operating_profit / revenue * 100 # 영업이익률
+                        operating_profit_ratio_list=operating_profit_ratio_list.append(pd.Series(data=operating_profit_ratio))
+                    if (net_income != None) & (revenue != None):
+                        net_profit_ratio = net_income / revenue * 100 #순 이익률
+                        net_profit_ratio_list=net_profit_ratio_list.append(pd.Series(data=net_profit_ratio))
+                    if (net_income != None):
+                        net_income_list=net_income_list.append(pd.Series(data=net_income))
+                    if (operating_profit != None) & (a1212 != None) & (a1211!=None):
+                        ebitda = operating_profit + a1212 + a1211
+                        ebitda_list=ebitda_list.append(pd.Series(data=ebitda))
+                    if (net_income!=None) & (total_asset!=None): #ROA
+                        roa = net_income / total_asset * 100
+                        roa_list=roa_list.append(pd.Series(data=roa))
+                    if (net_income!=None) & (total_debt!=None) : #ROE
+                        roe = net_income / total_debt * 100
+                        roe_list=roe_list.append(pd.Series(data=roe))
+                    if (net_income!=None) & (issued_share_count!=None): #EPS
+                        eps = net_income / issued_share_count
+                        eps_list=eps_list.append(pd.Series(data=eps))
+                    if (total_capital!=None) & (issued_share_count!=None): # BPS
+                        bps = total_capital / issued_share_count
+                        bps_list=bps_list.append(pd.Series(data=bps))
+                    if (revenue!=None) & (pre_revenue!=None): # 매출액증가율
+                        gross_profit_growth_ratio = revenue / pre_revenue
+                        gross_profit_growth_ratio_list=gross_profit_growth_ratio_list.append(pd.Series(data=gross_profit_growth_ratio))
+                    if (operating_profit!=None) & (pre_operating_profit!=None): #영업이익증가율
+                        operating_profit_growth_ratio = operating_profit / pre_operating_profit
+                        operating_profit_growth_ratio_list=operating_profit_growth_ratio_list.append(pd.Series(data=operating_profit_growth_ratio))
+                    if (net_income!=None) & (pre_net_income!=None): # 순이익증가율
+                        net_profit_growth_ratio = net_income / pre_net_income
+                        net_profit_growth_ratio_list=net_profit_growth_ratio_list.append(pd.Series(data=net_profit_growth_ratio))
+                    if (total_asset!=None) & (pre_total_asset!=None): # 총자산증가율
+                        total_asset_growth_ratio=total_asset / pre_total_asset
+                        total_asset_growth_ratio_list=total_asset_growth_ratio_list.append(pd.Series(data=total_asset_growth_ratio))
+                    if (current_asset!=None) & (pre_current_asset!=None): # 유동자산증가율
+                        current_asset_growth_ratio = current_asset / pre_current_asset
+                        current_asset_growth_ratio_list=current_asset_growth_ratio_list.append(pd.Series(data=current_asset_growth_ratio))
+                    if (tangible_asset!=None) & (pre_tangible_asset!=None): #유형자산증가율
+                        tangible_asset_growth_ratio = tangible_asset / pre_tangible_asset
+                        tangible_asset_growth_ratio_list=tangible_asset_growth_ratio_list.append(pd.Series(data=tangible_asset_growth_ratio))
+                    if (total_capital!=None) & (pre_total_capital!=None): # 자기자본증가율
+                        capital_asset_growth_ratio = total_capital / pre_total_capital
+                        capital_asset_growth_ratio_list=capital_asset_growth_ratio_list.append(pd.Series(data=capital_asset_growth_ratio))
+                    if (market_data["price_avg"][0]!=None) & (issued_share_count!=None): # 시가총액
+                        market_cap = market_data["price_avg"][0] * issued_share_count
+                        market_cap_list=market_cap_list.append(pd.Series(data=market_cap))
+                    if (market_data["price_avg"][0]!=None): # 주가
+                        share_price_list=share_price_list.append(pd.Series(data=market_data["price_avg"][0]))
+                    if (market_data["transaction_volume_avg"][0]!=None): # 거래량
+                        transaction_volume_list=transaction_volume_list.append(pd.Series(data=market_data["transaction_volume_avg"][0]))
+                    if (market_data["price_avg"][0]!=True) & (net_income!=None) & (issued_share_count!=None): # PER
+                        per = market_data["price_avg"][0] / (net_income/issued_share_count)
+                        per_list=per_list.append(pd.Series(data=per))
+                    if (market_data["price_avg"][0]!=True) & (total_capital!=None) & (issued_share_count!=None): # PBR
+                        pbr = market_data["price_avg"][0] / (total_capital/issued_share_count)
+                        pbr_list=pbr_list.append(pd.Series(data=pbr))
+
+                temp_data = gross_profit_ratio_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "gross_profit_ratio", temp_data)
+
+                temp_data = operating_profit_ratio_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "operating_profit_ratio", temp_data)
+
+                temp_data = net_profit_ratio_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "net_profit_ratio", temp_data)
+
+                temp_data = net_income_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "net_income", temp_data)
+
+                temp_data = ebitda_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "EBITDA", temp_data)
+
+                temp_data = roa_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "ROA", temp_data)
+
+                temp_data = roe_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "ROE", temp_data)
+
+                # roic???
+
+                temp_data = eps_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "EPS", temp_data)
+
+                temp_data = bps_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "BPS", temp_data)
+
+                temp_data = gross_profit_growth_ratio_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "gross_profit_growth_ratio", temp_data)
+
+                temp_data = operating_profit_growth_ratio_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "operating_profit_growth_ratio", temp_data)
+
+                temp_data = net_profit_growth_ratio_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "net_profit_growth_ratio", temp_data)
+
+                temp_data = total_asset_growth_ratio_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "total_asset_growth_ratio", temp_data)
+
+                temp_data = current_asset_growth_ratio_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "current_asset_growth_ratio", temp_data)
+
+                temp_data = tangible_asset_growth_ratio_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "tangible_asset_growth_ratio", temp_data)
+
+                temp_data = capital_asset_growth_ratio_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "capital_asset_growth_ratio", temp_data)
+
+                # 시가총액, per, pbr, ev, 거래량 데이터 계산.
+                temp_data = market_cap_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "market_cap", temp_data) #시총
+
+                temp_data = per_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "PER", temp_data)
+
+                temp_data = pbr_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "PBR", temp_data)
+
+                # EV ???
+
+                temp_data = transaction_volume_list.mean()
+                insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "transaction_volume_avg",
+                                                    temp_data)  # 거래량
+
+                cur.execute(
+                    "insert into stock_sector_statement("
+                    "   created_at, updated_at, sector_name, date, account_name, amount"
+                    ") "
+                    "values "+insert_sql[1:]
+                )
+                db.commit()
+
+                # 업종 목록으로 뒤로가기.
+                self.driver.back()
+                time.sleep(random.uniform(2, 3))
+        except Exception as e:
+            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+            with open(constant.error_file_path + "/industry_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
+                    time.time())) + ".txt", "a", encoding="UTF-8") as f:
+                f.write(date_time + "\n")
+                f.write(traceback.format_exc())
+
+    def make_insert_query(self, insert_sql, sector_name, date, account_name, amount):
+        insert_sql = (insert_sql + ", ('" + str(datetime.datetime.now(datetime.timezone.utc)) + "', '" +
+                      str(datetime.datetime.now(datetime.timezone.utc)) + "', '" + sector_name + "', " +
+                      "'"+date+"', '"+account_name+"', '" + str(amount) + "')"
+                      )
+        return insert_sql
 
     def report_error(self, company):
         date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
         with open(
-                "./document_error_list_" + time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt",
+                constant.error_file_path+"/document_error_list_" + time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt",
                 "a", encoding="UTF-8") as f:
             f.write("\n")
             f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "\n")
@@ -520,7 +374,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
     def restart_chrome_driver(self):
         self.driver.quit()
-        chrome_driver = 'C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe'
+        chrome_driver = constant.chrome_driver_path
         chrome_options = Options()
         chrome_options.add_experimental_option("prefs", {
             "profile.content_settings.exceptions.automatic_downloads.*.setting": 1

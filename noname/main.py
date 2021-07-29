@@ -4,50 +4,55 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
-import os
 import traceback
 from datetime import datetime, timezone
-
-import pymongo
-
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print_hi('PyCharm')
 
 import pandas as pd
-import matplotlib.pyplot as plt
-from bs4 import BeautifulSoup
-import requests
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from bs4 import BeautifulSoup
+# import matplotlib.pyplot as plt
+# from bs4 import BeautifulSoup
+# import requests
+# from selenium import webdriver
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.common.by import By
+# from bs4 import BeautifulSoup
 import time
 from scrapy import cmdline
 import psycopg2
 import numpy as np
 import re
 
-# cmdline.execute("scrapy crawl korean_daily_finance_spider -a quarter=2021-03-31".split())
+# cmdline.execute("scrapy crawl korean_daily_finance_spider -a quarter=2021-06-30".split())
 # cmdline.execute("scrapy crawl noname".split())
-cmdline.execute("scrapy crawl report_spider".split())
+# cmdline.execute("scrapy crawl report_spider".split())
+# cmdline.execute("scrapy crawl notice_spider".split())
 # cmdline.execute("scrapy crawl sector_spider".split())
+# cmdline.execute("scrapy crawl theme_spider -a target_term=2020-12-31 -a pre_target_term=2019-12-31".split())
 
 # 분기 데이터 스크래핑 스케줄러.
 from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
 
 scheduler = BlockingScheduler()
 
+# 새로 추가된 종목에 대한 과거 재무 데이터 스크래핑.
+#   이게 선행 되어야, 최신 분기 재무 데이터 스크래핑시, 현재 분기에 대한 중복이 발생하지 않는다.
+# ~~~~~
+def scraping_new_stock():
+    print("h")
+
 # 매일 'quarterly_date_list_분기.xlsx'파일을 체크하여 남아있는 종목이 있는지 체크하고 있다면 해당 분기에 대해 spider실행.
+# 새롭게 추가된 종목에 대해 과거 재무 데이터 스크래핑이 선행 되어야 한다.
 def daily_check():
+
     today = time.localtime(time.time())
     if today.tm_mon < 4:
         quarterly_date = str(today.tm_year - 1) + "-12-31"
@@ -63,24 +68,60 @@ def daily_check():
         pre_quarterly_date = str(today.tm_year) + "-06-30"
 
     # 엑셀에 남은 종목 있나 체크
-    pre_list = pd.read_excel("C:/Users/kai/Desktop/quarterly_data_list_"+pre_quarterly_date+".xlsx")
-    if len(pre_list.index) != 0: # 확인해야 할 데이터가 남아있다면,
-        cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+pre_quarterly_date).split())
+    # pre_list = pd.read_excel("C:/Users/kai/Desktop/quarterly_data_list_"+pre_quarterly_date+".xlsx")
+    # if len(pre_list.index) != 0: # 확인해야 할 데이터가 남아있다면,
+    cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+pre_quarterly_date).split())
 
-    last_list = pd.read_excel("C:/Users/kai/Desktop/quarterly_data_list_"+quarterly_date+".xlsx")
-    if len(last_list.index) != 0:
-        cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+quarterly_date).split())
+    # last_list = pd.read_excel("C:/Users/kai/Desktop/quarterly_data_list_"+quarterly_date+".xlsx")
+    # if len(last_list.index) != 0:
+    cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+quarterly_date).split())
 
+def sector_scraping_check():
+    today = time.localtime(time.time())
+    if today.tm_mon == 5 & today.tm_mday==18:
+        cmdline.execute("scrapy crawl sector_spider -a target_term="+str(today.tm_year)+"-03-31 "
+                                                   "-a pre_target_term="+str(today.tm_year-1)+"-12-31".split())
+        cmdline.execute("scrapy crawl theme_spider -a target_term=" + str(today.tm_year) + "-03-31 "
+                                                                                            "-a pre_target_term=" + str(
+            today.tm_year - 1) + "-12-31".split())
+    elif today.tm_mon == 8 & today.tm_mday == 17:
+        cmdline.execute("scrapy crawl sector_spider -a target_term=" + str(today.tm_year) + "-06-30 "
+                                                                                            "-a pre_target_term=" + str(
+            today.tm_year) + "-03-31".split())
+        cmdline.execute("scrapy crawl theme_spider -a target_term=" + str(today.tm_year) + "-06-30 "
+                                                                                            "-a pre_target_term=" + str(
+            today.tm_year) + "-03-31".split())
+    elif today.tm_mon == 11 & today.tm_mday == 16:
+        cmdline.execute("scrapy crawl sector_spider -a target_term=" + str(today.tm_year) + "-09-30 "
+                                                                                            "-a pre_target_term=" + str(
+            today.tm_year) + "-06-30".split())
+        cmdline.execute("scrapy crawl theme_spider -a target_term=" + str(today.tm_year) + "-09-30 "
+                                                                                            "-a pre_target_term=" + str(
+            today.tm_year) + "-06-30".split())
+    elif today.tm_mon == 4 & today.tm_mday == 1:
+        cmdline.execute("scrapy crawl sector_spider -a target_term=" + str(today.tm_year-1) + "-12-31 "
+                                                                                            "-a pre_target_term=" + str(
+            today.tm_year-1) + "-09-30".split())
+        cmdline.execute("scrapy crawl theme_spider -a target_term=" + str(today.tm_year - 1) + "-12-31 "
+                                                                                                "-a pre_target_term=" + str(
+            today.tm_year - 1) + "-09-30".split())
 
-
-# def job(quarter):
+# def job():
 #     print("korean daily finance spider start")
-#     cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+quarter).split())
+    # cmdline.execute(("scrapy crawl korean_daily_finance_spider -a quarter="+quarter).split())
 # scheduler.add_job(job, 'interval', hours=24, start_date="2021-07-14 00:00:00", end_date="2021-12-31 00:00:00")
 # scheduler.add_job(job, 'interval', hours=24, args=["2021-03-31"])
 
-# scheduler.add_job(daily_check, 'interval', hours=24)
-# scheduler.start()
+# scheduler.add_job(scraping_new_stock, 'cron', hour='00')
+scheduler.add_job(daily_check, 'cron', hour='01', minute='00')
+scheduler.add_job(sector_scraping_check, 'cron', hour='01', minute='00')
+
+# scheduler.add_job(dail)
+# def job2():
+#     print('hello')
+# scheduler.add_job(job, 'cron', hour='16', minute='06')
+# scheduler.add_job(job2, 'cron', hour='19', minute='48')
+scheduler.start()
 # daily_check()
 
 # 종목 재무 엑셀 파일 다운 확인.
@@ -102,7 +143,6 @@ def daily_check():
 #         with open("./no_data_stock_list.txt", "a", encoding="UTF-8") as f:
 #             f.write(stock["code"]+"_"+stock["name"]+"\n")
 
-
 def store_excel_data():
     # 몽고디비 연결
     # client = pymongo.MongoClient('localhost', 27017)
@@ -119,10 +159,16 @@ def store_excel_data():
     # cur.execute("select * from article_post")
     # print(cur.fetchone())
 
-    kospi_list = kospi_list[1073:]
+    # kospi_list = kospi_list[1657:]
 
     # 종목 리스트 반복
     for index, stock in kospi_list.iterrows():
+        # 이미 인서트 되었는지 확인
+        cur.execute("select * from stock_financial_statement where code_id='A"+stock["단축코드"]+"'")
+        pre_data = cur.fetchone()
+        if pre_data != None:
+            continue
+
         #엑셀 데이터 DataFrame으로 가져오기.
         try:
             # 포괄손익계산서
@@ -209,5 +255,4 @@ def store_excel_data():
                 f.write(traceback.format_exc()+"\n")
             continue
 
-# store_excel_data()
 
