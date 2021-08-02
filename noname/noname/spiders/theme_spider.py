@@ -395,12 +395,12 @@ class ThemeSpider(scrapy.Spider):
         self.document_fail_list = self.document_fail_list.append(
             {"단축코드": company["단축코드"], "한글 종목약명": company["한글 종목약명"]},
             ignore_index=True)
-        self.document_fail_list.to_excel("C:/Users/kai/Desktop/korean_stock_document_list/document_fail_list.xlsx",
+        self.document_fail_list.to_excel(constant.document_folder_path+"/document_fail_list.xlsx",
                                          index=False)
 
     def restart_chrome_driver(self):
         self.driver.quit()
-        chrome_driver = 'C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe'
+        chrome_driver = constant.chrome_driver_path
         chrome_options = Options()
         chrome_options.add_experimental_option("prefs", {
             "profile.content_settings.exceptions.automatic_downloads.*.setting": 1

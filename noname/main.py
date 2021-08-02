@@ -53,12 +53,6 @@ if __name__ == '__main__':
 
     scheduler = BlockingScheduler()
 
-    # 새로 추가된 종목에 대한 과거 재무 데이터 스크래핑.
-    #   이게 선행 되어야, 최신 분기 재무 데이터 스크래핑시, 현재 분기에 대한 중복이 발생하지 않는다.
-    # ~~~~~
-    def scraping_new_stock():
-        print("h")
-
     def create_sector_check_process():
         print("create_sector_check_process")
         process = multiprocessing.Process(target=schedule_job.test)
@@ -73,8 +67,8 @@ if __name__ == '__main__':
     # scheduler.add_job(daily_check, 'cron', hour='01', minute='00')
     # scheduler.add_job(sector_scraping_check, 'cron', hour='01', minute='00')
     # subprocess.Popen("scrapy crawl report_spider".split(), shell=True)
-    scheduler.add_job(create_sector_check_process, 'cron', hour='01', minute='00')
-    scheduler.add_job(create_daily_check_process, 'cron', hour='03', minute='00')
+    scheduler.add_job(create_sector_check_process, 'cron', hour=1, minute=0)
+    scheduler.add_job(create_daily_check_process, 'cron', hour=3, minute=0)
     scheduler.start()
 
 

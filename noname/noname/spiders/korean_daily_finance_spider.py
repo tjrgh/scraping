@@ -216,9 +216,9 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                 "//span[@class='table-export-button']")
                             self.driver.execute_script("arguments[0].click();", button)
                             time.sleep(random.uniform(self.motion_term + 3, self.motion_term + 4))
-                            if os.path.isfile("C:/Users/kai/Downloads/" + str(company["name"]) + "-포괄손익계산서-" +
+                            if os.path.isfile(constant.download_path+"/" + str(company["name"]) + "-포괄손익계산서-" +
                                               data_term + "_" + data_type + ".xlsx"):
-                                os.remove("C:/Users/kai/Downloads/" + str(company["name"]) + "-포괄손익계산서-" +
+                                os.remove(constant.download_path+"/" + str(company["name"]) + "-포괄손익계산서-" +
                                           data_term + "_" + data_type + ".xlsx")
                             os.rename(
                                 constant.download_path+"/DeepSearch-" + stock_name + "-포괄손익계산서Table-Export.xlsx",
@@ -406,7 +406,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
     def restart_chrome_driver(self):
         self.driver.quit()
-        chrome_driver = 'C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe'
+        chrome_driver = constant.chrome_driver_path
         chrome_options = Options()
         chrome_options.add_experimental_option("prefs", {
             "profile.content_settings.exceptions.automatic_downloads.*.setting": 1

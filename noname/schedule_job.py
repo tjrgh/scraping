@@ -53,6 +53,12 @@ def daily_check():
         quarterly_date = str(today.tm_year) + "-09-30"
         pre_quarterly_date = str(today.tm_year) + "-06-30"
 
+    # 신규 상장 종목에 대한 과거 재무 데이터 스크래핑.
+    # 새로 추가된 종목에 대한 과거 재무 데이터 스크래핑.
+    #   이게 선행 되어야, 최신 분기 재무 데이터 스크래핑시, 현재 분기에 대한 중복이 발생하지 않는다.
+    # ~~~~~
+
+
     # 엑셀에 남은 종목 있나 체크
     # pre_list = pd.read_excel("C:/Users/kai/Desktop/quarterly_data_list_"+pre_quarterly_date+".xlsx")
     # if len(pre_list.index) != 0: # 확인해야 할 데이터가 남아있다면,
