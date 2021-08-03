@@ -1,0 +1,12 @@
+2021-07-29 17:39
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\theme_spider.py", line 146, in parse
+    "select account_id, this_term_name, this_term_amount, code_id, subject_name from stock_financial_statement "
+TypeError: can only concatenate str (not "NoneType") to str
+2021-07-29 17:55
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\theme_spider.py", line 263, in parse
+    if (market_data["price_avg"][0] != None) & (issued_share_count != None):  # 시가총액
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\series.py", line 850, in __getitem__
+    return self._values[key]
+IndexError: index 0 is out of bounds for axis 0 with size 0

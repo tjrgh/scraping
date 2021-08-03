@@ -1,0 +1,25 @@
+2021-07-26 20:43:59_000120_CJ대한통운_[인터넷/게임/미디어] 누가 한국의 이커머스 시장을 지배할 것인가 11/19/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-64ee871e993ee912f36b1eeca71b81bdd1dd9b6b.pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0395__인터넷_게임_미디어__누가_한국의_이커머스_시장을_지배할_것인가_11_19_2018.crdownload'
+2021-07-26 20:44:04_000120_CJ대한통운_[인터넷/게임/미디어] 누가 한국의 이커머스 시장을 지배할 것인가 11/19/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-64ee871e993ee912f36b1eeca71b81bdd1dd9b6b (1).pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0395__인터넷_게임_미디어__누가_한국의_이커머스_시장을_지배할_것인가_11_19_2018.crdownload'
+2021-07-26 20:44:08_000120_CJ대한통운_[인터넷/게임/미디어] 누가 한국의 이커머스 시장을 지배할 것인가 11/19/2018
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-64ee871e993ee912f36b1eeca71b81bdd1dd9b6b (1).pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0395__인터넷_게임_미디어__누가_한국의_이커머스_시장을_지배할_것인가_11_19_2018.crdownload'
+2021-07-26 20:44:13_000120_CJ대한통운_[메리츠종금증권/이종현] 운송:Beyond All Uncertainty 2018/11/26
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-1c57c93bf01a0ab85b8eb2cd039b464d415f8431.pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000120_CJ대한통운/report/0395__메리츠종금증권_이종현__운송_Beyond_All_Uncertainty_2018_11_26.crdownload'
+2021-07-26 22:18:50_000660_SK하이닉스_COVID 19 발발 이후 반도체 업종은
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-f405e1d95fe3e418024e09ff041db4be2d1ec79f.pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/000660_SK하이닉스/report/0834_COVID_19_발발_이후_반도체_업종은.crdownload'

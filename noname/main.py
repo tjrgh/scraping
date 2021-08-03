@@ -47,6 +47,7 @@ if __name__ == '__main__':
     # cmdline.execute("scrapy crawl notice_spider".split())
     # cmdline.execute("scrapy crawl sector_spider".split())
     # cmdline.execute("scrapy crawl theme_spider -a target_term=2020-12-31 -a pre_target_term=2019-12-31".split())
+    # cmdline.execute("scrapy crawl social_keyword_spider".split())
 
     # 분기 데이터 스크래핑 스케줄러.
     from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
@@ -55,7 +56,7 @@ if __name__ == '__main__':
 
     def create_sector_check_process():
         print("create_sector_check_process")
-        process = multiprocessing.Process(target=schedule_job.test)
+        process = multiprocessing.Process(target=schedule_job.sector_scraping_check)
         process.start()
         process.join()
     def create_daily_check_process():
@@ -67,8 +68,8 @@ if __name__ == '__main__':
     # scheduler.add_job(daily_check, 'cron', hour='01', minute='00')
     # scheduler.add_job(sector_scraping_check, 'cron', hour='01', minute='00')
     # subprocess.Popen("scrapy crawl report_spider".split(), shell=True)
-    scheduler.add_job(create_sector_check_process, 'cron', hour=1, minute=0)
-    scheduler.add_job(create_daily_check_process, 'cron', hour=3, minute=0)
+    scheduler.add_job(create_sector_check_process, 'cron', hour=2, minute=0)
+    scheduler.add_job(create_daily_check_process, 'cron', hour=4, minute=30)
     scheduler.start()
 
 

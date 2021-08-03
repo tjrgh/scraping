@@ -1,0 +1,133 @@
+2021-07-28 08:39:38_003550_LG_Macquarie: 富士電機(6504 JP) (Outperform) - EVが欧州半導体売上を3倍に押し上げ
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 244, in document_scraping
+    document_title = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]//div[contains(@class,'content-wrapper')]//div[@id='documents']//div[contains(@class,'company-document-search')]//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')][5]/div[contains(@class,'doc-title')]/span"}
+  (Session info: chrome=92.0.4515.107)
+
+2021-07-28 08:46:42_003550_LG_Indonesia Consumer Staples Sector: Strong 2Q19 boosted by low input costs
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 263, in document_scraping
+    os.rename(
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Desktop/korean_stock_document_list/temp_document/000-e306d6d1dc357ebccdfa90a8cc4d47fce202e23d.pdf.crdownload' -> 'C:/Users/kai/Desktop/korean_stock_document_list/list/003550_LG/report/0785_Indonesia_Consumer_Staples_Sector__Strong_2Q19_boosted_by_low_input_costs.crdownload'
+
+2021-07-28 14:31:50_000120_CJ대한통운
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\indexes\base.py", line 3080, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas\_libs\index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\_libs\hashtable_class_helper.pxi", line 4562, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: '단축코드'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 143, in document_scraping
+    search_bar.send_keys(company["단축코드"][1:])
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\series.py", line 853, in __getitem__
+    return self._get_value(key)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\series.py", line 961, in _get_value
+    loc = self.index.get_loc(label)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\indexes\base.py", line 3082, in get_loc
+    raise KeyError(key) from err
+KeyError: '단축코드'
+
+
+2021-07-28 14:32:00_000120_CJ대한통운
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\indexes\base.py", line 3080, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas\_libs\index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\_libs\hashtable_class_helper.pxi", line 4562, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: '단축코드'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 143, in document_scraping
+    search_bar.send_keys(company["단축코드"][1:])
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\series.py", line 853, in __getitem__
+    return self._get_value(key)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\series.py", line 961, in _get_value
+    loc = self.index.get_loc(label)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\indexes\base.py", line 3082, in get_loc
+    raise KeyError(key) from err
+KeyError: '단축코드'
+
+
+2021-07-28 14:32:09_000120_CJ대한통운
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\indexes\base.py", line 3080, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas\_libs\index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\_libs\hashtable_class_helper.pxi", line 4562, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: '단축코드'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 143, in document_scraping
+    search_bar.send_keys(company["단축코드"][1:])
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\series.py", line 853, in __getitem__
+    return self._get_value(key)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\series.py", line 961, in _get_value
+    loc = self.index.get_loc(label)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\indexes\base.py", line 3082, in get_loc
+    raise KeyError(key) from err
+KeyError: '단축코드'
+
+
+2021-07-28 14:32:18_000660_SK하이닉스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\indexes\base.py", line 3080, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas\_libs\index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\_libs\hashtable_class_helper.pxi", line 4562, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: '단축코드'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 143, in document_scraping
+    search_bar.send_keys(company["단축코드"][1:])
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\series.py", line 853, in __getitem__
+    return self._get_value(key)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\series.py", line 961, in _get_value
+    loc = self.index.get_loc(label)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\indexes\base.py", line 3082, in get_loc
+    raise KeyError(key) from err
+KeyError: '단축코드'
+
+
+2021-07-28 14:41:41_263020_디케이앤디
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\report_spider.py", line 323, in document_scraping
+    self.document_complete_list.to_excel(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\core\generic.py", line 2189, in to_excel
+    formatter.write(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\formats\excel.py", line 815, in write
+    writer = ExcelWriter(  # type: ignore[abstract]
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_openpyxl.py", line 32, in __init__
+    super().__init__(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\excel\_base.py", line 810, in __init__
+    self.handles = get_handle(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\pandas\io\common.py", line 651, in get_handle
+    handle = open(handle, ioargs.mode)
+PermissionError: [Errno 13] Permission denied: 'C:/Users/kai/Desktop/korean_stock_document_list/document_complete_list.xlsx'
+
