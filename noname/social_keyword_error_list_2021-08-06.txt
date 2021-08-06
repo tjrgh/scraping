@@ -1,0 +1,207 @@
+2021-08-06 11:12_002030_아세아
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 103, in social_keyword_scraping
+    search_keyword.send_keys(company["name"])
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 477, in send_keys
+    self._execute(Command.SEND_KEYS_TO_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=92.0.4515.107)
+
+2021-08-06 11:14_002070_비비안
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 103, in social_keyword_scraping
+    search_keyword.send_keys(company["name"])
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 477, in send_keys
+    self._execute(Command.SEND_KEYS_TO_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=92.0.4515.107)
+
+2021-08-06 13:01_000020_동화약품
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 181, in social_keyword_scraping
+    self.click_element(
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 548, in click_element
+    button = self.driver.find_element_by_xpath(xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//body/div[contains(@class,'daterangepicker')]/div[contains(@class,'left')]//div[contains(@class,'calendar-table')]//tbody//td[not(contains(@class,'off')) and contains(text(),6)]"}
+  (Session info: chrome=92.0.4515.107)
+
+2021-08-06 14:13_001800_오리온홀딩스
+NoneType: None
+2021-08-06 15:56_000210_DL
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 577, in store_data
+    self.cur.execute(
+psycopg2.errors.SyntaxError: 오류:  구문 오류, "est" 부근
+LINE 1: ... '00109693', 'W', '2021-03-08', '2021-03-14', 'nu'est', 2, 1...
+                                                             ^
+
+2021-08-06 17:06_000210_DL
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 578, in store_data
+    self.cur.execute(
+psycopg2.errors.SyntaxError: 오류:  구문 오류, "est" 부근
+LINE 1: ... '00109693', 'W', '2021-03-08', '2021-03-14', 'nu'est', 2, 1...
+                                                             ^
+
+2021-08-06 17:11_000210_DL
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 578, in store_data
+    self.cur.execute(
+psycopg2.errors.SyntaxError: 오류:  구문 오류, "est" 부근
+LINE 1: ... '00109693', 'W', '2021-03-08', '2021-03-14', 'nu'est', 2, 1...
+                                                             ^
+
+2021-08-06 17:19_001620_케이비아이동국실
+NoneType: None
+2021-08-06 17:21_001680_대상
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 141, in social_keyword_scraping
+    search_keyword.send_keys(company["name"])
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 477, in send_keys
+    self._execute(Command.SEND_KEYS_TO_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=92.0.4515.107)
+
+2021-08-06 17:21_001680_대상
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 128, in social_keyword_scraping
+    self.click_element(
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 598, in click_element
+    button.click()
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button type="button" class="vbtn btn-submit" aria-label="검색">...</button> is not clickable at point (245, 23). Other element would receive the click: <div class="search-form-group">...</div>
+  (Session info: chrome=92.0.4515.107)
+
+2021-08-06 17:22_001680_대상
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 128, in social_keyword_scraping
+    self.click_element(
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 598, in click_element
+    button.click()
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button type="button" class="vbtn btn-submit" aria-label="검색">...</button> is not clickable at point (245, 23). Other element would receive the click: <div class="search-form-group">...</div>
+  (Session info: chrome=92.0.4515.107)
+
+2021-08-06 17:22_001720_신영증권
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 128, in social_keyword_scraping
+    self.click_element(
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 598, in click_element
+    button.click()
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button type="button" class="vbtn btn-submit" aria-label="검색">...</button> is not clickable at point (245, 23). Other element would receive the click: <div class="search-form-group">...</div>
+  (Session info: chrome=92.0.4515.107)
+
+2021-08-06 17:22_001720_신영증권
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 128, in social_keyword_scraping
+    self.click_element(
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 598, in click_element
+    button.click()
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button type="button" class="vbtn btn-submit" aria-label="검색">...</button> is not clickable at point (245, 23). Other element would receive the click: <div class="search-form-group">...</div>
+  (Session info: chrome=92.0.4515.107)
+
+2021-08-06 17:23_001720_신영증권
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 128, in social_keyword_scraping
+    self.click_element(
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 598, in click_element
+    button.click()
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button type="button" class="vbtn btn-submit" aria-label="검색">...</button> is not clickable at point (245, 23). Other element would receive the click: <div class="search-form-group">...</div>
+  (Session info: chrome=92.0.4515.107)
+
+2021-08-06 17:39_002710_TCC스틸
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 141, in social_keyword_scraping
+    )
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 477, in send_keys
+    self._execute(Command.SEND_KEYS_TO_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=92.0.4515.107)
+
+2021-08-06 17:39_002710_TCC스틸
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 128, in social_keyword_scraping
+    # 분석 단어 입력
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 598, in click_element
+    try:
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button type="button" class="vbtn btn-submit" aria-label="검색">...</button> is not clickable at point (245, 23). Other element would receive the click: <div class="search-form-group">...</div>
+  (Session info: chrome=92.0.4515.107)
+
