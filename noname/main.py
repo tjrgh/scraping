@@ -75,8 +75,8 @@ if __name__ == '__main__':
     # scheduler.add_job(daily_check, 'cron', hour='01', minute='00')
     # scheduler.add_job(sector_scraping_check, 'cron', hour='01', minute='00')
     # subprocess.Popen("scrapy crawl report_spider".split(), shell=True)
-    scheduler.add_job(create_sector_check_process, 'cron', hour=2, minute=0)
-    scheduler.add_job(create_daily_check_process, 'cron', hour=3, minute=0)
+    # scheduler.add_job(create_sector_check_process, 'cron', hour=2, minute=0)
+    # scheduler.add_job(create_daily_check_process, 'cron', hour=3, minute=0)
     scheduler.add_job(create_social_keyword_scraping_process, 'cron', hour=4, minute=0)
     scheduler.start()
 

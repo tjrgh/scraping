@@ -122,10 +122,18 @@ class SocialKeywordSpider(scrapy.Spider):
 
                 try:
                     # 분석 단어 입력
-                    self.click_element(
-                        "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-input-box')]"
-                        "/div[@id='searchInputArea']/div[contains(@class,'input-keyword')]/button", 2
-                    )
+                    try:
+                        self.click_element(
+                            "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-input-box')]"
+                            "/div[@id='searchInputArea']/div[contains(@class,'input-keyword')]/button", 2
+                        )
+                    except Exception as e:
+                        self.driver.refresh()
+                        self.click_element(
+                            "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-input-box')]"
+                            "/div[@id='searchInputArea']/div[contains(@class,'input-keyword')]/button", 2
+                        )
+
                     self.click_element(
                         "//div[@id='analysisOptionWindowArea']//div[contains(@class,'modal-search-body')]"
                         "/div[contains(@class,'btn-box')]/button", 1
@@ -626,7 +634,7 @@ class SocialKeywordSpider(scrapy.Spider):
                     "plugins.always_open_pdf_externally": True
                 })
                 self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)
-                self.driver.set_window_position(1000,0)
+                self.driver.set_window_position(1300,0)
                 self.driver.get('https://some.co.kr/')
                 self.driver.implicitly_wait(5)
                 self.click_wait = WebDriverWait(self.driver, 60)
