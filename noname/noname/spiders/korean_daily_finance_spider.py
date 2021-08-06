@@ -37,6 +37,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         chrome_options = Options()
         # # chrome_options.add_argument("start-maximized")
         chrome_options.add_experimental_option("prefs", {
+            "download.default_directory": constant.download_path.replace("/", "\\") + "",
             "profile.content_settings.exceptions.automatic_downloads.*.setting": 1
         })
         self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)
@@ -70,7 +71,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
     # 분기별 재무정보 스크래핑 후 업데이트
     def quarterly_finance_scraping(self):
         # 디버깅용
-        # self.kospi_list = self.kospi_list[836:]
+        # self.kospi_list = self.kospi_list[0:10]
 
         date = self.quarter
 
@@ -83,34 +84,35 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
             for try_count in range(3):
                 if search_result == False:
                     break;
+
+                # db에 이미 해당 분기에 해당하는 데이터 row가 있는지 확인. 기간과 단축코드로 검색하여 row가 하나라도 있다면 이미 업데이트한 종목이라 판단.
+                self.cur.execute("select * from stock_financial_statement "
+                                 "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
+                                                                                                              "and subject_name='포괄손익계산서'")
+                pre_pl = self.cur.fetchone()
+                self.cur.execute("select * from stock_financial_statement "
+                                 "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
+                                                                                                              "and subject_name='재무상태표'")
+                pre_bs = self.cur.fetchone()
+                self.cur.execute("select * from stock_financial_statement "
+                                 "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
+                                                                                                              "and subject_name='현금흐름표'")
+                pre_cf = self.cur.fetchone()
+
+                if (None != pre_pl) and (None != pre_bs) and (None != pre_cf):  # 결과값이 있다면,
+                    # date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+                    # with open("./quarterly_error_list_" + time.strftime("%Y-%m-%d",
+                    #           time.localtime(time.time())) + ".txt", "a", encoding="UTF-8") as f:
+                    #     f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "\n")
+                    #     f.write("이미 해당 데이터가 존재합니다. \n")
+                    # 목록에서 제외
+                    # index = self.kospi_list.loc[(self.kospi_list["단축코드"] == company["단축코드"])].index
+                    # self.kospi_list = self.kospi_list.drop(index)
+                    # self.kospi_list.to_excel("C:/Users/kai/Desktop/quarterly_data_list_" + self.quarter + ".xlsx",
+                    #                          index=False)
+                    break
+
                 try:
-                    # db에 이미 해당 분기에 해당하는 데이터 row가 있는지 확인. 기간과 단축코드로 검색하여 row가 하나라도 있다면 이미 업데이트한 종목이라 판단.
-                    self.cur.execute("select * from stock_financial_statement "
-                                     "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
-                                     "and subject_name='포괄손익계산서'")
-                    pre_pl = self.cur.fetchone()
-                    self.cur.execute("select * from stock_financial_statement "
-                                     "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
-                                     "and subject_name='재무상태표'")
-                    pre_bs = self.cur.fetchone()
-                    self.cur.execute("select * from stock_financial_statement "
-                                     "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
-                                     "and subject_name='현금흐름표'")
-                    pre_cf = self.cur.fetchone()
-
-                    if (None != pre_pl) and (None != pre_bs) and (None != pre_cf):  # 결과값이 있다면,
-                        # date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                        # with open("./quarterly_error_list_" + time.strftime("%Y-%m-%d",
-                        #           time.localtime(time.time())) + ".txt", "a", encoding="UTF-8") as f:
-                        #     f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "\n")
-                        #     f.write("이미 해당 데이터가 존재합니다. \n")
-                        # 목록에서 제외
-                        # index = self.kospi_list.loc[(self.kospi_list["단축코드"] == company["단축코드"])].index
-                        # self.kospi_list = self.kospi_list.drop(index)
-                        # self.kospi_list.to_excel("C:/Users/kai/Desktop/quarterly_data_list_" + self.quarter + ".xlsx",
-                        #                          index=False)
-                        break
-
                     # '기업검색'항목 이동
                     menu1_button = self.driver.find_element_by_xpath(
                         "//div[@class='deepsearch-app']/div[contains(@class,'drawer-container-layout')]/"
@@ -315,21 +317,30 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
 
     def store_quarterly_data(self, company, df, subject_name, date, corp_code):
-        # 해당 파일에 대한 데이터 존재하는지 확인.
-        self.cur.execute("select * from stock_financial_statement "
-                         "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
-                         "and subject_name='"+subject_name+"'")
-        if None != self.cur.fetchone(): # 이미 해당 데이터가ㅓ 존재한다면,
-            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-            with open(constant.error_file_path+"/quarterly_error_list_" + time.strftime("%Y-%m-%d",
-                      time.localtime(time.time())) + ".txt", "a", encoding="UTF-8") as f:
-                f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
-                f.write(subject_name+"가 이미 존재합니다. \n")
-            return ""
 
         # dataframe의 컬럼명 변경.
         df.columns = df.loc[0]
         df = df.drop([0])
+
+        # 해당 파일에 대한 데이터 존재하는지 확인.
+        self.cur.execute("select * from stock_financial_statement "
+                         "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
+                              "and subject_name='" + subject_name + "'")
+        if (None != self.cur.fetchone()):  # 이미 해당 데이터가ㅓ 존재한다면,
+            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+            with open(constant.error_file_path + "/quarterly_error_list_" + time.strftime("%Y-%m-%d",
+                          time.localtime( time.time())) + ".txt", "a", encoding="UTF-8") as f:
+                f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
+                f.write(subject_name + "가 이미 존재합니다. \n")
+            return ""
+        elif (date not in df.columns):
+            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+            with open(constant.error_file_path + "/quarterly_error_list_" + time.strftime("%Y-%m-%d",
+                          time.localtime( time.time())) + ".txt", "a", encoding="UTF-8") as f:
+                f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
+                f.write(subject_name + "에 "+date+"분기 데이터가 존재하지 않습니다.  \n")
+            return ""
+
         insert_sql = ""
         for row in df.index:  # 엑셀 파일의 row들에 대해 반복.
             # this_term_amount
@@ -409,6 +420,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         chrome_driver = constant.chrome_driver_path
         chrome_options = Options()
         chrome_options.add_experimental_option("prefs", {
+            "download.default_directory": constant.download_path.replace("/", "\\") + "",
             "profile.content_settings.exceptions.automatic_downloads.*.setting": 1
         })
         self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)

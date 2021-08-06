@@ -14,7 +14,8 @@ import datetime
 import time
 # from scrapy_selenium import SeleniumRequest
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException
+from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException, WebDriverException, \
+    ElementNotInteractableException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -31,14 +32,21 @@ SELENIUM_DRIVER_ARGUMENTS=['--headless']  # '--headless' if using chrome instead
 class SocialKeywordSpider(scrapy.Spider):
     name = "social_keyword_spider";
 
-    def __init__(self):
+    def __init__(self, start_date, end_date, term_type, scraping_count_goal=350):
         super(SocialKeywordSpider, self).__init__()
         self.driver = None
+        self.start_date = start_date
+        self.start_date_arr = self.start_date.split("-")
+        self.end_date = end_date
+        self.end_date_arr = self.end_date.split("-")
+        self.term_type = term_type
+        self.scraping_count_goal = int(scraping_count_goal)
 
         self.db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric",
                               password=")!metricAdmin01", port=2345)
         self.cur = self.db.cursor()
         self.kospi_list = pd.read_sql("select * from stocks_basic_info where corp_code!=' '", self.db).sort_values(by="code")
+        self.keyword_list = pd.read_sql("select * from social_keywords where corp_code!=' '", self.db).sort_values(by="code_id")
 
     def start_requests(self):
         url_list = [
@@ -49,17 +57,23 @@ class SocialKeywordSpider(scrapy.Spider):
             yield scrapy.Request(url=url)
 
     def parse(self, response):
-        self.initial_setting()
+        try:
+            self.initial_setting()
 
-        # self.initial_setting()
+            # self.initial_setting()
 
-        self.social_keyword_scraping()
+            self.social_keyword_scraping()
+        except Exception as e:
+            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+            with open(constant.error_file_path + "/social_keyword_error_list_" +
+                      time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt", "a", encoding="UTF-8") as f:
+                f.write(date_time + "_전체 에러 \n")
+                f.write(traceback.format_exc())
 
     # 분기별 재무정보 스크래핑 후 업데이트
     def social_keyword_scraping(self):
         # 디버깅용
-        # self.kospi_list = self.kospi_list[836:]
-
+        # self.kospi_list = self.kospi_list[1:]
 
         # 분기 데이터 받아야 하는 리스트 대상으로 한번 반복.
         item_count = 0 #반복시마다 증가하는 카운트.(크롬 out of memory오류 방지를 위해 체크)
@@ -70,225 +84,299 @@ class SocialKeywordSpider(scrapy.Spider):
             for try_count in range(3):
                 if search_result == False:
                     break;
+
+                # db에 이미 해당 데이터가 있는지 확인.
+                #   정확하게 들어 갔는지에 대한 여부가 아닌, 데이터 insert를 이미 한 항목인지 아닌지 여부이다.
                 try:
-                    # db에 이미 해당 데이터가 있는지 확인.
-                    #   db상에 데이터 존재 유무로 이미 스크랩한 항목인지 파악하기 어려움. 어차피 개발할 때 디버깅용으로 필요한 거니
-                    #   파일 목록을 하나 만들던지, 임시로 db쿼리를 하자.
-
-
-                    # self.cur.execute("select * from stock_financial_statement "
-                    #                  "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
-                    #                  "and subject_name='포괄손익계산서'")
-                    # pre_pl = self.cur.fetchone()
-                    # self.cur.execute("select * from stock_financial_statement "
-                    #                  "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
-                    #                  "and subject_name='재무상태표'")
-                    # pre_bs = self.cur.fetchone()
-                    # self.cur.execute("select * from stock_financial_statement "
-                    #                  "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
-                    #                  "and subject_name='현금흐름표'")
-                    # pre_cf = self.cur.fetchone()
+                    self.cur.execute(
+                        "select count(id) from stock_mention_counts where code_id='"+company["code"]+"'"+\
+                        "   and (term_type='D' and term_start <= '"+self.end_date+"' and term_start >= '"+self.start_date+"') "
+                    )
+                    pre_mentions_data = self.cur.fetchone()
                     #
-                    # if (None != pre_pl) and (None != pre_bs) and (None != pre_cf):  # 결과값이 있다면,
-                    #     # date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                    #     # with open("./quarterly_error_list_" + time.strftime("%Y-%m-%d",
-                    #     #           time.localtime(time.time())) + ".txt", "a", encoding="UTF-8") as f:
-                    #     #     f.write(date_time + "_" + company["단축코드"] + "_" + company["한글 종목약명"] + "\n")
-                    #     #     f.write("이미 해당 데이터가 존재합니다. \n")
-                    #     # 목록에서 제외
-                    #     # index = self.kospi_list.loc[(self.kospi_list["단축코드"] == company["단축코드"])].index
-                    #     # self.kospi_list = self.kospi_list.drop(index)
-                    #     # self.kospi_list.to_excel("C:/Users/kai/Desktop/quarterly_data_list_" + self.quarter + ".xlsx",
-                    #     #                          index=False)
-                    #     break
+                    d1 = datetime.datetime(int(self.start_date_arr[0]), int(self.start_date_arr[1]), int(self.start_date_arr[2]))
+                    d2 = datetime.datetime(int(self.end_date_arr[0]), int(self.end_date_arr[1]), int(self.end_date_arr[2]))
+                    day_count = (d2-d1).days+1
 
+                    self.cur.execute(
+                        "select id from stock_pos_neg_words where code_id='" + company["code"] + "'" + \
+                        "   and (term_type='"+self.term_type+"' and term_start='" + self.start_date + "' and term_end='" + self.end_date + "')"
+                    )
+                    pre_pos_neg_data = self.cur.fetchone()
+                    self.cur.execute(
+                        "select id from stock_connection_words where code_id='" + company["code"] + "'" + \
+                        "   and (term_type='"+self.term_type+"' and term_start='" + self.start_date + "' and term_end='" + self.end_date + "')"
+                    )
+                    pre_connection_data = self.cur.fetchone()
 
+                    if (pre_mentions_data[0] == day_count) & (pre_pos_neg_data != None) & (pre_connection_data != None):
+                        break
+                except Exception as e:
+                    date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+                    with open(constant.error_file_path + "/social_keyword_error_list_" +
+                              time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt", "a",
+                              encoding="UTF-8") as f:
+                        f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
+                        f.write(traceback.format_exc())
+                    continue
+
+                try:
                     # 분석 단어 입력
-                    temp_button = self.driver.find_element_by_xpath(
+                    self.click_element(
                         "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-input-box')]"
-                        "/div[@id='searchInputArea']/div[contains(@class,'input-keyword')]/button"
-                    ).click()#요소 클릭 안 먹음.
-                    # self.driver.execute_script("arguments[0].click();", temp_button)
+                        "/div[@id='searchInputArea']/div[contains(@class,'input-keyword')]/button", 2
+                    )
+                    self.click_element(
+                        "//div[@id='analysisOptionWindowArea']//div[contains(@class,'modal-search-body')]"
+                        "/div[contains(@class,'btn-box')]/button", 1
+                    )
                     search_keyword = self.driver.find_element_by_xpath(
                         "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-input-box')]"
                         "/div[@id='analysisSearchModal']/div[@id='analysisOptionWindowArea']"
                         "//div[contains(@class,'modal-search-header')]/div/input"
                     )
-                    search_keyword.send_keys("")
-                    time.sleep(random.uniform(0,1))
                     search_keyword.send_keys(company["name"])
-                    time.sleep(random.uniform(0, 1))
+                    time.sleep(random.uniform(1, 2))
 
-                    # 동의어, 포함어, 제외어 입력
-                    # ~~~~~
+                    # 동의어, 포함어, 제외어 입력.
+                    equal_keyword_list = \
+                    self.keyword_list[self.keyword_list["code_id"] == company["code"]]["equal_keyword_list"].iloc[0]
+                    include_keyword_list = \
+                    self.keyword_list[self.keyword_list["code_id"] == company["code"]]["include_keyword_list"].iloc[0]
+                    exclude_keyword_list = self.keyword_list[self.keyword_list["code_id"] == company["code"]][
+                        "exclude_keyword_list"].iloc[0]
+
+                    for keyword in equal_keyword_list.split("\\"):
+                        keyword
+
+                    for keyword in include_keyword_list.split("\\"):
+                        keyword
+
+                    for keyword in exclude_keyword_list.split("\\"):
+                        keyword
 
 
-                    # 기간 입력
-
-
-                    temp_button = self.driver.find_element_by_xpath(
+                    # 검색 버튼 클릭
+                    self.click_element(
                         "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-input-box')]"
                         "/div[@id='analysisSearchModal']/div[contains(@class,'modal-search-footer')]"
-                        "//button[@id='analysisSubmitButton']"
+                        "//button[@id='analysisSubmitButton']", 3
                     )
-                    self.driver.execute_script("arguments[0].click();", temp_button)
 
-
-
-
-
-
-
-                    # 엑셀 다운.
-
-                    button = self.driver.find_element_by_xpath(
-                        "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]"
-                        "//div[@id='info-list']//div[contains(@class,'search-company-info-view')]"
-                        "/div[contains(@class,'company-info-header')]/a"
+                    # 기간 입력
+                    self.click_element(
+                        "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-option-box')]"
+                        "//div[@id='inputCalendar']/label", 1
                     )
-                    self.driver.execute_script("arguments[0].click();", button)
-                    time.sleep(random.uniform(self.motion_term + 5, self.motion_term + 6))
+                    # 시작일 선택
+                    calender_xpath = "//body/div[contains(@class,'daterangepicker')]/div[contains(@class,'left')]" \
+                                     "//div[contains(@class,'calendar-table')]"
+                    (
+                        calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]/select[contains(@class,'yearselect')]",
+                        1
+                    )
+                    self.click_element(
+                        calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]"
+                                         "/select[contains(@class,'yearselect')]/option[contains(@value,'" +
+                        self.start_date.split("-")[0] + "')]", 1
+                    )
 
-                    # 재무정보
-                    button = self.driver.find_element_by_xpath(
-                        "//div[@id='tabs']//a[contains(text(),'재무 정보')]")
-                    self.driver.execute_script("arguments[0].click();", button)
-                    time.sleep(random.uniform(self.motion_term + 6, self.motion_term + 7))
+                    self.click_element(
+                        calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]"
+                                         "/select[contains(@class,'monthselect')]",2
+                    )
+                    self.click_element(
+                        calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]"
+                                         "/select[contains(@class,'monthselect')]/option[contains(@value,'" +
+                        str(int(self.start_date.split("-")[1]) - 1) + "')]",1
+                    )
 
-                    quarterly_data_exist = False
+                    self.click_element(
+                        calender_xpath + "//tbody//td[not(contains(@class,'off')) and contains(text()," +
+                        str(int(self.start_date.split("-")[2])) + ")]", 1
+                    )
 
-                    # 포괄손익계산서, 재무상태표, 현금흐름표
-                    for i1 in range(3, 4):
-                        # 연간,분기 선택
-                        button = self.driver.find_element_by_xpath(
-                            "//div[@id='income-statement']//div[contains(@class,'header-text')]//div[contains(@class,'options')]/div[1]/div"
+                    # 종료일 선택
+                    calender_xpath = "//body/div[contains(@class,'daterangepicker')]/div[contains(@class,'right')]" \
+                                     "//div[contains(@class,'calendar-table')]"
+                    self.click_element(
+                        calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]/select[contains(@class,'yearselect')]", 1
+                    )
+                    self.click_element(
+                        calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]"
+                                         "/select[contains(@class,'yearselect')]/option[contains(@value,'" +
+                        self.end_date.split("-")[0] + "')]",2
+                    )
+
+                    self.click_element(
+                        calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]"
+                                         "/select[contains(@class,'monthselect')]", 1
+                    )
+                    self.click_element(
+                        calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]"
+                                         "/select[contains(@class,'monthselect')]/option[contains(@value,'" +
+                        str(int(self.end_date.split("-")[1]) - 1) + "')]", 1
+                    )
+
+                    self.click_element(
+                        calender_xpath + "//tbody//td[not(contains(@class,'off')) and contains(text()," +
+                        str(int(self.end_date.split("-")[2])) + ")]", 1
+                    )
+
+                    # 소셜 종류 선택
+                    social_list_count = self.driver.find_elements_by_xpath(
+                        "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-option-box')]"
+                        "//ul[@id='channelCheckBoxUl']/li"
+                    )
+                    for social_type_index in range(1, len(social_list_count)+1):
+                        social_type = self.driver.find_element_by_xpath(
+                            "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-option-box')]"
+                            "//ul[@id='channelCheckBoxUl']/li["+str(social_type_index)+"]//input[@type='checkbox']"
                         )
-                        self.driver.execute_script("arguments[0].click();", button)
-                        # time.sleep(random.uniform(self.motion_term + 10, self.motion_term + 11))
-                        time.sleep(random.uniform(self.motion_term, self.motion_term + 1))
-                        button = self.driver.find_element_by_xpath(
-                            "//div[@id='root']/div/div[contains(@class,'deepsesarch-dropdown-items')]/div[" + str(
-                                i1) + "]"
+                        if social_type.is_selected() == False:
+                            # social_type.click()
+                            self.driver.execute_script("arguments[0].click();", social_type)
+                            time.sleep(random.uniform(0, 1))
+                    temp_button = self.driver.find_element_by_xpath(
+                        "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-option-box')]"
+                        "//button[@id='searchConditionApplyButton']"
+                    )
+                    if temp_button.get_attribute("disabled") != "true":
+                        self.click_element(
+                            "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-option-box')]"
+                            "//button[@id='searchConditionApplyButton']", 2
                         )
-                        data_term = button.find_element_by_xpath("./div").text
-                        self.driver.execute_script("arguments[0].click();", button)
-                        # time.sleep(random.uniform(self.motion_term + 17, self.motion_term + 18))
-                        time.sleep(random.uniform(self.motion_term+4, self.motion_term + 5))
 
-                        for i2 in range(1, 2):
-                            # 연결,개별 선택
-                            button = self.driver.find_element_by_xpath(
-                                "//div[@id='income-statement']//div[contains(@class,'header-text')]//div[contains(@class,'options')]"
-                                "/div[contains(@class,'option')][2]/div[contains(@class,'dropdown-selected')]"
-                            )
-                            self.driver.execute_script("arguments[0].click();", button)
-                            # time.sleep(random.uniform(self.motion_term + 15, self.motion_term + 16))
-                            time.sleep(random.uniform(self.motion_term, self.motion_term+1))
-                            button = self.driver.find_element_by_xpath(
-                                "//div[@id='root']/div/div[contains(@class,'deepsesarch-dropdown-items')]/div[" + str(
-                                    i2) + "]"
-                            )
-                            data_type = button.find_element_by_xpath(
-                                "//div[@id='root']/div/div[contains(@class,'deepsesarch-dropdown-items')]/div[" + str(
-                                    i2) + "]"
-                            ).text
-                            self.driver.execute_script("arguments[0].click();", button)
-                            time.sleep(random.uniform(self.motion_term + 20, self.motion_term + 21))
+                    # 언급량 메뉴 선택
+                    self.click_element(
+                        "//body/div[contains(@class,'layout-left')]//div[contains(@class,'lnb-wrap-banner')]/nav/ul/li[1]"
+                        "/ul//a[contains(text(),'언급량 분석')]",2
+                    )
+                    try:
+                        temp_button = WebDriverWait(self.driver, 3).until(
+                            EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
+                            "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
+                        ).click()
+                    except Exception as e:
+                        pass
 
-                            # 분기데이터 존재하는지 확인.
-                            # self.driver.find_element_by_xpath(
-                            #     "//div[@id='income-statement']//div[contains(@class,'table-container')]"
-                            #     "//div[contains(@class,'react-table-layout')]//div[contains(@class,'rt-table')]"
-                            #     "//div[contains(@class,'rt-thead')]//div[contains(@class,'rt-resizable-header-content')
-                            #     and contains(text(),'" + date + "')]")
-                            last_quarter_column = self.driver.find_element_by_xpath(
-                                "//div[@id='income-statement']//div[contains(@class,'table-container')]"
-                                "//div[contains(@class,'react-table-layout')]//div[contains(@class,'rt-table')]"
-                                "//div[contains(@class,'rt-thead')]//div[contains(@class,'rt-resizable-header')][last()]"
-                                "/div[contains(@class,'rt-resizable-header-content')]"
-                            )
-                            if date in last_quarter_column.text:
-                                quarterly_data_exist = True
-                            else:
-                                search_result = False
-                                break
+                    # 데이터 없는 경우 처리
+                    time.sleep(random.uniform(2, 3))
+                    no_data_section = self.driver.find_element_by_xpath("//section[@id='noDataArea']")
+                    if "display" not in no_data_section.get_attribute("style"):
+                        date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+                        with open(constant.error_file_path + "/social_keyword_error_list_" +
+                                  time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt", "a",
+                                  encoding="UTF-8") as f:
+                            f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
+                            f.write(traceback.format_exc())
+                        break
 
-                            # 딥서치 사이트 기업명 확인
-                            stock_name = self.driver.find_element_by_xpath(
-                                "//div[@id='drawer-content-layout']//div[@id='content-navigation']//div[@id='overview']"
-                                "//div[contains(@class,'ds')]/div[contains(@class,'header-text')]//div[contains(@class,'left')]"
-                                "//span[contains(@class,'name')]"
-                            ).text
+                    # 언급량 엑셀 다운.
+                    WebDriverWait(self.driver, 60).until(
+                        EC.visibility_of_element_located((By.XPATH, "//input[@id='D-sensibility']/following-sibling::label"))
+                    )
+                    time.sleep(random.uniform(1, 2))
+                    temp_button = self.driver.find_element_by_xpath( "//input[@id='D-sensibility']" )
+                    if temp_button.is_selected() == False:
+                        self.click_element("//input[@id='D-sensibility']", 1)
+                    WebDriverWait(self.driver, 60).until(
+                        EC.visibility_of_element_located((By.XPATH, "//button[@id='mentionExcelDownloadButton']"))
+                    )
+                    time.sleep(random.uniform(1, 2))
+                    if os.path.isfile(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_언급량_"+
+                             self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx"):
+                        os.remove(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_언급량_"+
+                             self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx")
+                    self.click_element("//button[@id='mentionExcelDownloadButton']", 2)
 
-                            #   포괄손익계산서 다운
-                            button = self.driver.find_element_by_xpath(
-                                "//div[@id='income-statement']//div[contains(@class,'table-container')]"
-                                "//span[@class='table-export-button']")
-                            self.driver.execute_script("arguments[0].click();", button)
-                            time.sleep(random.uniform(self.motion_term + 3, self.motion_term + 4))
-                            if os.path.isfile(constant.download_path+"/" + str(company["name"]) + "-포괄손익계산서-" +
-                                              data_term + "_" + data_type + ".xlsx"):
-                                os.remove(constant.download_path+"/" + str(company["name"]) + "-포괄손익계산서-" +
-                                          data_term + "_" + data_type + ".xlsx")
-                            os.rename(
-                                constant.download_path+"/DeepSearch-" + stock_name + "-포괄손익계산서Table-Export.xlsx",
-                                constant.download_path+"/" + str(
-                                    company["name"]) + "-포괄손익계산서-" + data_term + "_" + data_type + ".xlsx")
+                    # 연관어 분석 메뉴 선택
+                    self.click_element(
+                        "//body/div[contains(@class,'layout-left')]//div[contains(@class,'lnb-wrap-banner')]/nav/ul/li[1]"
+                        "/ul//a[contains(text(),'연관어 분석')]", 1
+                    )
+                    try:
+                        temp_button = WebDriverWait(self.driver, 3).until(
+                            EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
+                            "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
+                        ).click()
+                    except Exception as e:
+                        pass
+                    # 연관어 엑셀 다운
+                    WebDriverWait(self.driver, 60).until(
+                        EC.visibility_of_element_located((By.XPATH, "//input[@id='W-sensibility']/following-sibling::label"))
+                    )
+                    time.sleep(random.uniform(1, 2))
+                    temp_button = self.driver.find_element_by_xpath("//input[@id='W-sensibility']")
+                    if temp_button.is_selected() == False:
+                        self.click_element("//input[@id='W-sensibility']", 1)
+                    WebDriverWait(self.driver, 60).until(
+                        EC.visibility_of_element_located((By.XPATH,
+                            "//div[@id='rankingChangeListForAssociationVskeleton']/div[contains(@class,'layout-card-header')]"
+                            "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]"))
+                    )
+                    time.sleep(random.uniform(1, 2))
+                    # 기존 파일 있을시 삭제.
+                    if os.path.isfile(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_연관어 순위 변화_"+
+                             self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx"):
+                        os.remove(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_연관어 순위 변화_"+
+                             self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx")
+                    self.click_element(
+                        "//div[@id='rankingChangeListForAssociationVskeleton']/div[contains(@class,'layout-card-header')]"
+                        "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]", 2
+                    )
 
-                            #   재무상태표 다운
-                            if i1 != 2:
-                                button = self.driver.find_element_by_xpath(
-                                    "//div[@id='balance-statements']//div[contains(@class,'table-container')]//span[@class='table-export-button']"
-                                )
-                                self.driver.execute_script("arguments[0].click();", button)
-                                time.sleep(random.uniform(self.motion_term + 3, self.motion_term + 4))
+                    # 긍,부정어 분석 메뉴 선택
+                    self.click_element(
+                        "//body/div[contains(@class,'layout-left')]//div[contains(@class,'lnb-wrap-banner')]/nav/ul/li[1]"
+                        "/ul//a[contains(text(),'긍 · 부정 분석')]", 1
+                    )
+                    try:
+                        temp_button = WebDriverWait(self.driver, 3).until(
+                            EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
+                            "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
+                        ).click()
+                    except Exception as e:
+                        pass
+                    # 긍,부정어 엑셀 다운
+                    WebDriverWait(self.driver, 60).until(
+                        EC.visibility_of_element_located((By.XPATH, "//input[@id='W-sensibility01']/following-sibling::label"))
+                    )
+                    time.sleep(random.uniform(1, 2))
+                    temp_button = self.driver.find_element_by_xpath("//input[@id='W-sensibility01']")
+                    if temp_button.is_selected() == False:
+                        self.click_element("//input[@id='W-sensibility01']", 1)
+                    WebDriverWait(self.driver, 60).until(
+                        EC.visibility_of_element_located((By.XPATH,
+                          "//div[@id='changeRankListVskeleton']/div[contains(@class,'layout-card-header')]"
+                          "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]"
+                          ))
+                    )
+                    time.sleep(random.uniform(1, 2))
+                    # 기존 파일 있을시 삭제.
+                    if os.path.isfile(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_긍부정 단어 순위 변화_"+
+                             self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx"):
+                        os.remove(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_긍부정 단어 순위 변화_"+
+                             self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx")
+                    self.click_element(
+                        "//div[@id='changeRankListVskeleton']/div[contains(@class,'layout-card-header')]"
+                        "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]",
+                        2
+                    )
 
-                                if os.path.isfile(constant.download_path+"/" + str(
-                                        company["name"]) + "-재무상태표-" + data_term + "_" + data_type + ".xlsx"):
-                                    os.remove(constant.download_path+"/" + str(
-                                        company["name"]) + "-재무상태표-" + data_term + "_" + data_type + ".xlsx")
-                                os.rename(constant.download_path+"/DeepSearch-" + stock_name + "-재무상태표Table-Export.xlsx",
-                                          constant.download_path+"/" + str(
-                                              company["name"]) + "-재무상태표-" + data_term + "_" + data_type + ".xlsx")
-                            #   현금흐릅표 다운
-                            button = self.driver.find_element_by_xpath(
-                                "//div[@id='cashflow-statements']//div[contains(@class,'table-container')]//span[@class='table-export-button']"
-                            )
-                            self.driver.execute_script("arguments[0].click();", button)
-                            time.sleep(random.uniform(self.motion_term + 3, self.motion_term + 4))
-                            if os.path.isfile(constant.download_path+"/" + str(
-                                    company["name"]) + "-현금흐름표-" + data_term + "_" + data_type + ".xlsx"):
-                                os.remove(constant.download_path+"/" + str(
-                                    company["name"]) + "-현금흐름표-" + data_term + "_" + data_type + ".xlsx")
-                            os.rename(
-                                constant.download_path+"/DeepSearch-" + stock_name + "-현금흐름표Table-Export.xlsx",
-                                constant.download_path+"/" + str(
-                                    company["name"]) + "-현금흐름표-" + data_term + "_" + data_type + ".xlsx")
+                    # db 저장
+                    self.store_data(company)
 
-                    if quarterly_data_exist == True:
-                        # 분기 데이터 엑셀에서 추출하여 저장
-                        # 포괄손익계산서
-                        pl = pd.read_excel(constant.download_path+"/" + company["name"] + "-포괄손익계산서-분기(3개월)_연결.xlsx")
-                        # 재무상태표
-                        bs = pd.read_excel(constant.download_path+"/" + company["name"] + "-재무상태표-분기(3개월)_연결.xlsx")
-                        # 현금흐름표
-                        cf = pd.read_excel(constant.download_path+"/" + company["name"] + "-현금흐름표-분기(3개월)_연결.xlsx")
+                    # 스크래핑 수행한 종목 개수 카운트.
+                    item_count = item_count + 1
+                    # 목표 스크래핑 개수를 마치면 종료.
+                    if item_count == self.scraping_count_goal:
+                        return
+                    if item_count % 30 == 0:
+                        self.driver.quit()
+                        self.initial_setting()
 
-                        # db에 저장.
-                        self.cur.execute("select corp_code from stocks_basic_info where code='" + company["code"] + "' ")
-                        corp_code = self.cur.fetchone()[0]
-
-                        insert_sql = ""
-                        insert_sql = self.store_quarterly_data(company, pl, "포괄손익계산서", date, corp_code)
-                        insert_sql = insert_sql + ", "+self.store_quarterly_data(company, bs, "재무상태표", date, corp_code)
-                        insert_sql = insert_sql + ", "+self.store_quarterly_data(company, cf, "현금흐름표", date, corp_code)
-
-                        self.cur.execute("INSERT INTO stock_financial_statement ("
-                                         "created_at, updated_at, corp_code, business_year, business_month, this_term_name, "
-                                         "subject_name, account_id, account_name, "
-                                         "account_level, this_term_amount, ordering, code_id) "
-                                         "VALUES " + insert_sql)
-                        self.db.commit()
+                    break
 
                 except NoSuchWindowException as e:
                     self.driver.quit()
@@ -296,80 +384,234 @@ class SocialKeywordSpider(scrapy.Spider):
 
                     # 에러 정보 저장.
                     date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                    with open(constant.error_file_path+"/quarterly_error_list_"+time.strftime("%Y-%m-%d", time.localtime(time.time()))+".txt", "a", encoding="UTF-8") as f:
+                    with open(constant.error_file_path+"/social_keyword_error_list_"+
+                              time.strftime("%Y-%m-%d", time.localtime(time.time()))+".txt", "a", encoding="UTF-8") as f:
                         f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
                         f.write(traceback.format_exc())
                     continue
                 except Exception as e:
                     date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
                     with open(
-                            constant.error_file_path+"/quarterly_error_list_" + time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt",
+                            constant.error_file_path+"/social_keyword_error_list_" + time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt",
                             "a", encoding="UTF-8") as f:
                         f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
                         f.write(traceback.format_exc())
                     continue
-                # 성공시 다음 종목 스크래핑 수행.
-                # else:
-                    # if quarterly_data_exist == True:
-                    #     # 분기 데이터 추출 성공항 종목은 csv파일에서 제외.
-                    #     index = self.kospi_list.loc[(self.kospi_list["단축코드"] == company["단축코드"])].index
-                    #     self.kospi_list = self.kospi_list.drop(index)
-                    #     self.kospi_list.to_excel("C:/Users/kai/Desktop/quarterly_data_list_"+self.quarter+".xlsx",index=False)
-                    #     # 성공 목록에 추가.
-                    #     # quarterly_complete_list = quarterly_complete_list.append({"단축코드":company["단축코드"], "한글 종목약명":company["한글 종목약명"]}, ignore_index=True)
-                    #     # quarterly_complete_list.to_excel("./quarterly_complete_list_"+self.quarter+".xlsx", index=False)
-                    #     break;
-                finally:
-                    item_count = item_count + 1
-                    if item_count % 30 == 0:
-                        self.driver.quit()
-                        self.initial_setting()
 
 
-    def store_quarterly_data(self, company, df, subject_name, date, corp_code):
-        # 해당 파일에 대한 데이터 존재하는지 확인.
-        self.cur.execute("select * from stock_financial_statement "
-                         "where code_id='" + str(company["code"]) + "' and this_term_name='" + date + "' "
-                         "and subject_name='"+subject_name+"'")
-        if None != self.cur.fetchone(): # 이미 해당 데이터가ㅓ 존재한다면,
-            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-            with open(constant.error_file_path+"/quarterly_error_list_" + time.strftime("%Y-%m-%d",
-                      time.localtime(time.time())) + ".txt", "a", encoding="UTF-8") as f:
-                f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
-                f.write(subject_name+"가 이미 존재합니다. \n")
-            return ""
+    def store_data(self, company, ):
 
-        # dataframe의 컬럼명 변경.
-        df.columns = df.loc[0]
-        df = df.drop([0])
+        # 엑셀 데이터를 dataframe으로 가공
+        mention_count_df = pd.read_excel(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_언급량_"+
+                             self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx")
+        pos_neg_words_df = pd.read_excel(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_긍부정 단어 순위 변화_"+
+                             self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx")
+        connection_words_df = pd.read_excel(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_연관어 순위 변화_"+
+                             self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx")
+
+        first_index = mention_count_df[mention_count_df[mention_count_df.columns[0]]=="날짜"].index
+        mention_count_df.columns = mention_count_df.loc[first_index[0]]
+        mention_count_df = mention_count_df.loc[first_index[0]+1:]
+
+        first_index = pos_neg_words_df[pos_neg_words_df[pos_neg_words_df.columns[0]] == "순위"].index-1
+        pos_neg_words_df.columns = pos_neg_words_df.loc[first_index[0]]
+        pos_neg_words_df = pos_neg_words_df.loc[first_index[0] + 1:]
+
+        first_index = connection_words_df[connection_words_df[connection_words_df.columns[0]] == "순위"].index - 1
+        connection_words_df.columns = connection_words_df.loc[first_index[0]]
+        connection_words_df = connection_words_df.loc[first_index[0] + 1:]
+
+        # 언급량 데이터에 대해 해당 종목, 기간 단위, 기간에 대해 기존 데이터가 있을 경우 삭제
+        self.cur.execute(
+            "delete from stock_mention_counts where code_id='"+company["code"]+"'"+\
+            "   and ( (term_type='D' and term_start <= '"+self.end_date+"' and term_start >= '"+self.start_date+"') "+\
+            "           )"
+        )
+        self.db.commit()
+
+        # 언급량 데이터 저장
         insert_sql = ""
-        for row in df.index:  # 엑셀 파일의 row들에 대해 반복.
-            # this_term_amount
-            amount = df.loc[row][date]
-            if np.isnan(df.loc[row][date]):
-                amount = 'null'
-            # account_name
-            account_name = df.loc[row]["계정명"].replace(" ", "")
-            lv = int(df.loc[row]["LV"])
-            row_sub_count = 1
-            while lv != 0:
-                if lv - 1 != int(df.loc[row - row_sub_count]["LV"]):
-                    row_sub_count = row_sub_count + 1
-                    continue
-                lv = int(df.loc[row - row_sub_count]["LV"])
-                account_name = df.loc[row - row_sub_count]["계정명"].replace(" ", "") + "_" + account_name
-                row_sub_count = row_sub_count + 1
-
-            sql_value = ("(" +
-                 "'" + str(datetime.datetime.now(datetime.timezone.utc)) + "', '" + str(datetime.datetime.now(datetime.timezone.utc)) + "', " +
-                 "'" + corp_code + "', '" + date.split("-")[0] + "', '" + date.split("-")[1] + "', '" + date + "', '" + subject_name + "', " +
-                 "'" + str(df.loc[row]["account_id"]) + "', '" + account_name + "', '" + str(
-                df.loc[row]["LV"]) + "', " +
-                 "" + str(amount) + ", '" + str(df.loc[row]["LV"]) + "', '" + str(company["code"]) + "')")
-            insert_sql = insert_sql + ", " + sql_value
+        for index, row in mention_count_df.iterrows():
+            insert_sql = insert_sql + ", " +\
+                "( '"+str(datetime.datetime.now(datetime.timezone.utc))+"', "+\
+                "'"+str(datetime.datetime.now(datetime.timezone.utc))+"', "+\
+                "'"+company["corp_code"]+"', 'D', '"+row["날짜"].replace(".", "-")+"', '"+row["날짜"].replace(".", "-")+"',"+\
+                str(row["커뮤니티"])+", "+str(row["인스타그램"])+", "+\
+                ""+str(row["블로그"])+", "+str(row["뉴스"])+", "+str(row["트위터"])+", "+str(row["합계"])+", '"+company["code"]+"' )"
 
         insert_sql = insert_sql[1:]
-        return insert_sql
+        try:
+            self.cur.execute(
+                "insert into stock_mention_counts "
+                "   ( created_at, updated_at, corp_code, term_type, term_start, term_end, community_count, insta_count, "
+                "       blog_count, news_count, twitter_count, count_sum, code_id) "
+                "values "+insert_sql
+            )
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+            with open(
+                    constant.error_file_path + "/social_keyword_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
+                        time.time())) + ".txt",
+                    "a", encoding="UTF-8") as f:
+                f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
+                f.write(traceback.format_exc())
+
+
+        # 긍, 부정 데이터 기존 데이터 삭제.
+        self.cur.execute(
+            "delete from stock_pos_neg_words where code_id='" + company["code"] + "'" + \
+            "   and ( (term_type='W' and term_end <= '" + self.end_date + "' and term_start >= '" + self.start_date + "') " + \
+            "           or (term_type='"+self.term_type+"' and term_start='" + self.start_date + "' and term_end='" + self.end_date + "'))"
+        )
+        self.db.commit()
+
+        # 긍 부정 데이터 저장. 
+        columns_index_list = []
+        for i in range(pos_neg_words_df.columns.size):
+            if re.search(r"\d{4}.\d{2}.\d{2}~\d{4}.\d{2}.\d{2}", str(pos_neg_words_df.columns[i])) != None:
+                columns_index_list.append(i)
+
+        # 스크래핑 대상 기간이 주 단위일 경우, 엑셀상에 같은 주 대상 데이터가 두 개 나오므로 하나 날림.
+        if self.term_type == "W":
+            columns_index_list = columns_index_list[1:]
+
+        insert_sql = ""
+        for column_index in columns_index_list:
+            # 한 주에 대한 dataframe 가공.
+            week_list = pos_neg_words_df.take([column_index, column_index+1, column_index+2, column_index+3], axis=1)
+            week_list = week_list.reset_index(drop=True)
+            week_list.columns = week_list.iloc[0]
+            week_list = week_list.drop([0])
+            week_list = week_list.dropna()
+
+            last_term = self.start_date.split("-")[0]+"."+self.start_date.split("-")[1]+"."+\
+                        self.start_date.split("-")[2]+ "~"+\
+                        self.end_date.split("-")[0] + "." + self.end_date.split("-")[1] + "." + \
+                        self.end_date.split("-")[2]
+
+            term_type = "W"
+            term_start = pos_neg_words_df.columns[column_index].split("~")[0].replace(".", "-")
+            term_end = pos_neg_words_df.columns[column_index].split("~")[1].replace(".", "-")
+
+            if pos_neg_words_df.columns[column_index] == last_term:
+                term_type = self.term_type
+
+            # 데이터 insert sql 작성.
+            for index, row in week_list.iterrows():
+                pos_neg =""
+                if row["긍부정 구분"] == "부정":
+                    pos_neg = "NEG"
+                elif row["긍부정 구분"] == "긍정":
+                    pos_neg = "POS"
+                elif row["긍부정 구분"] == "중립":
+                    pos_neg = "NEU"
+
+                insert_sql = insert_sql + ", " +\
+                    "( '" + str(datetime.datetime.now(datetime.timezone.utc)) + "', "+\
+                    "'" + str(datetime.datetime.now(datetime.timezone.utc)) + "', " +\
+                    "'" + company["corp_code"] + "', '" + term_type + "', '" + term_start + "', '" + term_end+"', "+\
+                    "'"+row["긍부정 단어"] + "', " +str(row["건수"]) + ", " + \
+                    "" + str(index) + ", '" + pos_neg + "', '" + row["속성"] + "', '" + company["code"] + "')"
+
+        insert_sql = insert_sql[1:]
+        try:
+            self.cur.execute(
+                "insert into stock_pos_neg_words"
+                "       (created_at, updated_at, corp_code, term_type, term_start, term_end, word, word_count, "
+                "           rank, pos_neg, property, code_id) "
+                "values "+insert_sql
+            )
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+            with open(
+                    constant.error_file_path + "/social_keyword_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
+                        time.time())) + ".txt",
+                    "a", encoding="UTF-8") as f:
+                f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
+                f.write(traceback.format_exc())
+
+        # 연관어 기존 데이터 삭제
+        self.cur.execute(
+            "delete from stock_connection_words where code_id='" + company["code"] + "'" + \
+            "   and ( (term_type='W' and term_end <= '" + self.end_date + "' and term_start >= '" + self.start_date + "') " + \
+            "           or (term_type='"+self.term_type+"' and term_start='" + self.start_date + "' and term_end='" + self.end_date + "'))"
+        )
+        self.db.commit()
+
+        # 연관어 저장.
+        columns_index_list = []
+        for i in range(connection_words_df.columns.size):
+            if re.search(r"\d{4}.\d{2}.\d{2}~\d{4}.\d{2}.\d{2}", str(connection_words_df.columns[i])) != None:
+                columns_index_list.append(i)
+
+        # 스크래핑 대상 기간이 주 단위일 경우, 엑셀상에 같은 주 대상 데이터가 두 개 나오므로 하나 날림.
+        if self.term_type == "W":
+            columns_index_list = columns_index_list[1:]
+
+        insert_sql = ""
+        for column_index in columns_index_list:
+            # 한 주에 대한 dataframe 가공.
+            week_list = connection_words_df.take([column_index, column_index + 1, column_index + 2, column_index + 3],
+                                              axis=1)
+            week_list = week_list.reset_index(drop=True)
+            week_list.columns = week_list.iloc[0]
+            week_list = week_list.drop([0])
+            week_list = week_list.dropna()
+
+            last_term = self.start_date.split("-")[0] + "." + self.start_date.split("-")[1] + "." + \
+                        self.start_date.split("-")[2] + "~" + \
+                        self.end_date.split("-")[0] + "." + self.end_date.split("-")[1] + "." + \
+                        self.end_date.split("-")[2]
+
+            term_type = "W"
+            term_start = connection_words_df.columns[column_index].split("~")[0].replace(".", "-")
+            term_end = connection_words_df.columns[column_index].split("~")[1].replace(".", "-")
+
+            if connection_words_df.columns[column_index] == last_term:
+                term_type = self.term_type
+
+            # 데이터 insert sql 작성.
+            for index, row in week_list.iterrows():
+                insert_sql = insert_sql + ", " + \
+                             "( '" + str(datetime.datetime.now(datetime.timezone.utc)) + "', " + \
+                             "'" + str(datetime.datetime.now(datetime.timezone.utc)) + "', " + \
+                             "'" + company["corp_code"] + "', '" + term_type + "', '" + term_start + "', '" +term_end+"', "+\
+                             "'"+row["연관어"] + "', " + str(row["건수"]) + ", " + \
+                             "" + str(index) + ", '" + row["카테고리 대분류"] + "', '" + row["카테고리 소분류"] + \
+                             "', '" + company["code"] + "')"
+
+        insert_sql = insert_sql[1:]
+        try:
+            self.cur.execute(
+                "insert into stock_connection_words"
+                "       (created_at, updated_at, corp_code, term_type, term_start, term_end, word, word_count, "
+                "           rank, category1, category2, code_id) "
+                "values "+insert_sql
+            )
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+            with open(
+                    constant.error_file_path + "/social_keyword_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
+                        time.time())) + ".txt",
+                    "a", encoding="UTF-8") as f:
+                f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
+                f.write(traceback.format_exc())
+
+    def click_element(self, xpath, wait_time):
+        button = self.driver.find_element_by_xpath(xpath)
+        try:
+            button.click()
+        except ElementNotInteractableException as e:
+            self.driver.execute_script("arguments[0].click();", button)
+        # except Exception as e:
+        #     self.driver.execute_script("arguments[0].click();", button)
+        time.sleep(random.uniform(wait_time, wait_time+1))
 
     def initial_setting(self):
         for i in range(10):
@@ -384,8 +626,10 @@ class SocialKeywordSpider(scrapy.Spider):
                     "plugins.always_open_pdf_externally": True
                 })
                 self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)
+                self.driver.set_window_position(1000,0)
                 self.driver.get('https://some.co.kr/')
-                self.driver.implicitly_wait(30)
+                self.driver.implicitly_wait(5)
+                self.click_wait = WebDriverWait(self.driver, 60)
                 time.sleep(random.uniform(1, 2))
 
                 # self.initial_setting()
@@ -396,11 +640,7 @@ class SocialKeywordSpider(scrapy.Spider):
                     "//footer/div[contains(@class,'popup_banner_container')]"
                 )
                 if "none" not in popup.get_attribute("style"):
-                    temp_button = self.driver.find_element_by_xpath(
-                        "//footer/div[contains(@class,'popup_banner_container')]/aside/ul/li[1]/a"
-                    )
-                    self.driver.execute_script("arguments[0].click();", temp_button)
-                    time.sleep(random.uniform(1, 2))
+                    self.click_element("//footer/div[contains(@class,'popup_banner_container')]/aside/ul/li[1]/a", 1)
 
                 #   로그인
                 temp_button = self.driver.find_element_by_xpath(
@@ -433,6 +673,15 @@ class SocialKeywordSpider(scrapy.Spider):
                 )
                 self.driver.execute_script("arguments[0].click();", temp_button)
                 time.sleep(random.uniform(2, 3))
+
+                # 설명 팝업 확인 및 처리
+                try:
+                    temp_button = WebDriverWait(self.driver, 5).until(
+                        EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
+                        "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
+                    ).click()
+                except Exception as e:
+                    pass
 
             except Exception as e:
                 date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))

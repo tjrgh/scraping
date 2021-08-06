@@ -41,13 +41,15 @@ if __name__ == '__main__':
     import re
     import schedule_job
 
+
     # cmdline.execute("scrapy crawl korean_daily_finance_spider -a quarter=2021-06-30".split())
     # cmdline.execute("scrapy crawl noname".split())
     # cmdline.execute("scrapy crawl report_spider".split())
     # cmdline.execute("scrapy crawl notice_spider".split())
     # cmdline.execute("scrapy crawl sector_spider".split())
     # cmdline.execute("scrapy crawl theme_spider -a target_term=2020-12-31 -a pre_target_term=2019-12-31".split())
-    # cmdline.execute("scrapy crawl social_keyword_spider".split())
+    # cmdline.execute("scrapy crawl social_keyword_spider -a start_date=2021-03-31 -a end_date=2021-06-30 -a term_type=Q "
+    #                 "-a scraping_count_goal=30".split())
 
     # 분기 데이터 스크래핑 스케줄러.
     from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
@@ -64,33 +66,19 @@ if __name__ == '__main__':
         process = multiprocessing.Process(target=schedule_job.daily_check)
         process.start()
         process.join()
+    def create_social_keyword_scraping_process():
+        print("create_social_keyword_scraping_process")
+        process = multiprocessing.Process(target=schedule_job.social_keyword_scraping)
+        process.start()
+        process.join()
 
     # scheduler.add_job(daily_check, 'cron', hour='01', minute='00')
     # scheduler.add_job(sector_scraping_check, 'cron', hour='01', minute='00')
     # subprocess.Popen("scrapy crawl report_spider".split(), shell=True)
     scheduler.add_job(create_sector_check_process, 'cron', hour=2, minute=0)
-    scheduler.add_job(create_daily_check_process, 'cron', hour=4, minute=30)
+    scheduler.add_job(create_daily_check_process, 'cron', hour=3, minute=0)
+    scheduler.add_job(create_social_keyword_scraping_process, 'cron', hour=4, minute=0)
     scheduler.start()
-
-
-    # 종목 재무 엑셀 파일 다운 확인.
-    # stock_list = pd.read_excel("C:/Users/kai/Desktop/stock_list.xlsx")
-    # db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric",
-    #                               password=")!metricAdmin01", port=2345)
-    # cur = db.cursor()
-
-    # self.cur.execute("select * from stocks_basic_info where corp_code != ' '")
-    # self.kospi_list = self.cur.fetchall()
-    # stock_list = pd.read_sql("select * from stocks_basic_info where corp_code!=' '", db)
-    #
-    # for index, stock in stock_list.iterrows():
-    #     if (os.path.isfile("C:/Users/kai/Downloads/" + stock["name"] + "-포괄손익계산서-분기(3개월)_연결.xlsx") == True
-    #         and os.path.isfile("C:/Users/kai/Downloads/" + stock["name"] + "-재무상태표-분기(3개월)_연결.xlsx") == True
-    #         and os.path.isfile("C:/Users/kai/Downloads/" + stock["name"] + "-현금흐름표-분기(3개월)_연결.xlsx") == True):
-    #         pass
-    #     else:
-    #         with open("./no_data_stock_list.txt", "a", encoding="UTF-8") as f:
-    #             f.write(stock["code"]+"_"+stock["name"]+"\n")
 
     def store_excel_data():
         # 몽고디비 연결
@@ -208,3 +196,41 @@ if __name__ == '__main__':
                 continue
 
     # store_excel_data()
+
+def noname1():
+    db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric", password=")!metricAdmin01",
+                          port=2345)
+    cur = db.cursor()
+
+    cur.execute(
+        "select code_id from stock_financial_statement\
+            where code_id not in (select f.code_id from stock_financial_statement as f\
+                        where f.account_id='8200'\
+                        group by code_id)\
+            group by code_id"
+    )
+    code_list = cur.fetchall()
+
+    for code in code_list:
+
+        cur.execute(
+            "select * from stock_financial_statement "
+            "where code_id='"+code[0]+"' and subject_name='포괄손익계산서' and (account_id='8110' or account_id='8160')"
+        )
+        row_list = cur.fetchall() # 기간별 값들.
+        insert_sql = ""
+        for row in row_list:
+            sql_value = ("(" +
+                         "'" + str(row[1]) + "', '" + str(row[2]) + "', " +
+                         "'" + row[3] + "', '" + row[4] + "', '" + row[5] + "', '" + row[6] + "', '" + row[7] + "', " +
+                         "'8200', '총당기순이익', '0', " +
+                         "" + str(row[11]) + ", '0', '" + row[13] + "')")
+            insert_sql = insert_sql + ", " + sql_value
+        insert_sql = insert_sql[1:]
+        cur.execute("INSERT INTO stock_financial_statement ("
+                    "created_at, updated_at, corp_code, business_year, business_month, this_term_name, "
+                    "subject_name, account_id, account_name, "
+                    "account_level, this_term_amount, ordering, code_id) "
+                    "VALUES " + insert_sql)
+        db.commit()
+# noname1()
