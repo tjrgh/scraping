@@ -50,6 +50,7 @@ if __name__ == '__main__':
     # cmdline.execute("scrapy crawl theme_spider -a target_term=2020-12-31 -a pre_target_term=2019-12-31".split())
     # cmdline.execute("scrapy crawl social_keyword_spider -a start_date=2021-03-31 -a end_date=2021-06-30 -a term_type=Q "
     #                 "-a scraping_count_goal=30".split())
+    cmdline.execute("scrapy crawl big_kinds_news_spider -a start_date=1990-01-01 -a end_date=2021-08-08".split())
 
     # 분기 데이터 스크래핑 스케줄러.
     from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
@@ -78,7 +79,7 @@ if __name__ == '__main__':
     # scheduler.add_job(create_sector_check_process, 'cron', hour=2, minute=0)
     # scheduler.add_job(create_daily_check_process, 'cron', hour=3, minute=0)
     scheduler.add_job(create_social_keyword_scraping_process, 'cron', hour=4, minute=0)
-    scheduler.start()
+    # scheduler.start()
 
     def store_excel_data():
         # 몽고디비 연결
