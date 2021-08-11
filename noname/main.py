@@ -24,16 +24,12 @@ if __name__ == '__main__':
     print_hi('PyCharm')
     freeze_support()
 
+    print("setting scheduler")
+
     import pandas as pd
     # import matplotlib.pyplot as plt
     # from bs4 import BeautifulSoup
     # import requests
-    # from selenium import webdriver
-    # from selenium.webdriver.common.keys import Keys
-    # from selenium.webdriver.support.ui import WebDriverWait
-    # from selenium.webdriver.support import expected_conditions as EC
-    # from selenium.webdriver.common.by import By
-    # from bs4 import BeautifulSoup
     import time
     from scrapy import cmdline
     import psycopg2
@@ -42,15 +38,15 @@ if __name__ == '__main__':
     import schedule_job
 
 
-    # cmdline.execute("scrapy crawl korean_daily_finance_spider -a quarter=2021-06-30".split())
+    # cmdline.execute("scrapy crawl korean_daily_finance_spider -a quarter=2021-03-31".split())
     # cmdline.execute("scrapy crawl noname".split())
     # cmdline.execute("scrapy crawl report_spider".split())
     # cmdline.execute("scrapy crawl notice_spider".split())
     # cmdline.execute("scrapy crawl sector_spider".split())
     # cmdline.execute("scrapy crawl theme_spider -a target_term=2020-12-31 -a pre_target_term=2019-12-31".split())
-    # cmdline.execute("scrapy crawl social_keyword_spider -a start_date=2021-03-31 -a end_date=2021-06-30 -a term_type=Q "
-    #                 "-a scraping_count_goal=30".split())
-    cmdline.execute("scrapy crawl big_kinds_news_spider -a start_date=1990-01-01 -a end_date=2021-08-08".split())
+    # cmdline.execute("scrapy crawl social_keyword_spider -a start_date=2021-04-01 -a end_date=2021-06-30 -a term_type=Q "
+    #                 "-a scraping_count_goal=50".split())
+    # cmdline.execute("scrapy crawl big_kinds_news_spider -a start_date=1990-01-01 -a end_date=2021-08-08".split())
 
     # 분기 데이터 스크래핑 스케줄러.
     from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
@@ -72,14 +68,20 @@ if __name__ == '__main__':
         process = multiprocessing.Process(target=schedule_job.social_keyword_scraping)
         process.start()
         process.join()
+    def create_big_kinds_news_scraping_process():
+        print("create_big_kinds_news_scraping_process")
+        process = multiprocessing.Process(target=schedule_job.big_kinds_news_scraping)
+        process.start()
+        process.join()
 
-    # scheduler.add_job(daily_check, 'cron', hour='01', minute='00')
-    # scheduler.add_job(sector_scraping_check, 'cron', hour='01', minute='00')
     # subprocess.Popen("scrapy crawl report_spider".split(), shell=True)
-    # scheduler.add_job(create_sector_check_process, 'cron', hour=2, minute=0)
-    # scheduler.add_job(create_daily_check_process, 'cron', hour=3, minute=0)
-    scheduler.add_job(create_social_keyword_scraping_process, 'cron', hour=4, minute=0)
-    # scheduler.start()
+    # scheduler.add_job(create_sector_check_process, 'cron', hour=17, minute=7)
+    scheduler.add_job(create_daily_check_process, 'cron', hour=17, minute=21)
+    # scheduler.add_job(create_social_keyword_scraping_process, 'cron', hour=4, minute=0)
+    # scheduler.add_job(create_big_kinds_news_scraping_process(), 'cron', hour=1, minute=0)
+    scheduler.start()
+
+
 
     def store_excel_data():
         # 몽고디비 연결

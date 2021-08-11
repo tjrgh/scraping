@@ -1,0 +1,62 @@
+2021-08-11 13:39_000020_동화약품
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 271, in social_keyword_scraping
+    self.click_element(
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 635, in click_element
+    button.click()
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element is not clickable at point (1230, 87)
+  (Session info: chrome=92.0.4515.131)
+
+2021-08-11 15:40_000070_삼양홀딩스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 146, in social_keyword_scraping
+    search_keyword.send_keys(company["name"])
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 477, in send_keys
+    self._execute(Command.SEND_KEYS_TO_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=92.0.4515.131)
+
+2021-08-11 16:20_000230_일동홀딩스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 147, in social_keyword_scraping
+    search_keyword.send_keys(company["name"])
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 477, in send_keys
+    self._execute(Command.SEND_KEYS_TO_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=92.0.4515.131)
+
+2021-08-11 16:24_000240_한국앤컴퍼니
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 147, in social_keyword_scraping
+    search_keyword.send_keys(company["name"])
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 477, in send_keys
+    self._execute(Command.SEND_KEYS_TO_ELEMENT,
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+  (Session info: chrome=92.0.4515.131)
+

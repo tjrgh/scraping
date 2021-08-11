@@ -129,6 +129,7 @@ class SocialKeywordSpider(scrapy.Spider):
                         )
                     except Exception as e:
                         self.driver.refresh()
+                        time.sleep(random.uniform(4,5))
                         self.click_element(
                             "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-input-box')]"
                             "/div[@id='searchInputArea']/div[contains(@class,'input-keyword')]/button", 2
@@ -136,7 +137,7 @@ class SocialKeywordSpider(scrapy.Spider):
 
                     self.click_element(
                         "//div[@id='analysisOptionWindowArea']//div[contains(@class,'modal-search-body')]"
-                        "/div[contains(@class,'btn-box')]/button", 1
+                        "/div[contains(@class,'btn-box')]/button", 2
                     )
                     search_keyword = self.driver.find_element_by_xpath(
                         "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-input-box')]"
@@ -144,24 +145,42 @@ class SocialKeywordSpider(scrapy.Spider):
                         "//div[contains(@class,'modal-search-header')]/div/input"
                     )
                     search_keyword.send_keys(company["name"])
-                    time.sleep(random.uniform(1, 2))
+                    time.sleep(random.uniform(2, 3))
 
                     # 동의어, 포함어, 제외어 입력.
-                    equal_keyword_list = \
-                    self.keyword_list[self.keyword_list["code_id"] == company["code"]]["equal_keyword_list"].iloc[0]
-                    include_keyword_list = \
-                    self.keyword_list[self.keyword_list["code_id"] == company["code"]]["include_keyword_list"].iloc[0]
-                    exclude_keyword_list = self.keyword_list[self.keyword_list["code_id"] == company["code"]][
-                        "exclude_keyword_list"].iloc[0]
+                    if (self.keyword_list["code_id"] == company["code"]).any():
+                        keyword_row = self.keyword_list[self.keyword_list["code_id"]==company["code"]].iloc[0]
+                        equal_keyword_list = keyword_row["equal_keyword_list"]
+                        # include_keyword_list = keyword_row["or_include_keyword_list"]
+                        include_keyword_list = keyword_row["and_include_keyword_list"]
+                        exclude_keyword_list = keyword_row["exclude_keyword_list"]
 
-                    for keyword in equal_keyword_list.split("\\"):
-                        keyword
+                        for keyword in equal_keyword_list.split("\\"):
+                            key_input_xpath = \
+                                "//div[@id='analysisOptionWindowArea']//div[contains(@class,'search-detail-condition-block-div')]"\
+                                "//div[contains(@class,'input-item')][1]//input[contains(@class,'synonym-keyword')]"
+                            self.driver.find_element_by_xpath(key_input_xpath).send_keys(keyword)
+                            time.sleep(random.uniform(0,1))
+                            self.driver.find_element_by_xpath(key_input_xpath).send_keys(Keys.ENTER)
+                            time.sleep(random.uniform(1, 2))
 
-                    for keyword in include_keyword_list.split("\\"):
-                        keyword
+                        for keyword in include_keyword_list.split("\\"):
+                            key_input_xpath= \
+                                "//div[@id='analysisOptionWindowArea']//div[contains(@class,'search-detail-condition-block-div')]"\
+                                "//div[contains(@class,'input-item')][2]//input[contains(@class,'include-keyword')]"
+                            self.driver.find_element_by_xpath(key_input_xpath).send_keys(keyword)
+                            time.sleep(random.uniform(0, 1))
+                            self.driver.find_element_by_xpath(key_input_xpath).send_keys(Keys.ENTER)
+                            time.sleep(random.uniform(1, 2))
 
-                    for keyword in exclude_keyword_list.split("\\"):
-                        keyword
+                        for keyword in exclude_keyword_list.split("\\"):
+                            key_input_xpath = \
+                                "//div[@id='analysisOptionWindowArea']//div[contains(@class,'search-detail-condition-block-div')]"\
+                                "//div[contains(@class,'input-item')][3]//input[contains(@class,'exclude-keyword')]"
+                            self.driver.find_element_by_xpath(key_input_xpath).send_keys(keyword)
+                            time.sleep(random.uniform(0, 1))
+                            self.driver.find_element_by_xpath(key_input_xpath).send_keys(Keys.ENTER)
+                            time.sleep(random.uniform(1, 2))
 
 
                     # 검색 버튼 클릭
@@ -208,7 +227,7 @@ class SocialKeywordSpider(scrapy.Spider):
                     calender_xpath = "//body/div[contains(@class,'daterangepicker')]/div[contains(@class,'right')]" \
                                      "//div[contains(@class,'calendar-table')]"
                     self.click_element(
-                        calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]/select[contains(@class,'yearselect')]", 1
+                        calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]/select[contains(@class,'yearselect')]", 2
                     )
                     self.click_element(
                         calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]"
@@ -218,17 +237,17 @@ class SocialKeywordSpider(scrapy.Spider):
 
                     self.click_element(
                         calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]"
-                                         "/select[contains(@class,'monthselect')]", 1
+                                         "/select[contains(@class,'monthselect')]", 2
                     )
                     self.click_element(
                         calender_xpath + "//thead/tr[1]/th[contains(@class,'month')]"
                                          "/select[contains(@class,'monthselect')]/option[contains(@value,'" +
-                        str(int(self.end_date.split("-")[1]) - 1) + "')]", 1
+                        str(int(self.end_date.split("-")[1]) - 1) + "')]", 2
                     )
 
                     self.click_element(
                         calender_xpath + "//tbody//td[not(contains(@class,'off')) and contains(text()," +
-                        str(int(self.end_date.split("-")[2])) + ")]", 1
+                        str(int(self.end_date.split("-")[2])) + ")]", 2
                     )
 
                     # 소셜 종류 선택
@@ -244,7 +263,7 @@ class SocialKeywordSpider(scrapy.Spider):
                         if social_type.is_selected() == False:
                             # social_type.click()
                             self.driver.execute_script("arguments[0].click();", social_type)
-                            time.sleep(random.uniform(0, 1))
+                            time.sleep(random.uniform(1, 2))
                     temp_button = self.driver.find_element_by_xpath(
                         "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-option-box')]"
                         "//button[@id='searchConditionApplyButton']"
@@ -261,10 +280,15 @@ class SocialKeywordSpider(scrapy.Spider):
                         "/ul//a[contains(text(),'언급량 분석')]",2
                     )
                     try:
-                        temp_button = WebDriverWait(self.driver, 3).until(
+                        WebDriverWait(self.driver, 3).until(
                             EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
                             "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
-                        ).click()
+                        )
+                        time.sleep(random.uniform(1,2))
+                        self.driver.find_element_by_xpath("//div[@id='driver-popover-item']"
+                            "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"
+                          ).click()
+                        time.sleep(random.uniform(2,3))
                     except Exception as e:
                         pass
 
@@ -284,46 +308,53 @@ class SocialKeywordSpider(scrapy.Spider):
                     WebDriverWait(self.driver, 60).until(
                         EC.visibility_of_element_located((By.XPATH, "//input[@id='D-sensibility']/following-sibling::label"))
                     )
-                    time.sleep(random.uniform(1, 2))
+                    time.sleep(random.uniform(3, 4))
                     temp_button = self.driver.find_element_by_xpath( "//input[@id='D-sensibility']" )
                     if temp_button.is_selected() == False:
-                        self.click_element("//input[@id='D-sensibility']", 1)
+                        self.click_element("//input[@id='D-sensibility']", 2)
                     WebDriverWait(self.driver, 60).until(
                         EC.visibility_of_element_located((By.XPATH, "//button[@id='mentionExcelDownloadButton']"))
                     )
-                    time.sleep(random.uniform(1, 2))
+                    time.sleep(random.uniform(3, 4))
+                    # 기존 동일한 파일 있을시, 삭제.
                     if os.path.isfile(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_언급량_"+
                              self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx"):
                         os.remove(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_언급량_"+
                              self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx")
-                    self.click_element("//button[@id='mentionExcelDownloadButton']", 2)
+                    self.click_element("//button[@id='mentionExcelDownloadButton']", 4)
 
                     # 연관어 분석 메뉴 선택
                     self.click_element(
                         "//body/div[contains(@class,'layout-left')]//div[contains(@class,'lnb-wrap-banner')]/nav/ul/li[1]"
-                        "/ul//a[contains(text(),'연관어 분석')]", 1
+                        "/ul//a[contains(text(),'연관어 분석')]", 2
                     )
                     try:
-                        temp_button = WebDriverWait(self.driver, 3).until(
+                        WebDriverWait(self.driver, 3).until(
                             EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
                             "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
+                        )
+                        time.sleep(random.uniform(1, 2))
+                        self.driver.find_element_by_xpath(
+                            "//div[@id='driver-popover-item']"
+                            "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"
                         ).click()
+                        time.sleep(random.uniform(2, 3))
                     except Exception as e:
                         pass
                     # 연관어 엑셀 다운
                     WebDriverWait(self.driver, 60).until(
                         EC.visibility_of_element_located((By.XPATH, "//input[@id='W-sensibility']/following-sibling::label"))
                     )
-                    time.sleep(random.uniform(1, 2))
+                    time.sleep(random.uniform(3,4))
                     temp_button = self.driver.find_element_by_xpath("//input[@id='W-sensibility']")
                     if temp_button.is_selected() == False:
-                        self.click_element("//input[@id='W-sensibility']", 1)
+                        self.click_element("//input[@id='W-sensibility']", 2)
                     WebDriverWait(self.driver, 60).until(
                         EC.visibility_of_element_located((By.XPATH,
                             "//div[@id='rankingChangeListForAssociationVskeleton']/div[contains(@class,'layout-card-header')]"
                             "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]"))
                     )
-                    time.sleep(random.uniform(1, 2))
+                    time.sleep(random.uniform(3, 4))
                     # 기존 파일 있을시 삭제.
                     if os.path.isfile(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_연관어 순위 변화_"+
                              self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx"):
@@ -331,36 +362,42 @@ class SocialKeywordSpider(scrapy.Spider):
                              self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx")
                     self.click_element(
                         "//div[@id='rankingChangeListForAssociationVskeleton']/div[contains(@class,'layout-card-header')]"
-                        "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]", 2
+                        "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]", 4
                     )
 
                     # 긍,부정어 분석 메뉴 선택
                     self.click_element(
                         "//body/div[contains(@class,'layout-left')]//div[contains(@class,'lnb-wrap-banner')]/nav/ul/li[1]"
-                        "/ul//a[contains(text(),'긍 · 부정 분석')]", 1
+                        "/ul//a[contains(text(),'긍 · 부정 분석')]", 2
                     )
                     try:
-                        temp_button = WebDriverWait(self.driver, 3).until(
+                        WebDriverWait(self.driver, 3).until(
                             EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
                             "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
+                        )
+                        time.sleep(random.uniform(1, 2))
+                        self.driver.find_element_by_xpath(
+                            "//div[@id='driver-popover-item']"
+                            "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"
                         ).click()
+                        time.sleep(random.uniform(2, 3))
                     except Exception as e:
                         pass
                     # 긍,부정어 엑셀 다운
                     WebDriverWait(self.driver, 60).until(
                         EC.visibility_of_element_located((By.XPATH, "//input[@id='W-sensibility01']/following-sibling::label"))
                     )
-                    time.sleep(random.uniform(1, 2))
+                    time.sleep(random.uniform(3, 4))
                     temp_button = self.driver.find_element_by_xpath("//input[@id='W-sensibility01']")
                     if temp_button.is_selected() == False:
-                        self.click_element("//input[@id='W-sensibility01']", 1)
+                        self.click_element("//input[@id='W-sensibility01']", 2)
                     WebDriverWait(self.driver, 60).until(
                         EC.visibility_of_element_located((By.XPATH,
                           "//div[@id='changeRankListVskeleton']/div[contains(@class,'layout-card-header')]"
                           "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]"
                           ))
                     )
-                    time.sleep(random.uniform(1, 2))
+                    time.sleep(random.uniform(3, 4))
                     # 기존 파일 있을시 삭제.
                     if os.path.isfile(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_긍부정 단어 순위 변화_"+
                              self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx"):
@@ -369,7 +406,7 @@ class SocialKeywordSpider(scrapy.Spider):
                     self.click_element(
                         "//div[@id='changeRankListVskeleton']/div[contains(@class,'layout-card-header')]"
                         "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]",
-                        2
+                        4
                     )
 
                     # db 저장
@@ -387,16 +424,19 @@ class SocialKeywordSpider(scrapy.Spider):
                     break
 
                 except NoSuchWindowException as e:
-                    self.driver.quit()
-                    self.initial_setting()
-
                     # 에러 정보 저장.
                     date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
                     with open(constant.error_file_path+"/social_keyword_error_list_"+
                               time.strftime("%Y-%m-%d", time.localtime(time.time()))+".txt", "a", encoding="UTF-8") as f:
                         f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
                         f.write(traceback.format_exc())
+
+                    self.driver.quit()
+                    time.sleep(random.uniform(4, 5))
+                    self.initial_setting()
+
                     continue
+
                 except Exception as e:
                     date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
                     with open(
@@ -404,6 +444,8 @@ class SocialKeywordSpider(scrapy.Spider):
                             "a", encoding="UTF-8") as f:
                         f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
                         f.write(traceback.format_exc())
+
+                    time.sleep(random.uniform(4, 5))
                     continue
 
 
@@ -637,10 +679,7 @@ class SocialKeywordSpider(scrapy.Spider):
                 self.driver.set_window_position(1300,0)
                 self.driver.get('https://some.co.kr/')
                 self.driver.implicitly_wait(5)
-                self.click_wait = WebDriverWait(self.driver, 60)
-                time.sleep(random.uniform(1, 2))
-
-                # self.initial_setting()
+                time.sleep(random.uniform(2, 3))
 
                 # 검색 페이지 세팅.
                 #   초기 화면 팝업창 제거
@@ -648,25 +687,25 @@ class SocialKeywordSpider(scrapy.Spider):
                     "//footer/div[contains(@class,'popup_banner_container')]"
                 )
                 if "none" not in popup.get_attribute("style"):
-                    self.click_element("//footer/div[contains(@class,'popup_banner_container')]/aside/ul/li[1]/a", 1)
+                    self.click_element("//footer/div[contains(@class,'popup_banner_container')]/aside/ul/li[1]/a", 2)
 
                 #   로그인
                 temp_button = self.driver.find_element_by_xpath(
                     "//div[contains(@class,'main_wrap')]//header/nav//article[2]//a[contains(@class,'btn-login')]"
                 )
                 self.driver.execute_script("arguments[0].click();",temp_button)
-                time.sleep(random.uniform(1, 2))
+                time.sleep(random.uniform(2, 3))
 
                 self.driver.find_element_by_xpath(
                     "//div[@id='wrap']/section/div[contains(@class,'login_form_box')]/form[@id='loginForm']"
                     "//input[@id='username']"
                 ).send_keys("jonghee5347@gmail.com")
-                time.sleep(random.uniform(1, 2))
+                time.sleep(random.uniform(2, 3))
                 self.driver.find_element_by_xpath(
                     "//div[@id='wrap']/section/div[contains(@class,'login_form_box')]/form[@id='loginForm']"
                     "//input[@id='password']"
                 ).send_keys(")!kaimobile01")
-                time.sleep(random.uniform(1, 2))
+                time.sleep(random.uniform(2, 3))
                 temp_button = self.driver.find_element_by_xpath(
                     "//div[@id='wrap']/section/div[contains(@class,'login_form_box')]/form[contains(@class,'login_frm')]"
                     "/div[contains(@class,'login_btn_box')]/a[contains(@class,'login_btn')]"
@@ -684,10 +723,16 @@ class SocialKeywordSpider(scrapy.Spider):
 
                 # 설명 팝업 확인 및 처리
                 try:
-                    temp_button = WebDriverWait(self.driver, 5).until(
+                    WebDriverWait(self.driver, 5).until(
                         EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
                         "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
+                    )
+                    time.sleep(random.uniform(1, 2))
+                    self.driver.find_element_by_xpath(
+                        "//div[@id='driver-popover-item']"
+                        "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"
                     ).click()
+                    time.sleep(random.uniform(2,3))
                 except Exception as e:
                     pass
 
@@ -698,8 +743,8 @@ class SocialKeywordSpider(scrapy.Spider):
                         "a", encoding="UTF-8") as f:
                     f.write(date_time + "_초기 세팅 실패.\n")
                     f.write(traceback.format_exc())
-                self.driver.refresh()
-                time.sleep(random.uniform(2 + i, 3 + i))
+                self.driver.quit()
+                time.sleep(random.uniform(5 + i, 6 + i))
                 continue
             else:
                 break

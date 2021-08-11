@@ -1,0 +1,95 @@
+2021-08-09 19:12_000040_KR모터스
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 117, in big_kinds_news_scraping
+    temp_button = self.driver.find_element_by_xpath(
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 976, in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\kai\PycharmProjects\pythonProject\venv\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@id='collapse-step-1-body']//div[contains(@class,'srch-detail')]//div[contains(@class,'tab-btn-wp1')]//a[contains(@class,'tab-btn') and contains(text(),'기간')]"}
+  (Session info: chrome=92.0.4515.131)
+
+2021-08-09 19:29_000060_메리츠화재
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 193, in big_kinds_news_scraping
+    self.cur.execute("insert into stocks_news (created_at, updated_at, stock_name, "
+psycopg2.errors.SyntaxError: 오류:  구문 오류, "봇물" 부근
+LINE 1: ... '"병 있다고 보험 못 든다는 건 옛말" 유병자 보험 '봇물'', 'h...
+                                                             ^
+
+2021-08-09 19:35_000060_메리츠화재
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 196, in big_kinds_news_scraping
+    self.cur.execute("insert into stocks_news (created_at, updated_at, stock_name, "
+psycopg2.errors.SyntaxError: 오류:  구문 오류, "봇물" 부근
+LINE 1: ... '"병 있다고 보험 못 든다는 건 옛말" 유병자 보험 '봇물'', 'h...
+                                                             ^
+
+2021-08-09 19:36_000060_메리츠화재
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 173, in big_kinds_news_scraping
+    self.cur.execute("delete from stocks_news news "
+psycopg2.errors.InFailedSqlTransaction: 오류:  현재 트랜잭션은 중지되어 있습니다. 이 트랜잭션을 종료하기 전까지는 모든 명령이 무시될 것입니다
+
+2021-08-09 19:36_000060_메리츠화재
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 173, in big_kinds_news_scraping
+    self.cur.execute("delete from stocks_news news "
+psycopg2.errors.InFailedSqlTransaction: 오류:  현재 트랜잭션은 중지되어 있습니다. 이 트랜잭션을 종료하기 전까지는 모든 명령이 무시될 것입니다
+
+2021-08-09 20:10_000060_메리츠화재
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 197, in big_kinds_news_scraping
+    self.cur.execute("insert into stocks_news (created_at, updated_at, stock_name, "
+psycopg2.errors.SyntaxError: 오류:  구문 오류, "봇물" 부근
+LINE 1: ... '"병 있다고 보험 못 든다는 건 옛말" 유병자 보험 '봇물'', 'h...
+                                                             ^
+
+2021-08-09 20:11_000080_하이트진로
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 197, in big_kinds_news_scraping
+    self.cur.execute("insert into stocks_news (created_at, updated_at, stock_name, "
+psycopg2.errors.SyntaxError: 오류:  구문 오류, "대세" 부근
+LINE 1: ...021-08-09 11:11:16.632103+00:00', '하이트진로', ''대세' 박민...
+                                                             ^
+
+2021-08-09 20:12_000100_유한양행
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 197, in big_kinds_news_scraping
+    self.cur.execute("insert into stocks_news (created_at, updated_at, stock_name, "
+psycopg2.errors.SyntaxError: 오류:  구문 오류, "4" 부근
+LINE 1: ...9 11:11:47.363350+00:00', '유한양행', '매출 제로 '4년후 예상...
+                                                             ^
+
+2021-08-09 20:12_000120_CJ대한통운
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 197, in big_kinds_news_scraping
+    self.cur.execute("insert into stocks_news (created_at, updated_at, stock_name, "
+psycopg2.errors.SyntaxError: 오류:  구문 오류, "네이버" 부근
+LINE 1: ...2021-08-09 11:12:18.943748+00:00', 'CJ대한통운', ''네이버 동...
+                                                              ^
+
+2021-08-09 20:31_000150_두산
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 164, in big_kinds_news_scraping
+    os.remove(constant.download_path+"/bigkinds/"+company["name"]+"_"
+PermissionError: [WinError 32] 다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다: 'C:/Users/kai/Downloads/bigkinds/두산_2021-08-01_2021-08-08.xlsx'
+2021-08-09 21:00_000020_동화약품
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 174, in big_kinds_news_scraping
+    os.rename(
+FileNotFoundError: [WinError 2] 지정된 파일을 찾을 수 없습니다: 'C:/Users/kai/Downloads/bigkinds/NewsResult_19900101-20210808.xlsx' -> 'C:/Users/kai/Downloads/bigkinds/동화약품_1990-01-01_2021-08-08.xlsx'
+2021-08-09 21:07_000050_경방
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 175, in big_kinds_news_scraping
+    os.rename(
+FileNotFoundError: [WinError 2] 지정된 파일을 찾을 수 없습니다: 'C:/Users/kai/Downloads/bigkinds/NewsResult_19900101-20210808.xlsx' -> 'C:/Users/kai/Downloads/bigkinds/경방_1990-01-01_2021-08-08.xlsx'
+2021-08-09 22:07_000020_동화약품
+Traceback (most recent call last):
+  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\big_kinds__news__spider.py", line 111, in big_kinds_news_scraping
+    raise Exception("hello")
+Exception: hello

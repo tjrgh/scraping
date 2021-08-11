@@ -97,7 +97,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
     #
     def document_scraping(self):
         # 디버깅용
-        # self.stock_list = self.stock_list[2000:]
+        # self.stock_list = self.stock_list[2:]
 
         # 메뉴바 클릭.
         menu_bar_button = self.driver.find_element_by_xpath(
@@ -174,13 +174,20 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                         #   해당 기업의 문서 리스트 가져옴.(제목)
                         # stored_document_list = []
 
-                        document_div_xpath = "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]"\
-                            "//div[contains(@class,'content-wrapper')]//div[@id='documents']"\
-                            "//div[contains(@class,'company-document-search')]"
+                        document_div_xpath = "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]" \
+                            "//div[contains(@class,'company-documents')]/div[contains(@class,'company-document-search')]"
+
+                        button = self.driver.find_element_by_xpath(
+                            "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]" \
+                            "//div[contains(@class,'company-header')]/div[contains(@class,'tabs')]" \
+                            "/a[contains(text(),'문서')]"
+                        )
+                        self.driver.execute_script("arguments[0].click();", button)
+                        time.sleep(random.uniform(self.motion_term + 5, self.motion_term + 6))
 
                         # 리포트 이동.
-                        button = self.driver.find_element_by_xpath(document_div_xpath +
-                            "//div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"
+                        button = self.driver.find_element_by_xpath(document_div_xpath+\
+                            "/div[contains(@class,'document-options')]/span[contains(text(),'증권사리포트')]"
                         )
                         self.driver.execute_script("arguments[0].click();", button)
                         time.sleep(random.uniform(self.motion_term + 4, self.motion_term + 5))
@@ -191,7 +198,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                         try:
                             # 리포트없으면 완료 처리 후, 다음 종목.
                             page_list = self.driver.find_elements_by_xpath(document_div_xpath +
-                               "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
+                               "/div[contains(@class,'sentiment-document-view')]/div[contains(@class,'document-search-result-view')]"
                                "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"
                             )
                             if len(page_list) == 0:
@@ -205,14 +212,14 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                 break;
                             # 문서 총 개수 확인.
                             total_document_count = self.driver.find_element_by_xpath(document_div_xpath +
-                                 "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
-                                 "//div[contains(@class,'document-count')]"
+                                 "/div[contains(@class,'sentiment-document-view')]/div[contains(@class,'document-search-result-view')]"
+                                 "/div[contains(@class,'document-count')]"
                              ).text.split(" ")[1].split("건")[0].replace(",","")
                             total_document_count = int(total_document_count)
                             # 페이지 번호 확인.
                             last_page_button = self.driver.find_element_by_xpath(document_div_xpath +
-                                 "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
-                                 "//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]"
+                                 "/div[contains(@class,'sentiment-document-view')]/div[contains(@class,'document-search-result-view')]"
+                                 "/div[contains(@class,'page-container')]"
                                  "//div[contains(@class,'nav-button')][last()-1]/span"
                             )
                             self.driver.execute_script("arguments[0].click();", last_page_button)  # 마지막 페이지로 이동.
@@ -225,7 +232,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                         document_count = 0
                         for page_num in range(int(last_page)):
                             document_list = self.driver.find_elements_by_xpath(document_div_xpath +
-                               "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
+                               "/div[contains(@class,'sentiment-document-view')]/div[contains(@class,'document-search-result-view')]"
                                "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"
                             )
                             # document_list.reverse()
@@ -239,9 +246,9 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                 #         break
                                 # if is_duplicated == True:  # 이미 존재하는 문서이면, 다음 문서 반복.
                                 #     continue
-                                document_xpath = document_div_xpath+"//div[contains(@class,'sentiment-document-view')]"\
-                                    "//div[contains(@class,'document-search-result-view')]"\
-                                    "//div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"\
+                                document_xpath = document_div_xpath+"/div[contains(@class,'sentiment-document-view')]"\
+                                    "/div[contains(@class,'document-search-result-view')]"\
+                                    "/div[contains(@class,'result-list')]/div[contains(@class,'document-item-view')]"\
                                     +"["+str(document_index+1)+"]"
                                 document = self.driver.find_element_by_xpath(document_xpath)
 
@@ -305,8 +312,8 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                             # 다음 페이지 이동
                             if last_page != 1:
                                 button = self.driver.find_element_by_xpath(document_div_xpath +
-                                   "//div[contains(@class,'sentiment-document-view')]//div[contains(@class,'document-search-result-view')]"
-                                   "//div[contains(@class,'result-list')]/div[contains(@class,'page-container')]"
+                                   "/div[contains(@class,'sentiment-document-view')]/div[contains(@class,'document-search-result-view')]"
+                                   "/div[contains(@class,'page-container')]"
                                    "//div[contains(@class,'nav-button')][1]"
                                 )
                                 if "disable" in button.value_of_css_property("class"):  # 마지막 페이지 이면 다음 종목 반복

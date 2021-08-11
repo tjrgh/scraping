@@ -143,20 +143,26 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
                     # 재무정보
                     button = self.driver.find_element_by_xpath(
-                        "//div[@id='tabs']//a[contains(text(),'재무 정보')]")
+                        "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]" \
+                        "//div[contains(@class,'company-header')]/div[contains(@class,'tabs')]" \
+                        "/a[contains(text(),'재무')]"
+                    )
                     self.driver.execute_script("arguments[0].click();", button)
-                    time.sleep(random.uniform(self.motion_term + 6, self.motion_term + 7))
+                    time.sleep(random.uniform(self.motion_term + 5, self.motion_term + 6))
 
                     quarterly_data_exist = False
 
                     # 포괄손익계산서, 재무상태표, 현금흐름표
                     for i1 in range(3, 4):
                         # 연간,분기 선택
-                        button = self.driver.find_element_by_xpath(
-                            "//div[@id='income-statement']//div[contains(@class,'header-text')]//div[contains(@class,'options')]/div[1]/div"
-                        )
+                        option_xpath = "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]"\
+                            "//div[contains(@class,'company-financial-status-view')][1]"\
+                            "/div[contains(@class,'header-text')]//div[contains(@class,'right')]"\
+                            "/div[contains(@class,'options')]"
+
+                        button = self.driver.find_element_by_xpath(option_xpath+
+                                       "/div[1]/div[contains(@class,'dropdown-selected')]")
                         self.driver.execute_script("arguments[0].click();", button)
-                        # time.sleep(random.uniform(self.motion_term + 10, self.motion_term + 11))
                         time.sleep(random.uniform(self.motion_term, self.motion_term + 1))
                         button = self.driver.find_element_by_xpath(
                             "//div[@id='root']/div/div[contains(@class,'deepsesarch-dropdown-items')]/div[" + str(
@@ -169,12 +175,9 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
                         for i2 in range(1, 2):
                             # 연결,개별 선택
-                            button = self.driver.find_element_by_xpath(
-                                "//div[@id='income-statement']//div[contains(@class,'header-text')]//div[contains(@class,'options')]"
-                                "/div[contains(@class,'option')][2]/div[contains(@class,'dropdown-selected')]"
-                            )
+                            button = self.driver.find_element_by_xpath(option_xpath +
+                                           "/div[2]/div[contains(@class,'dropdown-selected')]")
                             self.driver.execute_script("arguments[0].click();", button)
-                            # time.sleep(random.uniform(self.motion_term + 15, self.motion_term + 16))
                             time.sleep(random.uniform(self.motion_term, self.motion_term+1))
                             button = self.driver.find_element_by_xpath(
                                 "//div[@id='root']/div/div[contains(@class,'deepsesarch-dropdown-items')]/div[" + str(
@@ -188,15 +191,12 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                             time.sleep(random.uniform(self.motion_term + 20, self.motion_term + 21))
 
                             # 분기데이터 존재하는지 확인.
-                            # self.driver.find_element_by_xpath(
-                            #     "//div[@id='income-statement']//div[contains(@class,'table-container')]"
-                            #     "//div[contains(@class,'react-table-layout')]//div[contains(@class,'rt-table')]"
-                            #     "//div[contains(@class,'rt-thead')]//div[contains(@class,'rt-resizable-header-content')
-                            #     and contains(text(),'" + date + "')]")
                             last_quarter_column = self.driver.find_element_by_xpath(
-                                "//div[@id='income-statement']//div[contains(@class,'table-container')]"
-                                "//div[contains(@class,'react-table-layout')]//div[contains(@class,'rt-table')]"
-                                "//div[contains(@class,'rt-thead')]//div[contains(@class,'rt-resizable-header')][last()]"
+                                "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]" \
+                                "//div[contains(@class,'company-financial-status-view')][1]"
+                                "/div[contains(@class,'table-container')]//div[contains(@class,'react-table-layout')]"
+                                "/div[contains(@class,'financial-status-table')]/div[contains(@class,'rt-table')]"
+                                "/div[contains(@class,'rt-thead')]//div[contains(@class,'rt-resizable-header')][last()]"
                                 "/div[contains(@class,'rt-resizable-header-content')]"
                             )
                             if date in last_quarter_column.text:
@@ -207,15 +207,22 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
 
                             # 딥서치 사이트 기업명 확인
                             stock_name = self.driver.find_element_by_xpath(
-                                "//div[@id='drawer-content-layout']//div[@id='content-navigation']//div[@id='overview']"
-                                "//div[contains(@class,'ds')]/div[contains(@class,'header-text')]//div[contains(@class,'left')]"
-                                "//span[contains(@class,'name')]"
+                                "//div[@id='drawer-content-layout']/div[contains(@class,'deepsearch-content')]"
+                                "//div[contains(@class,'company-header')]/div[contains(@class,'company-info')]"
+                                "/div[contains(@class,'name')]"
                             ).text
 
                             #   포괄손익계산서 다운
+                            # button = self.driver.find_element_by_xpath(
+                            #
+                            #     "//div[@id='income-statement']//div[contains(@class,'table-container')]"
+                            #     "//span[@class='table-export-button']")
                             button = self.driver.find_element_by_xpath(
-                                "//div[@id='income-statement']//div[contains(@class,'table-container')]"
-                                "//span[@class='table-export-button']")
+                                "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]" \
+                                "//div[contains(@class,'company-financial-status-view')][1]"
+                                "/div[contains(@class,'table-container')]//div[contains(@class,'react-table-layout')]"
+                                "//span[contains(@class,'table-export-button')]"
+                            )
                             self.driver.execute_script("arguments[0].click();", button)
                             time.sleep(random.uniform(self.motion_term + 3, self.motion_term + 4))
                             if os.path.isfile(constant.download_path+"/" + str(company["name"]) + "-포괄손익계산서-" +
@@ -230,7 +237,10 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                             #   재무상태표 다운
                             if i1 != 2:
                                 button = self.driver.find_element_by_xpath(
-                                    "//div[@id='balance-statements']//div[contains(@class,'table-container')]//span[@class='table-export-button']"
+                                    "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]" \
+                                    "//div[contains(@class,'company-financial-status-view')][2]"
+                                    "/div[contains(@class,'table-container')]//div[contains(@class,'react-table-layout')]"
+                                    "//span[contains(@class,'table-export-button')]"
                                 )
                                 self.driver.execute_script("arguments[0].click();", button)
                                 time.sleep(random.uniform(self.motion_term + 3, self.motion_term + 4))
@@ -244,7 +254,10 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                                               company["name"]) + "-재무상태표-" + data_term + "_" + data_type + ".xlsx")
                             #   현금흐릅표 다운
                             button = self.driver.find_element_by_xpath(
-                                "//div[@id='cashflow-statements']//div[contains(@class,'table-container')]//span[@class='table-export-button']"
+                                "//div[@id='drawer-content-layout']//div[contains(@class,'deepsearch-content')]" \
+                                "//div[contains(@class,'company-financial-status-view')][3]"
+                                "/div[contains(@class,'table-container')]//div[contains(@class,'react-table-layout')]"
+                                "//span[contains(@class,'table-export-button')]"
                             )
                             self.driver.execute_script("arguments[0].click();", button)
                             time.sleep(random.uniform(self.motion_term + 3, self.motion_term + 4))
@@ -329,7 +342,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         if (None != self.cur.fetchone()):  # 이미 해당 데이터가ㅓ 존재한다면,
             date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
             with open(constant.error_file_path + "/quarterly_error_list_" + time.strftime("%Y-%m-%d",
-                          time.localtime( time.time())) + ".txt", "a", encoding="UTF-8") as f:
+                          time.localtime(time.time())) + ".txt", "a", encoding="UTF-8") as f:
                 f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
                 f.write(subject_name + "가 이미 존재합니다. \n")
             return ""
@@ -340,6 +353,28 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                 f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
                 f.write(subject_name + "에 "+date+"분기 데이터가 존재하지 않습니다.  \n")
             return ""
+
+        # 재무 엑셀 파일에서 누락된 필수 항목들 체크 후, 계산하여 삽입.
+        if subject_name == "포괄손익계산서":
+            # 주당순이익이 없는 경우.
+            if (df["account_id"] == "8200").any() == False:
+                account_id = ""
+                if (df["account_id"] == "8110").any() == True:
+                    account_id = "8110"
+                elif (df["account_id"] == "8160").any() == True:
+                    account_id = "8160"
+                else:
+                    raise Exception("총당기순이익 데이터 및 대체 데이터가 존재하지 않습니다.")
+
+                temp_row = df[df["account_id"] == account_id]
+                temp_row.iloc[0]["account_id"] = "8200"
+                temp_row.iloc[0]["계정명"] = "총당기순이익"
+                df.append(temp_row)
+
+        elif subject_name == "재무상태표":
+            pass;
+        elif subject_name == "현금흐름표":
+            pass;
 
         insert_sql = ""
         for row in df.index:  # 엑셀 파일의 row들에 대해 반복.
