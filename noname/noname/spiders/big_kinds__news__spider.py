@@ -48,6 +48,15 @@ class BeKindsNewsSpider(scrapy.Spider):
         self.kospi_list = pd.read_sql("select * from stocks_basic_info where corp_code!=' '", self.db).sort_values(by="code")
         self.keyword_list = pd.read_sql("select * from social_keywords where corp_code!=' '", self.db).sort_values(by="code_id")
 
+        # 시작시간, 중간 쉬는 시간, 종료시간 설정.
+        today = time.localtime(time.time())
+        self.start_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday,
+                                            int(random.triangular(9, 10, 9)), int(random.randrange(0, 59, 1)))
+        self.break_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday,
+                                            int(random.triangular(12, 13, 13)), int(random.randrange(0, 59, 1)))
+        self.end_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday,
+                                          int(random.triangular(18, 20, 19)), int(random.randrange(0, 59, 1)))
+
     def start_requests(self):
         url_list = [
             "https://www.bigkinds.or.kr/"
@@ -130,11 +139,11 @@ class BeKindsNewsSpider(scrapy.Spider):
                     if "open" not in temp_button.get_attribute("class"):
                         self.click_element("//button[@id='collapse-step-1']", 2)
                     self.driver.find_element_by_xpath("//input[@id='total-search-key']").clear()
-                    time.sleep(random.uniform(2,3))
+                    self.wait(2, 1)
                     self.driver.find_element_by_xpath("//input[@id='total-search-key']").send_keys(company["name"])
-                    time.sleep(random.uniform(1, 2))
+                    self.wait(1, 1)
                     self.driver.find_element_by_xpath("//input[@id='total-search-key']").send_keys(Keys.ARROW_UP+Keys.ARROW_UP)
-                    time.sleep(random.uniform(1, 2))
+                    self.wait(1, 1)
                     temp_button = self.driver.find_element_by_xpath(
                         "//div[@id='collapse-step-1-body']//div[contains(@class,'srch-detail')]"
                         "//div[contains(@class,'tab-btn-wp1')]"
@@ -151,19 +160,19 @@ class BeKindsNewsSpider(scrapy.Spider):
                     if self.start_date != temp_button.get_attribute("value"):
                         for i in range(10):
                             self.driver.find_element_by_xpath("//input[@id='search-begin-date']").send_keys(Keys.BACK_SPACE)
-                            time.sleep(random.uniform(0,0.2))
-                        time.sleep(random.uniform(2,3))
+                            self.wait(0, 1)
+                        self.wait(2)
                         self.driver.find_element_by_xpath("//input[@id='search-begin-date']").send_keys(self.start_date)
-                        time.sleep(random.uniform(2, 3))
+                        self.wait(2)
 
                     temp_button = self.driver.find_element_by_xpath("//input[@id='search-end-date']")
                     if self.end_date != temp_button.get_attribute("value"):
                         for i in range(10):
                             self.driver.find_element_by_xpath("//input[@id='search-end-date']").send_keys(Keys.BACK_SPACE)
-                            time.sleep(random.uniform(0, 0.2))
-                        time.sleep(random.uniform(2, 3))
+                            self.wait(0, 1)
+                        self.wait(2)
                         self.driver.find_element_by_xpath("//input[@id='search-end-date']").send_keys(self.end_date)
-                        time.sleep(random.uniform(2, 3))
+                        self.wait(2)
 
                     # 동의어, 포함어, 제외어 입력.
                     if (self.keyword_list["code_id"]==company["code"]).any():
@@ -190,19 +199,19 @@ class BeKindsNewsSpider(scrapy.Spider):
                         for keyword in or_include_keyword_list.split("\\"):
                             or_include_keyword = or_include_keyword+", "+keyword
                         self.driver.find_element_by_xpath("//input[@id='orKeyword1']").send_keys(or_include_keyword[2:])
-                        time.sleep(random.uniform(2, 3))
+                        self.wait(2)
 
                         and_include_keyword = ""
                         for keyword in and_include_keyword_list.split("\\"):
                             and_include_keyword = and_include_keyword+", "+keyword
                         self.driver.find_element_by_xpath("//input[@id='andKeyword1']").send_keys(and_include_keyword[2:])
-                        time.sleep(random.uniform(2, 3))
+                        self.wait(2)
 
                         exclude_keyword = ""
                         for keyword in exclude_keyword_list.split("\\"):
                             exclude_keyword = exclude_keyword+", "+keyword
                         self.driver.find_element_by_xpath("//input[@id='notKeyword1']").send_keys(exclude_keyword[2:])
-                        time.sleep(random.uniform(2, 3))
+                        self.wait(2)
 
                         self.click_element(
                             "//div[@id='detailSrch1']//div[contains(@class,'srch-foot')]"
@@ -230,14 +239,14 @@ class BeKindsNewsSpider(scrapy.Spider):
                             "//div[contains(@class,'news-loader')]"
                         ))
                     )
-                    time.sleep(random.uniform(3, 4))
+                    self.wait(3)
                     # 다운 버튼 클릭.
                     self.click_element(
                         "//div[@id='analytics-data-download']/div[contains(@class,'btm-btn-wrp')]"
                         "/button[contains(@class,'news-download-btn')]", 2
                     )
                     self.driver.switch_to.alert.accept()
-                    time.sleep(random.uniform(2, 3))
+                    self.wait(2)
 
                     # 다운 완료 체크
                     for i in range(60):
@@ -248,7 +257,7 @@ class BeKindsNewsSpider(scrapy.Spider):
                             time.sleep(1)
                             if i == 59:
                                 raise Exception("엑셀 파일 다운 대기 시간 초과.")
-                    time.sleep(random.uniform(5, 6))
+                    self.wait(5)
 
                     if os.path.isfile(constant.download_path+"/bigkinds/"+company["name"]+"_"
                                       +self.start_date+"_"+self.end_date+".xlsx"):
@@ -325,7 +334,7 @@ class BeKindsNewsSpider(scrapy.Spider):
                         f.write(traceback.format_exc())
 
                     self.driver.quit()
-                    time.sleep(random.uniform(4, 5))
+                    self.wait(4)
                     self.initial_setting()
 
                     continue
@@ -336,7 +345,7 @@ class BeKindsNewsSpider(scrapy.Spider):
                             "a", encoding="UTF-8") as f:
                         f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
                         f.write(traceback.format_exc())
-                    time.sleep(random.uniform(3, 4))
+                    self.wait(3)
                     continue
 
     def click_element(self, xpath, wait_time):
@@ -347,7 +356,44 @@ class BeKindsNewsSpider(scrapy.Spider):
             self.driver.execute_script("arguments[0].click();", button)
         # except Exception as e:
         #     self.driver.execute_script("arguments[0].click();", button)
-        time.sleep(random.uniform(wait_time, wait_time+1))
+        self.wait(wait_time)
+
+    def wait(self, wait_time, term=5):
+        # 시작시간, 중간 쉬는 시간, 끝시간에 따른 대기.
+        now = datetime.datetime.now()
+        if (self.start_time.day == now.day) & (self.start_time > now):
+            while self.start_time > now:
+                time.sleep(10)
+            else:
+                self.start_time = self.start_time + datetime.timedelta(days=1)
+                self.start_time = self.start_time.replace(hour=int(random.triangular(9,10,9)), minute=int(random.randrange(0,59,1)))
+
+        elif (self.break_time.day == now.day) & (self.break_time < now) & (self.end_time > now):
+            time.sleep(random.normalvariate(3000, 300))
+            self.break_time = self.break_time + datetime.timedelta(days=1)
+            self.break_time = self.break_time.replace(hour=int(random.triangular(12, 13, 13)),
+                                                      minute=int(random.randrange(0, 59, 1)))
+
+        elif (self.end_time.day == now.day) & (self.end_time < now):
+            while datetime.datetime.now() > datetime.datetime(now.year, now.month, now.day+1, 6):
+                time.sleep(10)
+            self.end_time = self.end_time + datetime.timedelta(days=1)
+            self.end_time = self.end_time.replace(hour=int(random.triangular(5,7,6)),
+                                                      minute=int(random.randrange(0, 59, 1)))
+
+        # 랜덤 몇 초 더 대기.
+        random_value = random.randrange(1, 100, 1)
+        if random_value % 20 == 0:
+            time.sleep(random.triangular(wait_time, wait_time + term + 5, wait_time + term))
+        time.sleep(random.triangular(wait_time, wait_time + term, wait_time))
+        # 랜덤 3~5분 대기.
+        random_value3 = random.randrange(1, 100, 1)
+        if random_value3 % 100 == 0:
+            time.sleep(random.uniform(180, 300))
+        # 랜덤 10~20분 대기.
+        random_value2 = random.randrange(1, 1000, 1)
+        if random_value2 % 500 == 0:
+            time.sleep(random.uniform(600, 1200))
 
     def initial_setting(self):
         for i in range(10):
@@ -365,16 +411,16 @@ class BeKindsNewsSpider(scrapy.Spider):
                 self.driver.set_window_size(1400, 1000)
                 self.driver.get('https://www.bigkinds.or.kr/')
                 self.driver.implicitly_wait(5)
-                time.sleep(random.uniform(2, 3))
+                self.wait(2)
 
                 # 검색 페이지 세팅.
                 # 로그인
                 self.click_element("//header[@id='header']/div[contains(@class,'hd-top')]"
                        "//div[contains(@class,'login-area')]/button[contains(@class,'login-area-before')]",2)
                 self.driver.find_element_by_xpath( "//input[@id='login-user-id']").send_keys("tony62@naver.com")
-                time.sleep(random.uniform(2,3))
+                self.wait(2)
                 self.driver.find_element_by_xpath("//input[@id='login-user-password']").send_keys("**2TJRGHqzdw")
-                time.sleep(random.uniform(2, 3))
+                self.wait(2)
                 self.click_element("//button[@id='login-btn']", 2)
 
                 # 뉴스 검색창 이동
@@ -384,7 +430,7 @@ class BeKindsNewsSpider(scrapy.Spider):
                     "//a[contains(@class,'gnb-link') and contains(text(),'뉴스 분석')]"
                 )
                 ActionChains(self.driver).move_to_element(temp_button).perform()
-                time.sleep(random.uniform(1,2))
+                self.wait(1)
                 self.click_element(
                     "//header[@id='header']/div[contains(@class,'hd-gnb')]/div[contains(@class,'inner')]"
                     "/div[contains(@class,'gnb-wp')]/ul[contains(@class,'gnb-list')]"
@@ -400,7 +446,7 @@ class BeKindsNewsSpider(scrapy.Spider):
                     f.write(date_time + "_초기 세팅 실패.\n")
                     f.write(traceback.format_exc())
                 self.driver.quit()
-                time.sleep(random.uniform(4 + i, 5 + i))
+                self.wait(4+i)
                 continue
             else:
                 break

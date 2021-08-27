@@ -6,6 +6,7 @@
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 import multiprocessing
 import os.path
+import random
 import subprocess
 import sys
 import traceback
@@ -13,6 +14,10 @@ from datetime import datetime, timezone
 from multiprocessing import freeze_support
 
 import scrapy.crawler
+from selenium import webdriver
+from selenium.webdriver import Proxy
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.proxy import ProxyType
 
 
 def print_hi(name):
@@ -37,6 +42,45 @@ if __name__ == '__main__':
     import re
     import schedule_job
 
+    for i in range(100):
+        print(random.triangular(6,11, 6))
+    # for i in np.random.normal(3000,300,100):
+    #     print(i)
+    #     if i < 0:
+    #         print(i)
+
+    # chrome_driver = "C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe"
+    # proxy_address = "1.179.144.41:8080"
+    # # webdriver.DesiredCapabilities.CHROME['proxy'] = {
+    # #     "httpProxy": proxy,
+    # #     "ftpProxy": proxy,
+    # #     "sslProxy": proxy,
+    # #     "proxyType": "MANUAL"
+    # # }
+    # prox = Proxy()
+    # prox.proxy_type = ProxyType.MANUAL
+    # prox.http_proxy = proxy_address
+    # # prox.socks_proxy = proxy_address
+    # prox.ssl_proxy = proxy_address
+    #
+    # capabilities = webdriver.DesiredCapabilities.CHROME
+    # prox.add_to_capabilities(capabilities)
+    #
+    # # webdriver.DesiredCapabilities.CHROME["acceptSslCerts"]=True
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.add_experimental_option("prefs", {
+    #     # "download.default_directory": constant.download_path.replace("/", "\\") + "\\deepSearch",
+    #     "profile.content_settings.exceptions.automatic_downloads.*.setting": 1,
+    #     "plugins.always_open_pdf_externally": True,
+    #     # "--remote-debugging-address":"127.0.0.1",
+    #     # "--remote_debugging-port":"9222",
+    # })
+    # chrome_options.add_experimental_option("debuggerAddress","127.0.0.1:9222")
+    # chrome_options.add_argument("--proxy-server=socks5://127.0.0.1:9150")# Tor로 요청 전달하도록 설정.
+    # chrome_options.add_argument("--proxy-server=183.105.237.213:808")
+    # driver = webdriver.Chrome(chrome_driver, options=chrome_options, desired_capabilities=capabilities)
+    # driver.get('https://www.icanhazip.com/')# https://www.bigkinds.or.kr/ https://www.icanhazip.com/
+    # print(driver.page_source)#2a00:74a0:e000:1003::114
 
     # cmdline.execute("scrapy crawl korean_daily_finance_spider -a quarter=2021-03-31".split())
     # cmdline.execute("scrapy crawl noname".split())
@@ -47,6 +91,9 @@ if __name__ == '__main__':
     # cmdline.execute("scrapy crawl social_keyword_spider -a start_date=2021-04-01 -a end_date=2021-06-30 -a term_type=Q "
     #                 "-a scraping_count_goal=50".split())
     # cmdline.execute("scrapy crawl big_kinds_news_spider -a start_date=1990-01-01 -a end_date=2021-08-08".split())
+    # cmdline.execute("scrapy crawl new_stock_financial_spider".split())
+    # cmdline.execute("scrapy crawl fnguide_report_summary_spider -a start_date=2020-01-01 -a end_date=2021-06-30".split())
+    cmdline.execute("scrapy crawl naver_news_spider -a start_date=2020-07-25 -a end_date=2021-08-10".split())
 
     # 분기 데이터 스크래핑 스케줄러.
     from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
@@ -54,6 +101,11 @@ if __name__ == '__main__':
     scheduler = BlockingScheduler()
 
     def create_sector_check_process():
+        print("create_sector_check_process")
+        process = multiprocessing.Process(target=schedule_job.sector_scraping_check)
+        process.start()
+        process.join()
+    def create_theme_check_process():
         print("create_sector_check_process")
         process = multiprocessing.Process(target=schedule_job.sector_scraping_check)
         process.start()
@@ -76,10 +128,11 @@ if __name__ == '__main__':
 
     # subprocess.Popen("scrapy crawl report_spider".split(), shell=True)
     # scheduler.add_job(create_sector_check_process, 'cron', hour=17, minute=7)
+    # scheduler.add_job(create_theme_check_process, 'cron', hour=17, minute=7)
     scheduler.add_job(create_daily_check_process, 'cron', hour=17, minute=21)
     # scheduler.add_job(create_social_keyword_scraping_process, 'cron', hour=4, minute=0)
     # scheduler.add_job(create_big_kinds_news_scraping_process(), 'cron', hour=1, minute=0)
-    scheduler.start()
+    # scheduler.start()
 
 
 

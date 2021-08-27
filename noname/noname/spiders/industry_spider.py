@@ -44,6 +44,15 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         # 스크래핑 대상인 종목 리스트 로드.
         self.motion_term = 2
 
+        # 시작시간, 중간 쉬는 시간, 종료시간 설정.
+        today = time.localtime(time.time())
+        self.start_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday,
+                                            int(random.triangular(9, 10, 9)), int(random.randrange(0, 59, 1)))
+        self.break_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday,
+                                            int(random.triangular(12, 13, 13)), int(random.randrange(0, 59, 1)))
+        self.end_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday,
+                                          int(random.triangular(18, 20, 19)), int(random.randrange(0, 59, 1)))
+
         # self.industry_fail_list = pd.read_excel("C:/Users/kai/Desktop/korean_stock_document_list/industry_fail_list.xlsx",
         #                                         dtype={"단축코드":"str"})
         # self.industry_complete_list = pd.read_excel("C:/Users/kai/Desktop/korean_stock_document_list/industry_complete_list.xlsx"
@@ -75,14 +84,14 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                 "//div[@id='header']//div[contains(@class,'lnb_area')]//div[@id='menu']/ul/li//span[contains(text(),'국내증시')]"
             )
             self.driver.execute_script("arguments[0].click();", temp_button)
-            time.sleep(random.uniform(2, 3))
+            self.wait(2)
 
             # 업종 선택
             temp_button = self.driver.find_element_by_xpath(
                 "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'업종')]"
             )
             self.driver.execute_script("arguments[0].click();", temp_button)
-            time.sleep(random.uniform(2, 3))
+            self.wait(2)
 
             # 업종별 종목 스크래핑
             category_xpath = "//div[@id='contentarea']/div[@id='contentarea_left']/table/tbody/tr/td/a"
@@ -102,7 +111,7 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                 temp_button = self.driver.find_element_by_xpath(category_xpath+"[contains(text(),'"+sector_name+"')]")
                 sector_name = temp_button.text
                 self.driver.execute_script("arguments[0].click();", temp_button)
-                time.sleep(random.uniform(2, 3))
+                self.wait(2)
 
                 # 종목 추출
                 sector_stock_list = self.driver.find_elements_by_xpath(
@@ -333,17 +342,17 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                 insert_sql = self.make_insert_query(insert_sql, sector_name, self.target_term, "transaction_volume_avg",
                                                     temp_data)  # 거래량
 
-                cur.execute(
-                    "insert into stock_sector_statement("
-                    "   created_at, updated_at, sector_name, date, account_name, amount"
-                    ") "
-                    "values "+insert_sql[1:]
-                )
-                db.commit()
+                # cur.execute(
+                #     "insert into stock_sector_statement("
+                #     "   created_at, updated_at, sector_name, date, account_name, amount"
+                #     ") "
+                #     "values "+insert_sql[1:]
+                # )
+                # db.commit()
 
                 # 업종 목록으로 뒤로가기.
                 self.driver.back()
-                time.sleep(random.uniform(2, 3))
+                self.wait(2)
         except Exception as e:
             date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
             with open(constant.error_file_path + "/industry_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
@@ -357,6 +366,43 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                       "'"+date+"', '"+account_name+"', '" + str(amount) + "')"
                       )
         return insert_sql
+
+    def wait(self, wait_time, term=5):
+        # 시작시간, 중간 쉬는 시간, 끝시간에 따른 대기.
+        now = datetime.datetime.now()
+        if (self.start_time.day == now.day) & (self.start_time > now):
+            while self.start_time > now:
+                time.sleep(10)
+            else:
+                self.start_time = self.start_time + datetime.timedelta(days=1)
+                self.start_time = self.start_time.replace(hour=int(random.triangular(9,10,9)), minute=int(random.randrange(0,59,1)))
+
+        elif (self.break_time.day == now.day) & (self.break_time < now) & (self.end_time > now):
+            # time.sleep(random.normalvariate(3000, 300))
+            self.break_time = self.break_time + datetime.timedelta(days=1)
+            self.break_time = self.break_time.replace(hour=int(random.triangular(12, 13, 13)),
+                                                      minute=int(random.randrange(0, 59, 1)))
+
+        elif (self.end_time.day == now.day) & (self.end_time < now):
+            while datetime.datetime.now() > datetime.datetime(now.year, now.month, now.day+1, 6):
+                time.sleep(10)
+            self.end_time = self.end_time + datetime.timedelta(days=1)
+            self.end_time = self.end_time.replace(hour=int(random.triangular(5,7,6)),
+                                                      minute=int(random.randrange(0, 59, 1)))
+
+        # 랜덤 몇 초 더 대기.
+        random_value = random.randrange(1, 100, 1)
+        if random_value % 20 == 0:
+            time.sleep(random.triangular(wait_time, wait_time + term + 5, wait_time + term))
+        time.sleep(random.triangular(wait_time, wait_time + term, wait_time))
+        # 랜덤 3~5분 대기.
+        random_value3 = random.randrange(1, 100, 1)
+        if random_value3 % 100 == 0:
+            time.sleep(random.uniform(180, 300))
+        # 랜덤 10~20분 대기.
+        random_value2 = random.randrange(1, 1000, 1)
+        if random_value2 % 500 == 0:
+            time.sleep(random.uniform(600, 1200))
 
     def report_error(self, company):
         date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
@@ -388,14 +434,14 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
                 self.driver.find_element_by_xpath(
                     "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@placeholder='계정']").send_keys(
                     "sooryong@gmail.com")
-                time.sleep(random.uniform(2, 3))
+                self.wait(2)
                 self.driver.find_element_by_xpath(
                     "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@placeholder='비밀번호']").send_keys(
                     ")!kaimobile01")
-                time.sleep(random.uniform(2, 3))
+                self.wait(2)
                 self.driver.find_element_by_xpath(
                     "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@class='button login']").click()
-                time.sleep(random.uniform(3, 4))
+                self.wait(3)
                 self.driver.refresh()
             except Exception as e2:
                 print(e2)
@@ -406,4 +452,4 @@ class KoreanDailyFinanceSpider(scrapy.Spider):
         menu_bar_button = self.driver.find_element_by_xpath(
             "//div[@class='deepsearch-appbar']//div[contains(@class,'app-bar-drawer')]")
         self.driver.execute_script("arguments[0].click();", menu_bar_button)
-        time.sleep(random.uniform(2, 3))
+        self.wait(2)

@@ -38,6 +38,15 @@ class ThemeSpider(scrapy.Spider):
         })
         self.driver = webdriver.Chrome(chrome_driver, chrome_options=chrome_options)
 
+        # 시작시간, 중간 쉬는 시간, 종료시간 설정.
+        today = time.localtime(time.time())
+        self.start_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday,
+                                            int(random.triangular(9, 10, 9)), int(random.randrange(0, 59, 1)))
+        self.break_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday,
+                                            int(random.triangular(12, 13, 13)), int(random.randrange(0, 59, 1)))
+        self.end_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday,
+                                          int(random.triangular(18, 20, 19)), int(random.randrange(0, 59, 1)))
+
     def start_requests(self):
         url_list = [
             "https://finance.naver.com/"
@@ -60,20 +69,20 @@ class ThemeSpider(scrapy.Spider):
                 "//div[@id='header']//div[contains(@class,'lnb_area')]//div[@id='menu']/ul/li//span[contains(text(),'국내증시')]"
             )
             self.driver.execute_script("arguments[0].click();", temp_button)
-            time.sleep(random.uniform(2, 3))
+            self.wait(2)
 
             # 테마 선택.
             temp_button = self.driver.find_element_by_xpath(
                 "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'테마')]"
             )
             self.driver.execute_script("arguments[0].click();", temp_button)
-            time.sleep(random.uniform(2, 3))
+            self.wait(2)
             # 테마 목록 정렬.
             temp_button = self.driver.find_element_by_xpath(
                 "//div[@id='newarea']//div[@id='contentarea_left']/table[1]//tr[1]/th[1]/a"
             )
             self.driver.execute_script("arguments[0].click();", temp_button)
-            time.sleep(random.uniform(2, 3))
+            self.wait(2)
             # 마지막 페이지 계산
             last_page = self.driver.find_element_by_xpath(
                 "//div[@id='newarea']//div[@id='contentarea_left']/table[2]//td[contains(@class,'pgRR')]/preceding-sibling::td[1]"
@@ -85,7 +94,7 @@ class ThemeSpider(scrapy.Spider):
                     "//div[@id='newarea']//div[@id='contentarea_left']/table[2]//td/a[text()='"+str(page_num)+"']"
                 )
                 self.driver.execute_script("arguments[0].click();", page_button)
-                time.sleep(random.uniform(2, 3))
+                self.wait(2)
 
                 # 테마별 종목 스크래핑
                 category_xpath = "//div[@id='contentarea']//div[@id='contentarea_left']/table[1]//tr/td[1]/a"
@@ -98,7 +107,7 @@ class ThemeSpider(scrapy.Spider):
                     if len(theme_name) > 9:
                         continue
                     self.driver.execute_script("arguments[0].click();", temp_button[category_count_num])
-                    time.sleep(random.uniform(2, 3))
+                    self.wait(2)
 
                     # 수익(손), 자산총계(재), 부채총계(재), 자본총계(재), 등등...
                     # df = pd.DataFrame(columns=["code", "stock_name", "account_id", "term", "value"])  # 섹터에 대한 데이터들 저장할 df.
@@ -365,7 +374,7 @@ class ThemeSpider(scrapy.Spider):
 
                     # 업종 목록으로 뒤로가기.
                     self.driver.back()
-                    time.sleep(random.uniform(2, 3))
+                    self.wait(2)
         except Exception as e:
             date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
             with open(constant.error_file_path + "/theme_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
@@ -379,6 +388,43 @@ class ThemeSpider(scrapy.Spider):
                       "'" + date + "', '" + account_name + "', '" + str(amount) + "')"
                       )
         return insert_sql
+
+    def wait(self, wait_time, term=5):
+        # 시작시간, 중간 쉬는 시간, 끝시간에 따른 대기.
+        now = datetime.datetime.now()
+        if (self.start_time.day == now.day) & (self.start_time > now):
+            while self.start_time > now:
+                time.sleep(10)
+            else:
+                self.start_time = self.start_time + datetime.timedelta(days=1)
+                self.start_time = self.start_time.replace(hour=int(random.triangular(9,10,9)), minute=int(random.randrange(0,59,1)))
+
+        elif (self.break_time.day == now.day) & (self.break_time < now) & (self.end_time > now):
+            time.sleep(random.normalvariate(3000, 300))
+            self.break_time = self.break_time + datetime.timedelta(days=1)
+            self.break_time = self.break_time.replace(hour=int(random.triangular(12, 13, 13)),
+                                                      minute=int(random.randrange(0, 59, 1)))
+
+        elif (self.end_time.day == now.day) & (self.end_time < now):
+            while datetime.datetime.now() > datetime.datetime(now.year, now.month, now.day+1, 6):
+                time.sleep(10)
+            self.end_time = self.end_time + datetime.timedelta(days=1)
+            self.end_time = self.end_time.replace(hour=int(random.triangular(5,7,6)),
+                                                      minute=int(random.randrange(0, 59, 1)))
+
+        # 랜덤 몇 초 더 대기.
+        random_value = random.randrange(1, 100, 1)
+        if random_value % 20 == 0:
+            time.sleep(random.triangular(wait_time, wait_time + term + 5, wait_time + term))
+        time.sleep(random.triangular(wait_time, wait_time + term, wait_time))
+        # 랜덤 3~5분 대기.
+        random_value3 = random.randrange(1, 100, 1)
+        if random_value3 % 100 == 0:
+            time.sleep(random.uniform(180, 300))
+        # 랜덤 10~20분 대기.
+        random_value2 = random.randrange(1, 1000, 1)
+        if random_value2 % 500 == 0:
+            time.sleep(random.uniform(600, 1200))
 
     def report_error(self, company):
         date_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
@@ -414,14 +460,14 @@ class ThemeSpider(scrapy.Spider):
                 self.driver.find_element_by_xpath(
                     "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@placeholder='계정']").send_keys(
                     "sooryong@gmail.com")
-                time.sleep(random.uniform(2, 3))
+                self.wait(2)
                 self.driver.find_element_by_xpath(
                     "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@placeholder='비밀번호']").send_keys(
                     ")!kaimobile01")
-                time.sleep(random.uniform(2, 3))
+                self.wait(2)
                 self.driver.find_element_by_xpath(
                     "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@class='button login']").click()
-                time.sleep(random.uniform(3, 4))
+                self.wait(3)
                 self.driver.refresh()
             except Exception as e2:
                 print(e2)
@@ -432,4 +478,4 @@ class ThemeSpider(scrapy.Spider):
         menu_bar_button = self.driver.find_element_by_xpath(
             "//div[@class='deepsearch-appbar']//div[contains(@class,'app-bar-drawer')]")
         self.driver.execute_script("arguments[0].click();", menu_bar_button)
-        time.sleep(random.uniform(2, 3))
+        self.wait(2)
