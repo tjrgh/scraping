@@ -21,6 +21,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from . import constant_var as constant
+from . import common_util as cm
 
 SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
@@ -43,6 +44,7 @@ class FnguideReportSpider(scrapy.Spider):
         self.end_date = end_date
         self.end_date_arr = self.end_date.split("-")
         self.scraping_count_goal = int(scraping_count_goal)
+        self.search_count = 0
 
         self.db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric",
                               password=")!metricAdmin01", port=2345)
@@ -68,6 +70,8 @@ class FnguideReportSpider(scrapy.Spider):
 
             self.fnguide_report_summary_scraping()
 
+            self.driver.quit()
+
         except Exception as e:
             date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
             with open(constant.error_file_path + "/fnguide_report_summary_error_list_" +
@@ -82,7 +86,6 @@ class FnguideReportSpider(scrapy.Spider):
         입력받은 기간을 2주간격으로 나누어서 검색하며 스크래핑.
         2주 간격으로 나누는 이유는 그 이상으로 잡을 시, 결과값이 너무 많아서인지 페이지에 결과 출력이 안됨.
         """
-        search_count = 0
 
         # 기간 검색 조건 배열 생성
         start_date = datetime.date.fromisoformat(self.start_date)
@@ -91,33 +94,28 @@ class FnguideReportSpider(scrapy.Spider):
         input_start_date = start_date
         while True:
             try:
-                # 이미 스크랩한 리포트 날짜 목록.
-                stored_date_list = pd.read_sql("select date, code, title from report_summary ",
-                                                    self.db).sort_values(by="date")
-                stored_date_list = stored_date_list.astype("string")
-
                 self.driver.find_element_by_xpath("//input[@id='inFromDate']").clear()
-                self.wait(2)
+                cm.wait(2)
                 self.driver.find_element_by_xpath("//input[@id='inFromDate']").send_keys(input_start_date.isoformat().replace("-", "/"))
-                self.wait(2)
+                cm.wait(2)
 
                 if input_start_date + datetime.timedelta(days=13) >= end_date:
                     # 기간 종료일에 spider가 인자로 받은 종료일 입력.
                     self.driver.find_element_by_xpath("//input[@id='inToDate']").clear()
-                    self.wait(2)
+                    cm.wait(2)
                     self.driver.find_element_by_xpath("//input[@id='inToDate']").send_keys(self.end_date.replace("-", "/"))
-                    self.wait(2)
+                    cm.wait(2)
                 else:
                     # 기간 시작일에서 13일 더한 날짜를 입력.
                     temp_date = input_start_date + datetime.timedelta(days=13)
                     self.driver.find_element_by_xpath("//input[@id='inToDate']").clear()
-                    self.wait(2)
+                    cm.wait(2)
                     self.driver.find_element_by_xpath("//input[@id='inToDate']")\
                         .send_keys(temp_date.isoformat().replace("-", "/"))
-                    self.wait(2)
+                    cm.wait(2)
 
                 self.click_element("//a[@id='btnSearch']", 5)
-                search_count = search_count + 1
+                self.search_count = self.search_count + 1
 
                 # 리포트 리스트 스크래핑
                 report_list = self.driver.find_elements_by_xpath("//tbody[@id='GridBody']/tr")
@@ -126,11 +124,16 @@ class FnguideReportSpider(scrapy.Spider):
                 insert_sql = ""
                 for report in report_list:
                     try:
+                        insert_sql = ""
                         created_date = "".join(report.xpath("./td[1]//text()").getall()).replace("/", "-")
                         code = report.xpath("./td[2]//dt/a/span/text()").get()
                         stock_name = report.xpath("./td[2]//dt/a/text()").get().strip()
                         report_name = report.xpath("./td[2]//dt/span//text()").get().strip().lstrip("-")
                         # 이미 스크랩한 날짜이면, 패스.
+                        # 이미 스크랩한 리포트 날짜 목록.
+                        stored_date_list = pd.read_sql("select date, code, title from report_summary ",
+                                                       self.db).sort_values(by="date")
+                        stored_date_list = stored_date_list.astype("string")
                         if (
                                 (created_date == stored_date_list["date"])
                                 & (code == stored_date_list["code"])
@@ -161,29 +164,39 @@ class FnguideReportSpider(scrapy.Spider):
                             "'" + str(datetime.datetime.now(datetime.timezone.utc)) + "', "\
                             "'" + stock_name + "', '" + report_name + "', '" + report_summary + "', '" + decision + "', " + target_price + ", "\
                             "" + current_price + ", '" + fin_corp + "', '" + writer_name + "', '" + created_date + "', '" + code + "')"
+                        print(insert_sql)
+                        try:
+                            self.cur.execute("insert into report_summary ("
+                                             "  created_at, updated_at, stock_name, title, summary, decision, target_price, "
+                                             "  current_price, fin_corp, writer, date, code"
+                                             ") values " + insert_sql[1:])
+                            self.db.commit()
+                        except Exception as e:
+                            self.db.rollback()
+                            raise Exception
 
                     except Exception as e:
                         self.report_error(e, code, stock_name)
                         continue
 
-                if insert_sql != "":
-                    try:
-                        self.cur.execute("insert into report_summary ("
-                                         "  created_at, updated_at, stock_name, title, summary, decision, target_price, "
-                                         "  current_price, fin_corp, writer, date, code"
-                                         ") values "+insert_sql[1:])
-                        self.db.commit()
-                    except Exception as e:
-                        self.db.rollback()
-                        raise Exception
+                # if insert_sql != "":
+                #     try:
+                #         self.cur.execute("insert into report_summary ("
+                #                          "  created_at, updated_at, stock_name, title, summary, decision, target_price, "
+                #                          "  current_price, fin_corp, writer, date, code"
+                #                          ") values "+insert_sql[1:])
+                #         self.db.commit()
+                #     except Exception as e:
+                #         self.db.rollback()
+                #         raise Exception
 
                 # 크롬 메모리 out 방지 및 검색 횟수 제한
-                if (search_count % 30 == 0) :
+                if (self.search_count % 30 == 0) :
                     self.driver.quit()
-                    self.wait(4)
+                    cm.wait(4)
                     self.initial_setting()
                 # 검색 회수 제한.
-                self.wait(1, search_count=search_count)
+                self.search_count = cm.wait(5, search_count=self.search_count, search_count_max=self.scraping_count_goal)["search_count"]
 
                 input_start_date = input_start_date + datetime.timedelta(days=14)
                 if input_start_date > end_date:
@@ -195,7 +208,7 @@ class FnguideReportSpider(scrapy.Spider):
                 self.report_error(e, code, stock_name)
 
                 self.driver.quit()
-                self.wait(4)
+                cm.wait(4)
                 self.initial_setting()
 
                 continue
@@ -203,6 +216,8 @@ class FnguideReportSpider(scrapy.Spider):
             except Exception as e:
                 self.report_error(e, code, stock_name)
                 continue
+
+        self.driver.quit();
 
     def report_error(self, e, code, stock_name):
         date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
@@ -220,9 +235,9 @@ class FnguideReportSpider(scrapy.Spider):
         # except Exception as e:
         #     self.driver.execute_script("arguments[0].click();", button)
         if term == None:
-            self.wait(wait_time)
+            cm.wait(wait_time)
         else:
-            self.wait(wait_time, term)
+            cm.wait(wait_time, term)
 
     def wait(self, wait_time,  term=5, search_count=None):
         now = datetime.datetime.now()
@@ -282,6 +297,10 @@ class FnguideReportSpider(scrapy.Spider):
                 # driver 실행.
                 chrome_driver = constant.chrome_driver_path
                 chrome_options = Options()
+                # chrome_options.add_argument("--headless")
+                # chrome_options.add_argument("--no-sandbox")
+                # chrome_options.add_argument("--single-process")
+                # chrome_options.add_argument("--disable-dev-shm-usage")
                 # chrome_options.add_experimental_option("prefs", {
                     # "download.default_directory": constant.download_path.replace("/", "\\") + "\\sometrend",
                     # "profile.content_settings.exceptions.automatic_downloads.*.setting": 1,
@@ -292,7 +311,7 @@ class FnguideReportSpider(scrapy.Spider):
                 self.driver.get('https://comp.fnguide.com/SVO2/ASP/SVD_main.asp?'
                                 'pGB=1&gicode=A005930&cID=&MenuYn=Y&ReportGB=&NewMenuID=11&stkGb=&strResearchYN=')
                 self.driver.implicitly_wait(5)
-                self.wait(2)
+                cm.wait(2)
 
                 # 요약리포트 이동.
                 self.click_element(
@@ -311,7 +330,7 @@ class FnguideReportSpider(scrapy.Spider):
                     f.write(date_time + "_초기 세팅 실패.\n")
                     f.write(traceback.format_exc())
                 self.driver.quit()
-                self.wait(5+i)
+                cm.wait(5+i)
                 continue
             else:
                 break

@@ -23,6 +23,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import pymongo
 from . import constant_var as constant
+from . import common_util as cm
 
 SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
@@ -41,12 +42,13 @@ class SocialKeywordSpider(scrapy.Spider):
         self.end_date_arr = self.end_date.split("-")
         self.term_type = term_type
         self.scraping_count_goal = int(scraping_count_goal)
+        self.search_count = 0
 
         self.db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric",
                               password=")!metricAdmin01", port=2345)
         self.cur = self.db.cursor()
         self.kospi_list = pd.read_sql("select * from stocks_basic_info where corp_code!=' '", self.db).sort_values(by="code")
-        self.keyword_list = pd.read_sql("select * from social_keywords where corp_code!=' '", self.db).sort_values(by="code_id")
+        self.keyword_list = pd.read_sql("select * from social_keywords where corp_code!=' ' and is_deleted=false and search_site='sometrend' ", self.db).sort_values(by="code_id")
 
         # 시작시간, 중간 쉬는 시간, 종료시간 설정.
         today = time.localtime(time.time())
@@ -69,12 +71,11 @@ class SocialKeywordSpider(scrapy.Spider):
             # self.initial_setting()
 
             self.social_keyword_scraping()
+
+            self.driver.quit()
+
         except Exception as e:
-            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-            with open(constant.error_file_path + "/social_keyword_error_list_" +
-                      time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt", "a", encoding="UTF-8") as f:
-                f.write(date_time + "_전체 에러 \n")
-                f.write(traceback.format_exc())
+            self.report_error(e, msg="전체 에러")
 
     # 분기별 재무정보 스크래핑 후 업데이트
     def social_keyword_scraping(self):
@@ -82,7 +83,6 @@ class SocialKeywordSpider(scrapy.Spider):
         # self.kospi_list = self.kospi_list[1:]
 
         # 분기 데이터 받아야 하는 리스트 대상으로 한번 반복.
-        item_count = 0 #반복시마다 증가하는 카운트.(크롬 out of memory오류 방지를 위해 체크)
         # 임시 항목 리스트에 대해 분기 데이터 추출.
         for index, company in self.kospi_list.iterrows():
             search_result = True
@@ -118,12 +118,7 @@ class SocialKeywordSpider(scrapy.Spider):
                     if (pre_mentions_data[0] == day_count) & (pre_pos_neg_data != None) & (pre_connection_data != None):
                         break
                 except Exception as e:
-                    date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                    with open(constant.error_file_path + "/social_keyword_error_list_" +
-                              time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt", "a",
-                              encoding="UTF-8") as f:
-                        f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
-                        f.write(traceback.format_exc())
+                    self.report_error(e, (company["code"][1:] + company["name"]), msg="데이터 이미 존재")
                     continue
 
                 try:
@@ -135,7 +130,7 @@ class SocialKeywordSpider(scrapy.Spider):
                         )
                     except Exception as e:
                         self.driver.refresh()
-                        self.wait(4)
+                        cm.wait(4)
                         self.click_element(
                             "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-input-box')]"
                             "/div[@id='searchInputArea']/div[contains(@class,'input-keyword')]/button", 2
@@ -151,7 +146,7 @@ class SocialKeywordSpider(scrapy.Spider):
                         "//div[contains(@class,'modal-search-header')]/div/input"
                     )
                     search_keyword.send_keys(company["name"])
-                    self.wait(2)
+                    cm.wait(2)
 
                     # 동의어, 포함어, 제외어 입력.
                     if (self.keyword_list["code_id"] == company["code"]).any():
@@ -166,27 +161,27 @@ class SocialKeywordSpider(scrapy.Spider):
                                 "//div[@id='analysisOptionWindowArea']//div[contains(@class,'search-detail-condition-block-div')]"\
                                 "//div[contains(@class,'input-item')][1]//input[contains(@class,'synonym-keyword')]"
                             self.driver.find_element_by_xpath(key_input_xpath).send_keys(keyword)
-                            self.wait(0, 1)
+                            cm.wait(0, 1)
                             self.driver.find_element_by_xpath(key_input_xpath).send_keys(Keys.ENTER)
-                            self.wait(1, 2)
+                            cm.wait(1, 2)
 
                         for keyword in include_keyword_list.split("\\"):
                             key_input_xpath= \
                                 "//div[@id='analysisOptionWindowArea']//div[contains(@class,'search-detail-condition-block-div')]"\
                                 "//div[contains(@class,'input-item')][2]//input[contains(@class,'include-keyword')]"
                             self.driver.find_element_by_xpath(key_input_xpath).send_keys(keyword)
-                            self.wait(0, 1)
+                            cm.wait(0, 1)
                             self.driver.find_element_by_xpath(key_input_xpath).send_keys(Keys.ENTER)
-                            self.wait(1, 2)
+                            cm.wait(1, 2)
 
                         for keyword in exclude_keyword_list.split("\\"):
                             key_input_xpath = \
                                 "//div[@id='analysisOptionWindowArea']//div[contains(@class,'search-detail-condition-block-div')]"\
                                 "//div[contains(@class,'input-item')][3]//input[contains(@class,'exclude-keyword')]"
                             self.driver.find_element_by_xpath(key_input_xpath).send_keys(keyword)
-                            self.wait(0, 1)
+                            cm.wait(0, 1)
                             self.driver.find_element_by_xpath(key_input_xpath).send_keys(Keys.ENTER)
-                            self.wait(1, 2)
+                            cm.wait(1, 2)
 
 
                     # 검색 버튼 클릭
@@ -195,6 +190,7 @@ class SocialKeywordSpider(scrapy.Spider):
                         "/div[@id='analysisSearchModal']/div[contains(@class,'modal-search-footer')]"
                         "//button[@id='analysisSubmitButton']", 3
                     )
+                    self.search_count = self.search_count+1
 
                     # 기간 입력
                     self.click_element(
@@ -269,7 +265,7 @@ class SocialKeywordSpider(scrapy.Spider):
                         if social_type.is_selected() == False:
                             # social_type.click()
                             self.driver.execute_script("arguments[0].click();", social_type)
-                            self.wait(1)
+                            cm.wait(1)
                     temp_button = self.driver.find_element_by_xpath(
                         "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-option-box')]"
                         "//button[@id='searchConditionApplyButton']"
@@ -290,38 +286,33 @@ class SocialKeywordSpider(scrapy.Spider):
                             EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
                             "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
                         )
-                        self.wait(1)
+                        cm.wait(1)
                         self.driver.find_element_by_xpath("//div[@id='driver-popover-item']"
                             "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"
                           ).click()
-                        self.wait(2)
+                        cm.wait(2)
                     except Exception as e:
                         pass
 
                     # 데이터 없는 경우 처리
-                    self.wait(2)
+                    cm.wait(2)
                     no_data_section = self.driver.find_element_by_xpath("//section[@id='noDataArea']")
                     if "display" not in no_data_section.get_attribute("style"):
-                        date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                        with open(constant.error_file_path + "/social_keyword_error_list_" +
-                                  time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt", "a",
-                                  encoding="UTF-8") as f:
-                            f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
-                            f.write(traceback.format_exc())
+                        self.report_error(e, (company["code"][1:]+company["name"]), msg="데이터 없음")
                         break
 
                     # 언급량 엑셀 다운.
                     WebDriverWait(self.driver, 60).until(
                         EC.visibility_of_element_located((By.XPATH, "//input[@id='D-sensibility']/following-sibling::label"))
                     )
-                    self.wait(3)
+                    cm.wait(3)
                     temp_button = self.driver.find_element_by_xpath( "//input[@id='D-sensibility']" )
                     if temp_button.is_selected() == False:
                         self.click_element("//input[@id='D-sensibility']", 2)
                     WebDriverWait(self.driver, 60).until(
                         EC.visibility_of_element_located((By.XPATH, "//button[@id='mentionExcelDownloadButton']"))
                     )
-                    self.wait(3)
+                    cm.wait(3)
                     # 기존 동일한 파일 있을시, 삭제.
                     if os.path.isfile(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_언급량_"+
                              self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx"):
@@ -339,19 +330,27 @@ class SocialKeywordSpider(scrapy.Spider):
                             EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
                             "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
                         )
-                        self.wait(1)
+                        cm.wait(1)
                         self.driver.find_element_by_xpath(
                             "//div[@id='driver-popover-item']"
                             "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"
                         ).click()
-                        self.wait(2)
+                        cm.wait(2)
                     except Exception as e:
                         pass
+
+                    # 데이터 없는 경우 처리
+                    cm.wait(2)
+                    no_data_section = self.driver.find_element_by_xpath("//section[@id='noDataArea']")
+                    if "display" not in no_data_section.get_attribute("style"):
+                        self.report_error(e, (company["code"][1:]+company["name"]), msg="데이터 없음")
+                        break
+
                     # 연관어 엑셀 다운
                     WebDriverWait(self.driver, 60).until(
                         EC.visibility_of_element_located((By.XPATH, "//input[@id='W-sensibility']/following-sibling::label"))
                     )
-                    self.wait(3)
+                    cm.wait(3)
                     temp_button = self.driver.find_element_by_xpath("//input[@id='W-sensibility']")
                     if temp_button.is_selected() == False:
                         self.click_element("//input[@id='W-sensibility']", 2)
@@ -360,7 +359,7 @@ class SocialKeywordSpider(scrapy.Spider):
                             "//div[@id='rankingChangeListForAssociationVskeleton']/div[contains(@class,'layout-card-header')]"
                             "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]"))
                     )
-                    self.wait(3)
+                    cm.wait(3)
                     # 기존 파일 있을시 삭제.
                     if os.path.isfile(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_연관어 순위 변화_"+
                              self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx"):
@@ -381,19 +380,27 @@ class SocialKeywordSpider(scrapy.Spider):
                             EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
                             "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
                         )
-                        self.wait(1)
+                        cm.wait(1)
                         self.driver.find_element_by_xpath(
                             "//div[@id='driver-popover-item']"
                             "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"
                         ).click()
-                        self.wait(2)
+                        cm.wait(2)
                     except Exception as e:
                         pass
+
+                    # 데이터 없는 경우 처리
+                    cm.wait(2)
+                    no_data_section = self.driver.find_element_by_xpath("//section[@id='noDataArea']")
+                    if "display" not in no_data_section.get_attribute("style"):
+                        self.report_error(e, (company["code"][1:] + company["name"]), msg="데이터 없음")
+                        break
+
                     # 긍,부정어 엑셀 다운
                     WebDriverWait(self.driver, 60).until(
                         EC.visibility_of_element_located((By.XPATH, "//input[@id='W-sensibility01']/following-sibling::label"))
                     )
-                    self.wait(3)
+                    cm.wait(3)
                     temp_button = self.driver.find_element_by_xpath("//input[@id='W-sensibility01']")
                     if temp_button.is_selected() == False:
                         self.click_element("//input[@id='W-sensibility01']", 2)
@@ -403,7 +410,7 @@ class SocialKeywordSpider(scrapy.Spider):
                           "//div[contains(@class,'layout-card-header-buttons')]/button[contains(@class,'btn-excel-down')]"
                           ))
                     )
-                    self.wait(3)
+                    cm.wait(3)
                     # 기존 파일 있을시 삭제.
                     if os.path.isfile(constant.download_path+"/sometrend/[썸트렌드] "+company["name"]+"_긍부정 단어 순위 변화_"+
                              self.start_date[2:].replace("-","")+"-"+self.end_date[2:].replace("-","")+".xlsx"):
@@ -418,12 +425,10 @@ class SocialKeywordSpider(scrapy.Spider):
                     # db 저장
                     # self.store_data(company)
 
-                    # 스크래핑 수행한 종목 개수 카운트.
-                    item_count = item_count + 1
                     # 목표 스크래핑 개수를 마치면 종료.
-                    if item_count == self.scraping_count_goal:
-                        return
-                    if item_count % 30 == 0:
+                    self.search_count = cm.wait(30, search_count=self.search_count, search_count_max=self.scraping_count_goal)["search_count"]
+
+                    if self.search_count % 30 == 0:
                         self.driver.quit()
                         self.initial_setting()
 
@@ -431,27 +436,29 @@ class SocialKeywordSpider(scrapy.Spider):
 
                 except NoSuchWindowException as e:
                     # 에러 정보 저장.
-                    date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                    with open(constant.error_file_path+"/social_keyword_error_list_"+
-                              time.strftime("%Y-%m-%d", time.localtime(time.time()))+".txt", "a", encoding="UTF-8") as f:
-                        f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
-                        f.write(traceback.format_exc())
+                    self.report_error(e, (company["code"][1:]+company["name"]))
 
                     self.driver.quit()
-                    self.wait(4)
+                    cm.wait(4)
                     self.initial_setting()
 
                     continue
 
                 except Exception as e:
-                    date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                    with open(
-                            constant.error_file_path+"/social_keyword_error_list_" + time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt",
-                            "a", encoding="UTF-8") as f:
-                        f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
-                        f.write(traceback.format_exc())
+                    self.report_error(e, (company["code"][1:]+company["name"]))
 
-                    self.wait(4)
+                    # 로그아웃 확인.
+                    self.driver.refresh()
+                    if self.check_element(
+                            "//body/div[contains(@class,'layout-top-bar')]//div[contains(@class,'top-search-input-box')]"
+                            "/nav[contains(@class,'user-util')]//li[contains(@class,'item-user')]"
+                            "//span[contains(text(),'로그인')]"
+                    ) == True:
+                        self.driver.quit()
+                        cm.wait(4)
+                        self.initial_setting()
+
+                    cm.wait(4)
                     continue
 
 
@@ -506,13 +513,7 @@ class SocialKeywordSpider(scrapy.Spider):
             self.db.commit()
         except Exception as e:
             self.db.rollback()
-            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-            with open(
-                    constant.error_file_path + "/social_keyword_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
-                        time.time())) + ".txt",
-                    "a", encoding="UTF-8") as f:
-                f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
-                f.write(traceback.format_exc())
+            self.report_error(e, (company["code"][1:]+company["name"]))
 
 
         # 긍, 부정 데이터 기존 데이터 삭제.
@@ -582,13 +583,7 @@ class SocialKeywordSpider(scrapy.Spider):
             self.db.commit()
         except Exception as e:
             self.db.rollback()
-            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-            with open(
-                    constant.error_file_path + "/social_keyword_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
-                        time.time())) + ".txt",
-                    "a", encoding="UTF-8") as f:
-                f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
-                f.write(traceback.format_exc())
+            self.report_error(e, (company["code"][1:]+company["name"]))
 
         # 연관어 기존 데이터 삭제
         self.cur.execute(
@@ -651,13 +646,14 @@ class SocialKeywordSpider(scrapy.Spider):
             self.db.commit()
         except Exception as e:
             self.db.rollback()
-            date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-            with open(
-                    constant.error_file_path + "/social_keyword_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
-                        time.time())) + ".txt",
-                    "a", encoding="UTF-8") as f:
-                f.write(date_time + "_" + company["code"][1:] + "_" + company["name"] + "\n")
-                f.write(traceback.format_exc())
+            self.report_error(e, (company["code"][1:]+company["name"]))
+
+    def report_error(self, e=None, data="", msg=""):
+        date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+        with open(constant.error_file_path + "/social_keyword_error_list_" +
+                  time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt", "a", encoding="UTF-8") as f:
+            f.write(date_time + "_" + data + "_" + msg + "\n")
+            f.write(traceback.format_exc())
 
     def click_element(self, xpath, wait_time, term=None):
         button = self.driver.find_element_by_xpath(xpath)
@@ -668,9 +664,9 @@ class SocialKeywordSpider(scrapy.Spider):
         # except Exception as e:
         #     self.driver.execute_script("arguments[0].click();", button)
         if term == None:
-            self.wait(wait_time)
+            cm.wait(wait_time)
         else:
-            self.wait(wait_time, term)
+            cm.wait(wait_time, term)
 
     def wait(self, wait_time, term=5):
         # 시작시간, 중간 쉬는 시간, 끝시간에 따른 대기.
@@ -702,12 +698,12 @@ class SocialKeywordSpider(scrapy.Spider):
         time.sleep(random.triangular(wait_time, wait_time + term, wait_time))
         # 랜덤 3~5분 대기.
         random_value3 = random.randrange(1, 100, 1)
-        if random_value3 % 100 == 0:
-            time.sleep(random.uniform(180, 300))
+        # if random_value3 % 100 == 0:
+        #     time.sleep(random.uniform(180, 300))
         # 랜덤 10~20분 대기.
         random_value2 = random.randrange(1, 1000, 1)
-        if random_value2 % 500 == 0:
-            time.sleep(random.uniform(600, 1200))
+        # if random_value2 % 500 == 0:
+        #     time.sleep(random.uniform(600, 1200))
 
     def initial_setting(self):
         for i in range(10):
@@ -725,7 +721,7 @@ class SocialKeywordSpider(scrapy.Spider):
                 self.driver.set_window_position(1300,0)
                 self.driver.get('https://some.co.kr/')
                 self.driver.implicitly_wait(5)
-                self.wait(2)
+                cm.wait(2)
 
                 # 검색 페이지 세팅.
                 #   초기 화면 팝업창 제거
@@ -740,24 +736,24 @@ class SocialKeywordSpider(scrapy.Spider):
                     "//div[contains(@class,'main_wrap')]//header/nav//article[2]//a[contains(@class,'btn-login')]"
                 )
                 self.driver.execute_script("arguments[0].click();",temp_button)
-                self.wait(2)
+                cm.wait(2)
 
                 self.driver.find_element_by_xpath(
                     "//div[@id='wrap']/section/div[contains(@class,'login_form_box')]/form[@id='loginForm']"
                     "//input[@id='username']"
                 ).send_keys("jonghee5347@gmail.com")
-                self.wait(2)
+                cm.wait(2)
                 self.driver.find_element_by_xpath(
                     "//div[@id='wrap']/section/div[contains(@class,'login_form_box')]/form[@id='loginForm']"
                     "//input[@id='password']"
                 ).send_keys(")!kaimobile01")
-                self.wait(2)
+                cm.wait(2)
                 temp_button = self.driver.find_element_by_xpath(
                     "//div[@id='wrap']/section/div[contains(@class,'login_form_box')]/form[contains(@class,'login_frm')]"
                     "/div[contains(@class,'login_btn_box')]/a[contains(@class,'login_btn')]"
                 )
                 self.driver.execute_script("arguments[0].click();", temp_button)
-                self.wait(2)
+                cm.wait(2)
 
                 # 소셜 분석 센터 이동
                 temp_button = self.driver.find_element_by_xpath(
@@ -765,7 +761,7 @@ class SocialKeywordSpider(scrapy.Spider):
                     "/a[contains(text(),'소셜 분석 센터')]"
                 )
                 self.driver.execute_script("arguments[0].click();", temp_button)
-                self.wait(2)
+                cm.wait(2)
 
                 # 설명 팝업 확인 및 처리
                 try:
@@ -773,24 +769,19 @@ class SocialKeywordSpider(scrapy.Spider):
                         EC.visibility_of_element_located((By.XPATH, "//div[@id='driver-popover-item']"
                         "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"))
                     )
-                    self.wait(1,2)
+                    cm.wait(1,2)
                     self.driver.find_element_by_xpath(
                         "//div[@id='driver-popover-item']"
                         "/div[contains(@class,'driver-popover-footer')]/div[contains(@class,'vguide-pop-session')]"
                     ).click()
-                    self.wait(2)
+                    cm.wait(2)
                 except Exception as e:
                     pass
 
             except Exception as e:
-                date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                with open(constant.error_file_path + "/social_keyword_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
-                            time.time())) + ".txt",
-                        "a", encoding="UTF-8") as f:
-                    f.write(date_time + "_초기 세팅 실패.\n")
-                    f.write(traceback.format_exc())
+                self.report_error(e, msg="초기 세팅 실패")
                 self.driver.quit()
-                self.wait(5+i)
+                cm.wait(5+i)
                 continue
             else:
                 break

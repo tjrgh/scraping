@@ -1,3 +1,6 @@
+
+import random
+
 import scrapy
 import datetime
 import time
@@ -18,17 +21,20 @@ class NaverFinanceSpider(scrapy.Spider):
 
     def __init__(self):
         super(NaverFinanceSpider, self).__init__()
-        chrome_driver = 'C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe'
-        self.driver = webdriver.Chrome(chrome_driver)
 
-        client = pymongo.MongoClient('localhost', 27017)
-        self.db = client.noname
-        self.collection = self.db.collection1
+        # 시작시간, 중간 쉬는 시간, 종료시간 설정.
+        self.start_time = datetime.time(int(random.triangular(9, 10, 9)),
+                                        int(random.randrange(0, 59, 1)))
+        self.break_time = datetime.time(int(random.triangular(12, 13, 13)),
+                                        int(random.randrange(0, 59, 1)))
+        self.end_time = datetime.time(int(random.triangular(17, 19, 18)),
+                                      int(random.randrange(0, 59, 1)))
+        self.search_count = 0
+        self.scraping_count_goal = 3
 
     def start_requests(self):
         urls = [
             'https://finance.naver.com/'
-
         ]
 
         for url in urls:
@@ -36,79 +42,141 @@ class NaverFinanceSpider(scrapy.Spider):
             yield scrapy.Request(url=url)
 
     def parse(self, response):
-        self.driver.get(response.url)
-        # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@class='login-page huge']//div[@class='ds input input'][position()=1]/input")))
-        self.driver.implicitly_wait(10)
 
-        # 종목 검색
-        self.driver.find_element_by_xpath("//div[@id='header']//input[@id='stock_items']").send_keys("005930")
-        self.driver.find_element_by_xpath("//div[@id='header']//div[@class='snb_search_box']/button[@alt='검색']").click()
+        while True:
+            for i in range(50):
+                self.wait(30)
+            print(str(datetime.datetime.now()) + "항목 하나 종료.")
+            self.search_count = self.search_count + 1
+            self.wait(1, search_count=self.search_count)
 
-        time.sleep(2)
-        self.driver.find_element_by_xpath("//div[@id='wrap']//div[@id='content']//ul[contains(@class,'tabs_submenu')]/li[2]").click()
-        time.sleep(2)
-        dailyPrice = self.driver.find_element_by_xpath("//div[@id='content']//div[contains(@class,'inner_sub')]/iframe[2]//body//table[@class='type2']")
-        dailyPrice_list = []
-        print(dailyPrice)
-        # for i in
-        self.collection.insert_many
-        # quote = Quote(sentence=div.css('span.text::text').get(),
-        #               authorName=div.css('small.author::text').get(),
-        #               authorLink=div.css('span')[1].css('a').attrib['href'])
+    def wait(self, wait_time, term=5, search_count=None, search_count_max=None):
+        result = {"search_count":search_count}
 
-        # post = {"author": "Mike",
-        #     "text": "My first blog post!",
-        #     "tags": ["mongodb", "python", "pymongo"],
-        #     "date": datetime.datetime.utcnow()}
-        # post_id = self.collection.insert_one(post).inserted_id
+        # 해당 날짜마다 다른 랜덤 대기 시간 생성.
+        today_seed = datetime.date.today().year * datetime.date.today().month * datetime.date.today().day
+        random.seed(today_seed)
+        start_time = datetime.time(int(random.triangular(9, 10, 9)), int(random.randrange(0, 59, 1)))
+        break_time = datetime.time(int(random.triangular(12, 13, 13)), int(random.randrange(0, 59, 1)))
+        end_time = datetime.time(int(random.triangular(17, 19, 18)), int(random.randrange(0, 59, 1)))
 
-        dailyPrice.find_element_by_xpath("./body/table[1]//tr[3]")
-        # 로그인
-        # self.driver.find_element_by_xpath("//div[contains(@class,'login-page')]//div[@class='login-container']//input[@placeholder='계정']").send_keys("tony62@naver.com")
-        # self.driver.find_element_by_xpath("//div[contains(@class,'login-page')]//div[@class='login-container']//input[@placeholder='비밀번호']").send_keys("**2TJRGHetc")
-        # self.driver.find_element_by_xpath("//div[contains(@class,'login-page')]//div[@class='login-container']//input[@class='button login']").click()
-        # time.sleep(3)
-        # # 항목 이동
-        # menu_bar_button = self.driver.find_element_by_xpath("//div[@class='deepsearch-appbar']//div[contains(@class,'app-bar-drawer')]")
-        # self.driver.execute_script("arguments[0].click();", menu_bar_button)
-        # self.driver.find_element_by_css_selector('div.drawer-container.slider div.menu-item-group:nth-child(2) div.menu-item:nth-child(5)').click()
-        # menu1_button = self.driver.find_element_by_xpath("//div[@class='deepsearch-app']/div[contains(@class,'drawer-container-layout')]/"
-        #                                                  "div[contains(@class,'drawer-container')]/div[contains(@class,'drawer-container-inner')]/"
-        #                                                  "div[contains(@class,'menu-item-group')][2]/div[@class='menu-item'][2]")
-        # self.driver.execute_script("arguments[0].click();", menu1_button)
+        now = datetime.datetime.now().time()
+        # 검색 쿼리 횟수 제한
+        if (search_count != None):
+            if (search_count >= search_count_max):
+                print("----------------------------------\n")
+                print(str(datetime.datetime.now()) + "search count limit break term start.")
+                # self.report_error(msg="search count limit break term start.")
+                while (datetime.datetime.now().time() < datetime.time(6, 0)) | \
+                    (datetime.datetime.now().time() > datetime.time(7, 0)):
+                    time.sleep(10)
+                else:
+                    print("----------------------------------\n")
+                    print(str(datetime.datetime.now()) + "search count limit break term end.")
+                    # self.report_error(msg="search count limit break term end.")
+                    result["search_count"] = 0
 
-        # data = self.driver.find_element_by_css_selector('span.table-export-button').click()
-        # selector = scrapy.Selector(text=self.driver.page_source)
-        # print('result1 : ')
-        # print(selector.css("div.rt-td")[0].get())
-        # print(data)
+        # 시작시간, 중간 쉬는 시간, 끝시간에 따른 대기.
+        if (start_time >= now) | (end_time <= now):
+            print("----------------------------------\n")
+            if start_time >= now:
+                print(str(datetime.datetime.now()) + "start break term start.")
+            elif end_time <= now:
+                print(str(datetime.datetime.now()) + "end break term start.")
+            # self.report_error(msg="start break term start.")
+            while (start_time >= datetime.datetime.now().time()) | \
+                    (end_time <= datetime.datetime.now().time()):
+                time.sleep(10)
+            else:
+                print("----------------------------------\n")
+                print(str(datetime.datetime.now()) + "start/end break term end.")
+                # self.report_error(msg="start break term end.")
+                result["search_count"] = 0
+                print((str(datetime.datetime.now()) + "break_time : " + str(self.break_time)))
+                print((str(datetime.datetime.now()) + "start_time : " + str(self.start_time)))
+                print((str(datetime.datetime.now()) + "end_time : " + str(self.end_time)))
 
-        # div = response.css('div.rt-resizable-header-content::text')[0]
-        # title = response.css('title::text')
-        # quote = Quote(sentence=div.css('span.text::text').get(),
-        #               authorName=div.css('small.author::text').get(),
-        #               authorLink=div.css('span')[1].css('a').attrib['href'])
-        # print('result2 : ')
-        # print(title)
+        elif (break_time < now) & \
+                ((datetime.datetime.combine(datetime.date.today(), break_time)
+                 + datetime.timedelta(minutes=30)).time() > now):
+            print("----------------------------------\n")
+            print(str(datetime.datetime.now()) + "middle break term start.")
+            # self.report_error(msg="middle break term start.")
+            time.sleep(random.normalvariate(3000, 400))
+            print("----------------------------------\n")
+            print(str(datetime.datetime.now()) + "middle break term end.")
+            # self.report_error(msg="middle break term end.")
 
-        # mongoDB 실습
-        # post = {"author": "Mike",
-        #     "text": "My first blog post!",
-        #     "tags": ["mongodb", "python", "pymongo"],
-        #     "date": datetime.datetime.utcnow()}
-        # post_id = self.collection.insert_one(post).inserted_id
-        # print(post_id)
+        # 랜덤 몇 초 더 대기.
+        random_value = random.randrange(1, 100, 1)
+        if random_value % 20 == 0:
+            print(str(datetime.datetime.now()) + "more sleep...")
+            time.sleep(random.triangular(wait_time, wait_time + term + 10, wait_time + term + 5))
+        print(str(datetime.datetime.now()) + "...")
+        time.sleep(random.triangular(wait_time, wait_time + term, wait_time))
+        # 랜덤 3~5분 대기.
+        random_value3 = random.randrange(1, 100, 1)
+        if random_value3 % 100 == 0:
+            print(str(datetime.datetime.now()) + "3~5minute sleep")
+            # self.report_error(msg="3~5minute sleep")
+            time.sleep(random.uniform(180, 300))
+        # 랜덤 10~20분 대기.
+        random_value2 = random.randrange(1, 1000, 1)
+        if random_value2 % 500 == 0:
+            print(str(datetime.datetime.now()) + "10~20minute sleep")
+            # self.report_error(msg="10~20minute sleep")
+            time.sleep(random.uniform(600, 1200))
 
-        # return title
+        return result
 
-class DailyPrice(scrapy.Item):
-    code = scrapy.Field()
-    name = scrapy.Field()
-
-    date = scrapy.Field()
-    end_price = scrapy.Field()
-    yesterday_difference = scrapy.Field()
-    start_price = scrapy.Field()
-    high_price = scrapy.Field()
-    low_price = scrapy.Field()
-    exchange_volume = scrapy.Field()
+    # def wait(self, wait_time, term=5):
+    #     # 시작시간, 중간 쉬는 시간, 끝시간에 따른 대기.
+    #     now = datetime.datetime.now()
+    #     if (self.start_time.day == now.day) & (self.start_time > now):
+    #         print("시작 대기 시작" + str(datetime.datetime.now()))
+    #         while self.start_time > now:
+    #             time.sleep(10)
+    #         else:
+    #             print("시작 대기 종료" + str(datetime.datetime.now()))
+    #             self.start_time = self.start_time + datetime.timedelta(days=1)
+    #             self.start_time = self.start_time.replace(hour=int(random.triangular(9, 10, 9)), minute=int(random.randrange(0, 59, 1)))
+    #             print(str(datetime.datetime.now())+" start_time : "+str(self.start_time))
+    #
+    #     elif (self.break_time.day == now.day) & (self.break_time < now) & (self.end_time > now):
+    #         print("중간 대기 시작" + str(datetime.datetime.now()))
+    #         time.sleep(random.normalvariate(3000, 300))
+    #         print("중간 대기 종료" + str(datetime.datetime.now()))
+    #         self.break_time = self.break_time + datetime.timedelta(days=1)
+    #         self.break_time = self.break_time.replace(hour=int(random.triangular(12, 13, 13)),
+    #                                         minute=int(random.randrange(0, 59, 1)))
+    #         print(str(datetime.datetime.now()) + " break_time : " + str(self.break_time))
+    #
+    #     elif (self.end_time.day == now.day) & (self.end_time < now):
+    #         print("종료 대기 시작" + str(datetime.datetime.now()))
+    #         while datetime.datetime.now() < datetime.datetime(now.year, now.month, now.day + 1, 6):
+    #             time.sleep(10)
+    #         print("종료 대기 종료" + str(datetime.datetime.now()))
+    #         self.end_time = self.end_time + datetime.timedelta(days=1)
+    #         self.end_time = self.end_time.replace(hour=int(random.triangular(18, 20, 19)),
+    #                                     minute=int(random.randrange(0, 59, 1)))
+    #         print(str(datetime.datetime.now()) + " end_time : " + str(self.end_time))
+    #
+    #     # 랜덤 몇 초 더 대기.
+    #     random_value = random.randrange(1, 100, 1)
+    #     if random_value % 20 == 0:
+    #         time.sleep(random.triangular(wait_time, wait_time + term + 5, wait_time + term))
+    #     else:
+    #         time.sleep(random.triangular(wait_time, wait_time + term, wait_time))
+    #     print(str(datetime.datetime.now())+"...")
+    #     # 랜덤 3~5분 대기.
+    #     random_value3 = random.randrange(1, 100, 1)
+    #     if random_value3 % 100 == 0:
+    #         print("랜덤 3~5분 대기 시작" + str(datetime.datetime.now()))
+    #         time.sleep(random.uniform(180, 300))
+    #         print("랜덤 3~5분 대기 종료" + str(datetime.datetime.now()))
+    #     # 랜덤 10~20분 대기.
+    #     random_value2 = random.randrange(1, 1000, 1)
+    #     if random_value2 % 500 == 0:
+    #         print("랜덤 10~20분 대기 시작" + str(datetime.datetime.now()))
+    #         time.sleep(random.uniform(600, 1200))
+    #         print("랜덤 10~20분 대기 종료" + str(datetime.datetime.now()))

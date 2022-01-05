@@ -42,47 +42,11 @@ if __name__ == '__main__':
     import re
     import schedule_job
 
-    for i in range(100):
-        print(random.triangular(6,11, 6))
-    # for i in np.random.normal(3000,300,100):
-    #     print(i)
-    #     if i < 0:
-    #         print(i)
+    # from dart_and_daishin import getStackedHistoricalData
+    # import calculate_price_predict
 
-    # chrome_driver = "C:/Users/kai/Desktop/chromedriver_win32/chromedriver.exe"
-    # proxy_address = "1.179.144.41:8080"
-    # # webdriver.DesiredCapabilities.CHROME['proxy'] = {
-    # #     "httpProxy": proxy,
-    # #     "ftpProxy": proxy,
-    # #     "sslProxy": proxy,
-    # #     "proxyType": "MANUAL"
-    # # }
-    # prox = Proxy()
-    # prox.proxy_type = ProxyType.MANUAL
-    # prox.http_proxy = proxy_address
-    # # prox.socks_proxy = proxy_address
-    # prox.ssl_proxy = proxy_address
-    #
-    # capabilities = webdriver.DesiredCapabilities.CHROME
-    # prox.add_to_capabilities(capabilities)
-    #
-    # # webdriver.DesiredCapabilities.CHROME["acceptSslCerts"]=True
-    # chrome_options = webdriver.ChromeOptions()
-    # chrome_options.add_experimental_option("prefs", {
-    #     # "download.default_directory": constant.download_path.replace("/", "\\") + "\\deepSearch",
-    #     "profile.content_settings.exceptions.automatic_downloads.*.setting": 1,
-    #     "plugins.always_open_pdf_externally": True,
-    #     # "--remote-debugging-address":"127.0.0.1",
-    #     # "--remote_debugging-port":"9222",
-    # })
-    # chrome_options.add_experimental_option("debuggerAddress","127.0.0.1:9222")
-    # chrome_options.add_argument("--proxy-server=socks5://127.0.0.1:9150")# Tor로 요청 전달하도록 설정.
-    # chrome_options.add_argument("--proxy-server=183.105.237.213:808")
-    # driver = webdriver.Chrome(chrome_driver, options=chrome_options, desired_capabilities=capabilities)
-    # driver.get('https://www.icanhazip.com/')# https://www.bigkinds.or.kr/ https://www.icanhazip.com/
-    # print(driver.page_source)#2a00:74a0:e000:1003::114
-
-    # cmdline.execute("scrapy crawl korean_daily_finance_spider -a quarter=2021-03-31".split())
+    # cmdline.execute("scrapy crawl naver_finance".split())
+    # cmdline.execute("scrapy crawl korean_daily_finance_spider -a quarter=2021-09-30".split())
     # cmdline.execute("scrapy crawl noname".split())
     # cmdline.execute("scrapy crawl report_spider".split())
     # cmdline.execute("scrapy crawl notice_spider".split())
@@ -92,8 +56,13 @@ if __name__ == '__main__':
     #                 "-a scraping_count_goal=50".split())
     # cmdline.execute("scrapy crawl big_kinds_news_spider -a start_date=1990-01-01 -a end_date=2021-08-08".split())
     # cmdline.execute("scrapy crawl new_stock_financial_spider".split())
-    # cmdline.execute("scrapy crawl fnguide_report_summary_spider -a start_date=2020-01-01 -a end_date=2021-06-30".split())
-    cmdline.execute("scrapy crawl naver_news_spider -a start_date=2020-07-25 -a end_date=2021-08-10".split())
+    # cmdline.execute("scrapy crawl fnguide_report_summary_spider -a start_date=2021-01-01 -a end_date=2021-12-24".split())
+    # cmdline.execute("scrapy crawl naver_news_spider -a start_date=2020-07-01 -a end_date=2020-07-02".split())
+    # cmdline.execute("scrapy crawl deepsearch_stock_info_spider -a target_date=2021-09-30 -a scraping_count_goal=200".split())
+    # cmdline.execute("scrapy crawl social_search_spider -a is_followed=True -a start_date=2021-01-01 -a end_date=2021-11-28 -a scraping_count_goal=100 -a follow_start_year=2021".split())
+    # cmdline.execute("scrapy crawl daum_news_spider -a start_date=2020-07-01 -a end_date=2020-07-02".split())
+    cmdline.execute("scrapy crawl bbd_custom_keyword_naver_news_spider".split())
+    # cmdline.execute("scrapy crawl bbd_custom_keyword_daum_news_spider".split())
 
     # 분기 데이터 스크래핑 스케줄러.
     from apscheduler.schedulers.background import BackgroundScheduler, BlockingScheduler
@@ -125,16 +94,130 @@ if __name__ == '__main__':
         process = multiprocessing.Process(target=schedule_job.big_kinds_news_scraping)
         process.start()
         process.join()
+    def create_test_process():
+        print("create_test_process")
+        process = multiprocessing.Process(target=schedule_job.test)
+        process.start()
+        process.join()
 
     # subprocess.Popen("scrapy crawl report_spider".split(), shell=True)
     # scheduler.add_job(create_sector_check_process, 'cron', hour=17, minute=7)
     # scheduler.add_job(create_theme_check_process, 'cron', hour=17, minute=7)
-    scheduler.add_job(create_daily_check_process, 'cron', hour=17, minute=21)
+    # scheduler.add_job(create_daily_check_process, 'cron', hour=17, minute=21)
     # scheduler.add_job(create_social_keyword_scraping_process, 'cron', hour=4, minute=0)
     # scheduler.add_job(create_big_kinds_news_scraping_process(), 'cron', hour=1, minute=0)
+    # scheduler.add_job()
     # scheduler.start()
 
+    def social_scraping_data_to_excel():
+        db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric",
+                              password=")!metricAdmin01", port=2345)
+        cur = db.cursor()
 
+        pattern_group_list = pd.read_sql(  # 키워드 패턴 목록 추출.
+            "select and_include_keyword_list from social_keywords "
+            "where is_followed=false and is_deleted=false "#and created_at > '2021-09-01' and created_at < '2021-09-30' "
+            "group by and_include_keyword_list "
+            "", db)
+        # 키워드 패턴 목록에 대해 반복.
+        for index, pattern_group in pattern_group_list.iterrows():
+            pattern_group = pattern_group["and_include_keyword_list"]
+
+            brand_mention_df = pd.DataFrame(columns=["키워드", "합계", "커뮤니티", "인스타","블로그","뉴스","트위터"])
+            company_mention_df = pd.DataFrame(columns=["키워드", "합계", "커뮤니티", "인스타","블로그","뉴스","트위터"])
+            brand_pos_neg_df = pd.DataFrame(columns=["키워드", "긍정", "부정", "중립", "공감"])
+            company_pos_neg_df = pd.DataFrame(columns=["키워드", "긍정", "부정", "중립", "공감"])
+
+            keyword_list = pd.read_sql(  # 같은 패턴에 해당하는 키워드 목록.
+                "select * from social_keywords "
+                "where is_followed=false and is_deleted=false and and_include_keyword_list='" + pattern_group + "' "
+                # "and created_at > '2021-09-01' and created_at < '2021-09-30' "
+                "order by id desc ", db
+            )
+
+            for index, keyword in keyword_list.iterrows():
+                # 언급량
+                mention_count = pd.read_sql(
+                    "select sum(community_count) as community_count, sum(insta_count) as insta_count, "
+                    "   sum(blog_count) as blog_count, sum(news_count) as news_count, "
+                    "   sum(twitter_count) as twitter_count, sum(count_sum) as count_sum "
+                    "from service_mention_counts "
+                    "where "
+                    "   keyword_id=" + str(keyword["id"]) + " "
+                    # "   and term_start >= '2021-07-01' "
+                    , db
+                )
+                # 언급량 전처리.
+                if (mention_count.iloc[0]["community_count"] == None) \
+                        & (mention_count.iloc[0]["news_count"] == None) \
+                        & (mention_count.iloc[0]["count_sum"] == None)\
+                        & (mention_count.iloc[0]["insta_count"] == None)\
+                        & (mention_count.iloc[0]["blog_count"]==None)\
+                        & (mention_count.iloc[0]["twitter_count"]==None):
+                    mention_count["community_count"] = 0
+                    mention_count["news_count"] = 0
+                    mention_count["count_sum"] = 0
+                    mention_count["insta_count"] = 0
+                    mention_count["blog_count"] = 0
+                    mention_count["twitter_count"] = 0
+
+                # 긍부정
+                pos_neg_count = pd.read_sql(
+                    "select pos_neg, sum(word_count) as word_count from service_pos_neg_words "
+                    "where "
+                    "   keyword_id=" + str(keyword["id"]) + " and term_type='F' "
+                    "group by pos_neg ", db
+                )
+                # pos_neg_count = pd.read_sql(
+                #     "select pos_neg, sum(word_count) as word_count from service_pos_neg_words "
+                #     "where "
+                #     "   keyword_id=" + str(keyword["id"]) + " and term_type='W' "
+                #     "   and term_start >= '2021-07-01' "
+                #     "group by pos_neg ", db
+                # )
+                # 긍부정 전처리.
+                pos = 0
+                if pos_neg_count[pos_neg_count["pos_neg"] == "POS"].empty == False:
+                    pos = pos_neg_count[pos_neg_count["pos_neg"] == "POS"].iloc[0]["word_count"]
+                neg = 0
+                if pos_neg_count[pos_neg_count["pos_neg"] == "NEG"].empty == False:
+                    neg = pos_neg_count[pos_neg_count["pos_neg"] == "NEG"].iloc[0]["word_count"]
+                neu = 0
+                if pos_neg_count[pos_neg_count["pos_neg"] == "NEU"].empty == False:
+                    neu = pos_neg_count[pos_neg_count["pos_neg"] == "NEU"].iloc[0]["word_count"]
+
+                brand_list = ["래미안", "힐스테이트", "자이", "더샵", "푸르지오", "디에이치", "롯데캐슬", "e편한세상", "아이파크", "SK뷰", "꿈에그린", "아크로",
+                              "호반써밋", "데시앙", "우미린", "하늘채", "위브", "리슈빌", "어울림", "더휴"]
+                if keyword["keyword"] in brand_list:  # 키워드가 브랜드일 경우, 브랜드 파일에, 아닐 경우 회사 파일에.
+                    brand_mention_df = brand_mention_df.append(
+                        {"키워드": keyword["keyword"], "합계": mention_count.iloc[0]["count_sum"], "커뮤니티": mention_count.iloc[0]["community_count"],
+                         "뉴스": mention_count.iloc[0]["news_count"], "인스타": mention_count.iloc[0]["insta_count"],
+                         "블로그": mention_count.iloc[0]["blog_count"], "트위터":mention_count.iloc[0]["twitter_count"]
+                         }, ignore_index=True
+                    )
+                    brand_pos_neg_df = brand_pos_neg_df.append(
+                        {"키워드": keyword["keyword"], "긍정": pos, "부정": neg, "중립": neu, "공감": (pos + neg + neu)}, ignore_index=True
+                    )
+                else:
+                    company_mention_df = company_mention_df.append(
+                        {"키워드": keyword["keyword"], "합계": mention_count.iloc[0]["count_sum"], "커뮤니티": mention_count.iloc[0]["community_count"],
+                         "뉴스": mention_count.iloc[0]["news_count"], "인스타": mention_count.iloc[0]["insta_count"],
+                         "블로그": mention_count.iloc[0]["blog_count"], "트위터":mention_count.iloc[0]["twitter_count"]}
+                        , ignore_index=True
+                    )
+                    company_pos_neg_df = company_pos_neg_df.append(
+                        {"키워드": keyword["keyword"], "긍정": pos, "부정": neg, "중립": neu, "공감": (pos + neg + neu)}, ignore_index=True
+                    )
+            # 키워드 패턴에 해당하는
+            with pd.ExcelWriter("C:/Users/kai/Desktop/두루미/" + pattern_group.replace("\\","_")+ ".xlsx") as excel:
+                brand_mention_df.to_excel(excel, sheet_name="브랜드_언급량")
+                brand_pos_neg_df.to_excel(excel, sheet_name="브랜드_긍부정")
+                company_mention_df.to_excel(excel, sheet_name="회사_언급량")
+                company_pos_neg_df.to_excel(excel, sheet_name="회사_긍부정")
+                excel.save()
+
+
+    # social_scraping_data_to_excel()
 
     def store_excel_data():
         # 몽고디비 연결
@@ -290,3 +373,142 @@ def noname1():
                     "VALUES " + insert_sql)
         db.commit()
 # noname1()
+
+def add_keyword_list(origin, added_keyword_list):
+    for added_keyword in added_keyword_list:
+        if origin == "":
+            origin = added_keyword
+        else:
+            origin = origin + "\\" + added_keyword
+    return origin
+
+def add_dlenc_searchKeyword(keyword_list, include_keyword_list):
+    db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric", password=")!metricAdmin01", port=2345)
+    cur = db.cursor()
+
+    insert_sql = ""
+    for include_keyword_dict in include_keyword_list:
+        and_or = include_keyword_dict["and_or"]
+        include_keyword_set = include_keyword_dict["include_set"]
+
+        for keyword_set in keyword_list:
+            equal_keyword = add_keyword_list("", keyword_set[1])
+            exclude_keyword = add_keyword_list("", keyword_set[2])
+            or_include_keyword = add_keyword_list("", [""])
+            and_include_keyword = add_keyword_list("", [""])
+            if and_or == "and":
+                and_include_keyword = add_keyword_list("", include_keyword_set)
+            elif and_or == "or":
+                or_include_keyword = add_keyword_list("", include_keyword_set)
+            else:
+                raise Exception("and_or 설정 안됨.")
+            keyword = keyword_set[0]
+            is_followed = "true"
+            is_deleted = "false"
+
+            insert_sql = insert_sql + ", (" +\
+                         "'" + str(datetime.now(timezone.utc)) + "', '" + str(datetime.now(timezone.utc)) + "', " +\
+                         "null, '" + equal_keyword + "', '" + exclude_keyword + "', null, '" + and_include_keyword + "', " +\
+                         "'" + or_include_keyword + "', '" + keyword + "', '" + is_followed + "', '" +is_deleted+"', 'sometrend', 'dlenc') "
+
+    insert_sql = insert_sql[1:]
+    cur.execute("INSERT INTO social_keywords ("
+                "created_at, updated_at, corp_code, equal_keyword_list, exclude_keyword_list, code_id, "
+                "and_include_keyword_list, or_include_keyword_list, keyword, is_followed, is_deleted, search_site, use_site"
+                ") "
+                "VALUES " + insert_sql)
+    db.commit()
+
+brand_keyword_set_list = [
+    ["e편한세상", [""], ["자이스토리", "스토리"]],
+    ["꿈에그린", [""], ["자이스토리", "스토리"]],
+    ["더샵", [""], ["자이스토리", "스토리"]],
+    ["디에이치", [""], ["자이스토리", "스토리"]],
+    ["더플래티넘", [""], ["자이스토리", "스토리"]],
+    ["데시앙", [""], ["자이스토리", "스토리"]],
+    ["동문굿모닝힐", [""], ["자이스토리", "스토리"]],
+    ["동원베네스트", [""], ["자이스토리", "스토리"]],
+    ["래미안", [""], ["자이스토리", "스토리"]],
+    ["롯데캐슬", [""], ["자이스토리", "스토리"]],
+    ["리슈빌", [""], ["자이스토리", "스토리"]],
+    ["반도유보라", [""], ["자이스토리", "스토리"]],
+    ["베르디움", [""], ["자이스토리", "스토리"]],
+    ["벽산블루밍", [""], ["자이스토리", "스토리"]],
+    ["삼부르네상스", [""], ["자이스토리", "스토리"]],
+    ["서희스타힐스", [""], ["자이스토리", "스토리"]],
+    ["센트레빌", [""], ["자이스토리", "스토리"]],
+    ["스위첸", [""], ["자이스토리", "스토리"]],
+    ["아이파크", [""], ["자이스토리", "스토리"]],
+    ["아크로", [""], ["자이스토리", "스토리"]],
+    ["금호어울림", [""], ["자이스토리", "스토리"]],
+    ["SK뷰", ["에스케이뷰"], ["자이스토리", "스토리"]],
+    ["우미린", [""], ["자이스토리", "스토리"]],
+    ["위브", [""], ["자이스토리", "스토리"]],
+    ["자이", [""], ["자이스토리", "스토리"]],
+    ["코아루", [""], ["자이스토리", "스토리"]],
+    ["포레나", [""], ["자이스토리", "스토리"]],
+    ["푸르지오", [""], ["자이스토리", "스토리"]],
+    ["하늘채", [""], ["자이스토리", "스토리"]],
+    ["한라비발디", [""], ["자이스토리", "스토리"]],
+    ["해링턴플레이스",[""], ["자이스토리", "스토리"]],
+    ["해모르", [""], ["자이스토리", "스토리"]],
+    ["호반써밋", [""], ["자이스토리", "스토리"]],
+    ["힐스테이트", [""], ["자이스토리", "스토리"]],
+]
+include_keyword_set_list = [
+    {"and_or":"and", "include_set":["아파트"]},
+    {"and_or":"and", "include_set": ["기술력","아파트"]},
+    {"and_or":"and", "include_set": ["디자인","아파트"]},
+    {"and_or":"and", "include_set": ["살기좋은","아파트"]},
+    {"and_or":"and", "include_set": ["선호하는","아파트"]},
+    {"and_or":"and", "include_set": ["스마트","아파트"]},
+    {"and_or":"and", "include_set": ["신뢰","아파트"]},
+    {"and_or":"and", "include_set": ["입지좋은","아파트"]},
+    {"and_or":"and", "include_set": ["추천하는","아파트"]},
+    # {"and_or":"and", "include_set": ["]}"친환경"],
+    {"and_or":"and", "include_set": ["투자가치","아파트"]},
+    {"and_or":"and", "include_set": ["품질좋은","아파트"]},
+    # {"and_or":"and", "include_set": ["]}"라이프스타일"],
+    {"and_or":"and", "include_set": ["프리미엄","아파트"]},
+    {"and_or":"and", "include_set": ["친환경","아파트"]},
+    {"and_or":"and", "include_set": ["라이프스타일","아파트"]},
+    {"and_or":"or", "include_set": ["설계","평면"]},
+    # {"and_or":"and", "include_set": ["]}"디자인"],
+    {"and_or":"or", "include_set": ["컨시어지","재택","재택근무","원격교육","원격수업"]},
+    {"and_or":"and", "include_set": ["문화","아파트"]},
+    {"and_or":"and", "include_set": ["코로나","아파트"]},
+    {"and_or":"or", "include_set": ["경험","재택"]},
+    {"and_or":"and", "include_set": ["수요","아파트"]},
+    {"and_or":"and", "include_set": ["가치","아파트"]},
+    {"and_or":"or", "include_set": ["인테리어","벽체","바닥재","마감재"]},
+    {"and_or":"or", "include_set": ["가변","펜트리","멀티룸"]},
+    {"and_or":"and", "include_set": ["인공지능","아파트"]},
+    {"and_or":"or", "include_set": ["홈네트워크","모니터링","공조","제어"]},
+    {"and_or":"and", "include_set": ["메타버스","아파트"]},
+    {"and_or":"or", "include_set": ["안전","보안","지하화"]},
+    # {"and_or":"and", "include_set": ["]}"컨시어지","재택","재택근무","원격교육","원격수업"],
+    {"and_or":"or", "include_set": ["소형","초소형"]},
+    {"and_or":"and", "include_set": ["재생","아파트"]},
+    {"and_or":"or", "include_set": ["로컬","친환경"]},
+    {"and_or":"or", "include_set": ["럭셔리","대형평형"]},
+    {"and_or":"or", "include_set": ["독립공간","유해요소차단"]},
+    {"and_or":"and", "include_set": ["가격상승","아파트"]},
+    {"and_or":"and", "include_set": ["개발계획","아파트"]},
+    {"and_or":"and", "include_set": ["미래가치","아파트"]},
+    # {"and_or":"and", "include_set": ["]}"투자가치"],
+    {"and_or":"and", "include_set": ["주거비용","아파트"]},
+    # {"and_or":"and", "include_set": ["]}"인테리어","벽체","바닥재","마감재"],
+    {"and_or":"or", "include_set": ["소음감소","층간소음저감","소음저감"]},
+    {"and_or":"or", "include_set": ["채광","남향"]},
+    {"and_or":"or", "include_set": ["환기","에어샤워","공기정화"]},
+    {"and_or":"or", "include_set": ["거실","안방","베란다","화장실","주방","알파룸"]},
+    {"and_or":"or", "include_set": ["재건축","재개발","호재","개발"]},
+    {"and_or":"or", "include_set": ["공원","관공서","녹지","근린시설","병원","마트","숲세권","스세권","올세권","다세권"]},
+    {"and_or":"or", "include_set": ["커뮤니티","컨시어지","헬스장","운동","사우나","수영장","볼링장","극장","게스트하우스","도서관","카페","라운지","돌봄"]},
+    {"and_or":"or", "include_set": ["대중교통","전철","지하철","교통","역세권"]},
+    {"and_or":"or", "include_set": ["교육","학군","학원","초중고","초품아"]},
+
+]
+
+# add_dlenc_searchKeyword(brand_keyword_set_list, include_keyword_set_list)
+

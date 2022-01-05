@@ -5,11 +5,10 @@ import time
 import pandas as pd
 import psycopg2
 from scrapy import cmdline
-
+# C:\QseeScraping\Scripts\python.exe C:\QseeScraping\Scripts\qsee_scraper\getHistoricalData.py
 def test():
-    print("hello")
-    # cmdline.execute("mkdir C:/Users/kai/Desktop/erere")
-    cmdline.execute("scrapy crawl report_spider".split())
+    print("test job start")
+    cmdline.execute("scrapy crawl naver_finance".split())
 
 def sector_scraping_check():
     today = time.localtime(time.time())

@@ -1,7 +1,0 @@
-2021-08-25 14:10_초기 세팅 실패.
-Traceback (most recent call last):
-  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 727, in initial_setting
-    self.wait(2)
-  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\sometrend_spider.py", line 689, in wait
-    self.break_time = self.break_time.replace(hour=random.triangular(12, 13, 13),
-TypeError: integer argument expected, got float

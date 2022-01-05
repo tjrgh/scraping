@@ -18,6 +18,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from . import constant_var as constant
+from . import common_util as cm
 
 # 테마주 종목 데이터 스크래핑.
 # - 섹터보다는 짧을 것이라 생각되지만, 섹터 데이터도 최근 데이터 이외에 의미가 없다고 하므로 테마는 더더욱 없을 거라 생각됨.
@@ -69,20 +70,20 @@ class ThemeSpider(scrapy.Spider):
                 "//div[@id='header']//div[contains(@class,'lnb_area')]//div[@id='menu']/ul/li//span[contains(text(),'국내증시')]"
             )
             self.driver.execute_script("arguments[0].click();", temp_button)
-            self.wait(2)
+            cm.wait(2)
 
             # 테마 선택.
             temp_button = self.driver.find_element_by_xpath(
                 "//div[@id='newarea']//div[contains(@class,'snb')]/ul/li[1]/ul//span[contains(text(),'테마')]"
             )
             self.driver.execute_script("arguments[0].click();", temp_button)
-            self.wait(2)
+            cm.wait(2)
             # 테마 목록 정렬.
             temp_button = self.driver.find_element_by_xpath(
                 "//div[@id='newarea']//div[@id='contentarea_left']/table[1]//tr[1]/th[1]/a"
             )
             self.driver.execute_script("arguments[0].click();", temp_button)
-            self.wait(2)
+            cm.wait(2)
             # 마지막 페이지 계산
             last_page = self.driver.find_element_by_xpath(
                 "//div[@id='newarea']//div[@id='contentarea_left']/table[2]//td[contains(@class,'pgRR')]/preceding-sibling::td[1]"
@@ -94,7 +95,7 @@ class ThemeSpider(scrapy.Spider):
                     "//div[@id='newarea']//div[@id='contentarea_left']/table[2]//td/a[text()='"+str(page_num)+"']"
                 )
                 self.driver.execute_script("arguments[0].click();", page_button)
-                self.wait(2)
+                cm.wait(2)
 
                 # 테마별 종목 스크래핑
                 category_xpath = "//div[@id='contentarea']//div[@id='contentarea_left']/table[1]//tr/td[1]/a"
@@ -104,10 +105,10 @@ class ThemeSpider(scrapy.Spider):
                     # 테마 목록 하나 클릭.
                     temp_button = self.driver.find_elements_by_xpath(category_xpath)
                     theme_name = temp_button[category_count_num].text
-                    if len(theme_name) > 9:
-                        continue
+                    # if len(theme_name) > 9:
+                    #     continue
                     self.driver.execute_script("arguments[0].click();", temp_button[category_count_num])
-                    self.wait(2)
+                    cm.wait(2)
 
                     # 수익(손), 자산총계(재), 부채총계(재), 자본총계(재), 등등...
                     # df = pd.DataFrame(columns=["code", "stock_name", "account_id", "term", "value"])  # 섹터에 대한 데이터들 저장할 df.
@@ -289,84 +290,89 @@ class ThemeSpider(scrapy.Spider):
 
                     temp_data = gross_profit_ratio_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "gross_profit_ratio",
-                                                        temp_data)
+                                                        temp_data, 't')
 
                     temp_data = operating_profit_ratio_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "operating_profit_ratio",
-                                                        temp_data)
+                                                        temp_data, 't')
 
                     temp_data = net_profit_ratio_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "net_profit_ratio",
-                                                        temp_data)
+                                                        temp_data, 't')
 
                     temp_data = net_income_list.mean()
-                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "net_income", temp_data)
+                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "net_income", temp_data, 't')
 
                     temp_data = ebitda_list.mean()
-                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "EBITDA", temp_data)
+                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "EBITDA", temp_data, 't')
 
                     temp_data = roa_list.mean()
-                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "ROA", temp_data)
+                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "ROA", temp_data, 't')
 
                     temp_data = roe_list.mean()
-                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "ROE", temp_data)
+                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "ROE", temp_data, 't')
 
                     # roic???
 
                     temp_data = eps_list.mean()
-                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "EPS", temp_data)
+                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "EPS", temp_data, 't')
 
                     temp_data = bps_list.mean()
-                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "BPS", temp_data)
+                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "BPS", temp_data, 't')
 
                     temp_data = gross_profit_growth_ratio_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "gross_profit_growth_ratio",
-                                                        temp_data)
+                                                        temp_data, 't')
 
                     temp_data = operating_profit_growth_ratio_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term,
-                                                        "operating_profit_growth_ratio", temp_data)
+                                                        "operating_profit_growth_ratio", temp_data, 't')
 
                     temp_data = net_profit_growth_ratio_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "net_profit_growth_ratio",
-                                                        temp_data)
+                                                        temp_data, 't')
 
                     temp_data = total_asset_growth_ratio_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "total_asset_growth_ratio",
-                                                        temp_data)
+                                                        temp_data, 't')
 
                     temp_data = current_asset_growth_ratio_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "current_asset_growth_ratio",
-                                                        temp_data)
+                                                        temp_data, 't')
 
                     temp_data = tangible_asset_growth_ratio_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term,
-                                                        "tangible_asset_growth_ratio", temp_data)
+                                                        "tangible_asset_growth_ratio", temp_data, 't')
 
                     temp_data = capital_asset_growth_ratio_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "capital_asset_growth_ratio",
-                                                        temp_data)
+                                                        temp_data, 't')
 
                     # 시가총액, per, pbr, ev, 거래량 데이터 계산.
                     temp_data = market_cap_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "market_cap",
-                                                        temp_data)  # 시총
+                                                        temp_data, 't')  # 시총
 
                     temp_data = per_list.mean()
-                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "PER", temp_data)
+                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "PER", temp_data, 't')
 
                     temp_data = pbr_list.mean()
-                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "PBR", temp_data)
+                    insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "PBR", temp_data, 't')
 
                     # EV ???
 
                     temp_data = transaction_volume_list.mean()
                     insert_sql = self.make_insert_query(insert_sql, theme_name, self.target_term, "transaction_volume_avg",
-                                                        temp_data)  # 거래량
+                                                        temp_data, 't')  # 거래량
+
+                    # 동일한 기존 데이터 삭제.
+                    cur.execute("delete from stock_sector_statement "
+                                "where date='" + self.target_term + "' and sector_name='" + theme_name + "' ")
+                    db.commit()
 
                     cur.execute(
                         "insert into stock_sector_statement("
-                        "   created_at, updated_at, sector_name, date, account_name, amount"
+                        "   created_at, updated_at, sector_name, date, account_name, amount, sector_type "
                         ") "
                         "values " + insert_sql[1:]
                     )
@@ -374,18 +380,21 @@ class ThemeSpider(scrapy.Spider):
 
                     # 업종 목록으로 뒤로가기.
                     self.driver.back()
-                    self.wait(2)
+                    cm.wait(2)
+
+            self.driver.quit()
+
         except Exception as e:
             date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
             with open(constant.error_file_path + "/theme_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
                     time.time())) + ".txt", "a", encoding="UTF-8") as f:
-                f.write(date_time + "\n")
+                f.write(date_time + "_"+theme_name+"_"+stock_name+"\n")
                 f.write(traceback.format_exc())
 
-    def make_insert_query(self, insert_sql, theme_name, date, account_name, amount):
+    def make_insert_query(self, insert_sql, theme_name, date, account_name, amount, sector_type):
         insert_sql = (insert_sql + ", ('" + str(datetime.datetime.now(datetime.timezone.utc)) + "', '" +
                       str(datetime.datetime.now(datetime.timezone.utc)) + "', '" + theme_name + "', " +
-                      "'" + date + "', '" + account_name + "', '" + str(amount) + "')"
+                      "'" + date + "', '" + account_name + "', '" + str(amount) + "', '"+sector_type+"')"
                       )
         return insert_sql
 
@@ -460,14 +469,14 @@ class ThemeSpider(scrapy.Spider):
                 self.driver.find_element_by_xpath(
                     "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@placeholder='계정']").send_keys(
                     "sooryong@gmail.com")
-                self.wait(2)
+                cm.wait(2)
                 self.driver.find_element_by_xpath(
                     "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@placeholder='비밀번호']").send_keys(
                     ")!kaimobile01")
-                self.wait(2)
+                cm.wait(2)
                 self.driver.find_element_by_xpath(
                     "//div[contains(@class,'login-page')]//div[@class='login-container']//input[@class='button login']").click()
-                self.wait(3)
+                cm.wait(3)
                 self.driver.refresh()
             except Exception as e2:
                 print(e2)
@@ -478,4 +487,4 @@ class ThemeSpider(scrapy.Spider):
         menu_bar_button = self.driver.find_element_by_xpath(
             "//div[@class='deepsearch-appbar']//div[contains(@class,'app-bar-drawer')]")
         self.driver.execute_script("arguments[0].click();", menu_bar_button)
-        self.wait(2)
+        cm.wait(2)

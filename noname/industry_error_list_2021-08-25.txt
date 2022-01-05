@@ -1,5 +1,0 @@
-2021-08-25 17:02
-Traceback (most recent call last):
-  File "C:\Users\kai\PycharmProjects\pythonProject\noname\noname\spiders\industry_spider.py", line 157, in parse
-    "select account_id, this_term_name, this_term_amount, code_id, subject_name from stock_financial_statement "
-TypeError: can only concatenate str (not "NoneType") to str

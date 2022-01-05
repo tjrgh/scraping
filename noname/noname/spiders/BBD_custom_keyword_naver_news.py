@@ -26,33 +26,25 @@ SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
 SELENIUM_DRIVER_ARGUMENTS=['--headless']  # '--headless' if using chrome instead of firefox
 
 
-class NaverNewsSpider(scrapy.Spider):
+class BBDCustomKeywordNaverNewsSpider(scrapy.Spider):
     """
-    네이버 뉴스에 종목명을 검색하여 뉴스 정보 및 반응을 스크래핑하는 스파이더.
+    BBD 사이트에서 사용자가 입력한 키워드에 대해 네이버 뉴스를 스크래핑하는 스파이더.
     """
 
-    name = "naver_news_spider";
+    name = "bbd_custom_keyword_naver_news_spider";
 
-    def __init__(self, start_date, end_date, scraping_count_goal=20):
-        super(NaverNewsSpider, self).__init__()
+    def __init__(self, scraping_count_goal=20):
+        super(BBDCustomKeywordNaverNewsSpider, self).__init__()
         self.driver = None
-        self.start_date = start_date
-        self.start_date_arr = self.start_date.split("-")
-        self.end_date = end_date
-        self.end_date_arr = self.end_date.split("-")
         self.scraping_count_goal = int(scraping_count_goal)
         self.search_count = 0
 
         self.db = psycopg2.connect(host="112.220.72.179", dbname="openmetric", user="openmetric",
                               password=")!metricAdmin01", port=2345)
         self.cur = self.db.cursor()
-        self.stock_list = pd.read_sql("select * from stocks_basic_info where corp_code!=' '", self.db).sort_values(by="code")
-
-        # 시작시간, 중간 쉬는 시간, 종료시간 설정.
-        today = time.localtime(time.time())
-        self.start_time= datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday, int(random.triangular(9, 10, 9)), int(random.randrange(0, 59, 1)))
-        self.break_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday, int(random.triangular(12, 13, 13)), int(random.randrange(0, 59, 1)))
-        self.end_time = datetime.datetime(today.tm_year, today.tm_mon, today.tm_mday, int(random.triangular(18, 20, 19)), int(random.randrange(0, 59, 1)))
+        # self.stock_list = pd.read_sql("select * from stocks_basic_info where corp_code!=' '", self.db).sort_values(by="code")
+        # self.keyword_list = pd.read_sql("select * from custom_social_keywords where is_deleted=false and is_completed=false order by created_at", self.db)
+        pass
 
     def start_requests(self):
         url_list = [
@@ -73,17 +65,95 @@ class NaverNewsSpider(scrapy.Spider):
         except Exception as e:
             self.report_error(e, msg="스크래퍼 최상단 에러")
 
+    def selenium_set_search_term(self, start_date_arr, end_date_arr):
+        # 검색 조건 설정
+        self.click_element("//div[@id='snb']/div[contains(@class,'api_group_option_filter')]"
+                           "//div[contains(@class,'option_filter')]/a", 2)
+        self.click_element(  # 기간 직접입력 클릭.
+            "//div[@id='snb']/div[contains(@class,'api_group_option_sort')]/ul[contains(@class,'lst_option')]"
+            "//strong[contains(@class,'tit') and contains(text(),'기간')]"
+            "/following::div[contains(@class,'option')]/a[last()]", 2
+        )
+        set_term_xpath = "//div[@id='snb']/div[contains(@class,'api_group_option_sort')]/ul[contains(@class,'lst_option')]" \
+                         "//strong[contains(@class,'tit') and contains(text(),'기간')]" \
+                         "/following::div[contains(@class,'_calendar_select_layer')]"
+        self.click_element(set_term_xpath + "//a[contains(@class,'_start_trigger')]", 2)  # 시작일 선택 클릭.
+        self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 연 선택.
+                                            "/div[1]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" +
+                           start_date_arr[0] + "')]", 2)
+        self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 월 선택
+                                            "/div[2]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" + str(
+            int(start_date_arr[1])) + "')]", 2)
+        self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 일 선택.
+                                            "/div[3]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" + str(
+            int(start_date_arr[2])) + "')]", 2)
+
+        self.click_element(set_term_xpath + "//a[contains(@class,'_end_trigger')]", 2)  # 종료일 선택 클릭.
+        self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 연 선택.
+                                            "/div[1]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" +
+                           end_date_arr[0] + "')]", 2)
+        self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 월 선택
+                                            "/div[2]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" + str(
+            int(end_date_arr[1])) + "')]", 2)
+        self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 일 선택.
+                                            "/div[3]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" + str(
+            int(end_date_arr[2])) + "')]", 2)
+
+        self.click_element(  # 적용.
+            set_term_xpath + "/div[contains(@class,'btn_area')]/button", 2
+        )
+
+    def make_site_search_query(self, keyword, and_include_list, or_include_list, exclude_list):
+        search_query = ""
+
+        search_query = search_query + " \""+keyword+"\""
+
+        for keyword in and_include_list:
+            if keyword != "":
+                search_query = search_query + " \""+keyword+"\""
+
+        for keyword in or_include_list:
+            if keyword != "":
+                search_query = search_query + " "+keyword+" |"
+
+        for keyword in exclude_list:
+            if keyword != "":
+                search_query = search_query + " -"+keyword
+
+        return search_query
+
+
     # 분기별 재무정보 스크래핑 후 업데이트
     def naver_news_scraping(self):
         """
         데이터 스크래핑 함수.
         """
 
-        for index, stock in self.stock_list.iterrows():
+        while True:
+            self.keyword_list = pd.read_sql("select * from custom_social_keywords where is_deleted=false and naver_completed=false order by created_at", self.db)
+            if self.keyword_list.empty == True:
+                break
+            keyword = self.keyword_list.iloc[0]
             try:
+                start_date_iso = keyword["search_start_date"].isoformat()
+                start_date_arr = start_date_iso.split("-")
+                end_date_iso = keyword["search_end_date"].isoformat()
+                end_date_arr = end_date_iso.split("-")
+                search_keyword = keyword["keyword"]
+                equal_keyword_list = keyword["equal_keyword_list"].split("\\")
+                and_include_keyword_list = keyword["and_include_keyword_list"].split("\\")
+                or_include_keyword_list = keyword["or_include_keyword_list"].split("\\")
+                exclude_keyword_list = keyword["exclude_keyword_list"].split("\\")
+
+                self.selenium_set_search_term(start_date_arr, end_date_arr)
+
+                site_search_query = self.make_site_search_query(
+                    search_keyword, and_include_keyword_list, or_include_keyword_list, exclude_keyword_list
+                )
+
                 self.driver.find_element_by_xpath("//input[@id='nx_query']").clear()
                 cm.wait(2)
-                self.driver.find_element_by_xpath("//input[@id='nx_query']").send_keys(stock["name"])
+                self.driver.find_element_by_xpath("//input[@id='nx_query']").send_keys(site_search_query)
                 cm.wait(2)
                 self.click_element(
                     "//form[@id='nx_search_form']/fieldset/button[contains(@class,'bt_search')]", 2
@@ -109,7 +179,7 @@ class NaverNewsSpider(scrapy.Spider):
                             news_count = news_count + 1
                             # 기존 저장된 뉴스 데이터 가져오기
                             stored_news_list = pd.read_sql(
-                                "select code_id, title, press, date from news_reactions where source='naver_news'", self.db
+                                "select * from news_reactions where source='naver_news'", self.db
                             ).sort_values(by="date").astype("string")
 
                             temp_tag = self.driver.find_elements_by_xpath(
@@ -131,6 +201,7 @@ class NaverNewsSpider(scrapy.Spider):
                                 )
 
                                 self.driver.switch_to.window(self.driver.window_handles[1])
+                                cm.wait(5, 2)
 
                                 title = ""
                                 press = ""
@@ -197,6 +268,14 @@ class NaverNewsSpider(scrapy.Spider):
                                 #         "/li[contains(@class,'want')]//span[contains(@class,'u_likeit_list_count')]"
                                 #     ).text
                                 # else:
+                                # 연예 기사이면 패스.
+                                if "entertain.naver.com" in self.driver.current_url:
+                                    self.driver.close()
+                                    cm.wait(1, 1)
+                                    self.driver.switch_to.window(self.driver.window_handles[0])
+                                    cm.wait(1, 1)
+                                    continue
+
                                 press = self.driver.find_element_by_xpath(
                                     "//div[@id='main_content']/div[contains(@class,'article_header')]"
                                     "/div[contains(@class,'press_logo')]/a/img"
@@ -254,6 +333,11 @@ class NaverNewsSpider(scrapy.Spider):
                                     "//div[@id='spiLayer']/div[contains(@class,'_reactionModule')]/ul"
                                     "/li[contains(@class,'want')]//span[contains(@class,'u_likeit_list_count')]"
                                 ).text.replace(",", "")
+                                recommend_cnt = self.driver.find_element_by_xpath(
+                                    "//div[@id='toMainContainer']/a/em[contains(@class, 'count')]"
+                                ).text.replace(",", "")
+                                if recommend_cnt == "":
+                                    recommend_cnt = 0
 
                                 cm.wait(1, 1)
                                 self.driver.close()
@@ -263,47 +347,47 @@ class NaverNewsSpider(scrapy.Spider):
 
                                 # 뉴스 중목 체크
                                 if(
-                                        (title == stored_news_list["title"])
+                                    (title == stored_news_list["title"])
                                     & (press == stored_news_list["press"])
                                     & (date == stored_news_list["date"])
+                                    & (keyword["id"] == stored_news_list["custom_social_keyword_id"])
                                 ).any():
+                                    self.report_error(e, str(keyword["id"]), keyword["keyword"], "이미 존재하는 뉴스 데이터입니다.")
                                     continue
                                 else:
                                     # insert sql 생성.
-                                    insert_sql = insert_sql + ", ("+\
+                                    insert_sql = "("+\
                                     "'"+str(datetime.datetime.now(datetime.timezone.utc))+"', "+\
                                     "'"+str(datetime.datetime.now(datetime.timezone.utc))+"', "+\
-                                    "'"+stock["name"]+"', '"+title+"', '"+origin_source+"', '"+press+"', "+\
+                                    "'"+title+"', '"+origin_source+"', '"+press+"', "+\
                                     "'naver_news', '"+date+"', "+emotion_count+", "+comment_count+", "+\
                                     emotion_like_cnt+", "+emotion_warm_cnt+", "+emotion_sad_cnt+", "+\
-                                    emotion_angry_cnt+", "+emotion_want_cnt+", '"+stock["code"]+"')"
+                                    emotion_angry_cnt+", "+emotion_want_cnt+", "+str(recommend_cnt)+", "+str(keyword["id"])+")"
 
+                                    # db insert.
+                                    try:
+                                        self.cur.execute(
+                                            "insert into news_reactions ("
+                                            "   created_at, updated_at, title, link, press, source, date, "
+                                            "   emotion_count, comment_count, emotion_like_cnt, emotion_warm_cnt, "
+                                            "   emotion_sad_cnt, emotion_angry_cnt, emotion_want_cnt, emotion_recommend_cnt, custom_social_keyword_id"
+                                            ") values " + insert_sql
+                                        )
+                                        self.db.commit()
+                                    except Exception as e:
+                                        self.report_error(e, str(keyword["id"]), keyword["keyword"], "db insert 에러")
+                                        self.db.rollback()
+                                        continue
                             else:
                                 continue
 
                         except Exception as e:
-                            self.report_error(e, stock["code"], stock["name"], "결과 리스트 한 페이지 스크래핑 중 에러")
+                            self.report_error(e, str(keyword["id"]), keyword["keyword"], "결과 리스트 한 페이지 스크래핑 중 에러")
                             while len(self.driver.window_handles) > 1:
                                 self.driver.switch_to.window(self.driver.window_handles[1])
                                 self.driver.close()
                             self.driver.switch_to.window(self.driver.window_handles[0])
                             continue
-
-                    # db insert.
-                    if insert_sql != "":
-                        try:
-                            self.cur.execute(
-                                "insert into news_reactions ("
-                                "   created_at, updated_at, stock_name, title, link, press, source, date, "
-                                "   emotion_count, comment_count, emotion_like_cnt, emotion_warm_cnt, "
-                                "   emotion_sad_cnt, emotion_angry_cnt, emotion_want_cnt, code_id"
-                                ") values " + insert_sql[1:]
-                            )
-                            self.db.commit()
-                        except Exception as e:
-                            self.report_error(e, stock["code"], stock["name"], "db insert 에러")
-                            self.db.rollback()
-
 
                     # 페이지 이동. 마지막이면 반복 정지.
                     paging_allow = self.driver.find_element_by_xpath(
@@ -317,6 +401,13 @@ class NaverNewsSpider(scrapy.Spider):
                             "//a[contains(@class,'btn_next')]", 2
                         )
 
+                # 커스텀 키워드 완료처리.
+                self.cur.execute("update custom_social_keywords set naver_completed=True where id=" + str(keyword["id"]))
+                self.db.commit()
+                if pd.read_sql("select * from custom_social_keywords where id="+str(keyword["id"]), self.db).iloc[0]["daum_completed"] == True:
+                    self.cur.execute("update custom_social_keywords set is_completed=True where id="+str(keyword["id"]))
+                    self.db.commit()
+
                 # 크롬 메모리 out 방지 및 검색 횟수 제한
                 if (self.search_count % 30 == 0):
                     self.driver.quit()
@@ -326,14 +417,14 @@ class NaverNewsSpider(scrapy.Spider):
                 self.search_count = cm.wait(60, search_count=self.search_count, search_count_max=self.scraping_count_goal)["search_count"]
 
             except NoSuchWindowException as e:
-                self.report_error(e, stock["code"], stock["name"])
+                self.report_error(e, str(keyword["id"]), keyword["keyword"])
                 self.driver.quit()
                 cm.wait(4)
                 self.initial_setting()
                 continue
 
             except Exception as e:
-                self.report_error(e, stock["code"], stock["name"], "종목 반복 중 에러")
+                self.report_error(e, str(keyword["id"]), keyword["keyword"], "종목 반복 중 에러")
                 continue
 
     def validate_sql(self, sql):
@@ -344,7 +435,7 @@ class NaverNewsSpider(scrapy.Spider):
 
     def report_error(self, e=None, code="", stock_name="", msg=""):
         date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-        with open(constant.error_file_path + "/naver_news_error_list_" +
+        with open(constant.error_file_path + "/bbd_custom_naver_news_error_list_" +
                   time.strftime("%Y-%m-%d", time.localtime(time.time())) + ".txt", "a", encoding="UTF-8") as f:
             f.write(date_time + "_"+code+"_"+stock_name+"_"+msg+"\n")
             f.write(traceback.format_exc())
@@ -361,80 +452,6 @@ class NaverNewsSpider(scrapy.Spider):
             cm.wait(wait_time)
         else:
             cm.wait(wait_time, term)
-
-    def wait(self, wait_time, term=5, search_count=None):
-        now = datetime.datetime.now().time()
-        # 검색 쿼리 횟수 제한
-        if (search_count != None):
-            if (search_count >= self.scraping_count_goal):
-                print(str(datetime.datetime.now()) + "search count limit break term start.")
-                self.report_error(msg="search count limit break term start.")
-                while (datetime.datetime.now().time() < datetime.time(6, 0)) | \
-                        (datetime.datetime.now().time() > datetime.time(7, 0)):
-                    time.sleep(10)
-                else:
-                    print(str(datetime.datetime.now()) + "search count limit break term end.")
-                    self.report_error(msg="search count limit break term end.")
-                    self.start_time = datetime.time(int(random.triangular(9, 10, 9)),
-                                                    int(random.randrange(0, 59, 1)))
-                    self.break_time = datetime.time(int(random.triangular(12, 13, 13)),
-                                                    int(random.randrange(0, 59, 1)))
-                    self.end_time = datetime.time(int(random.triangular(17, 19, 18)),
-                                                  int(random.randrange(0, 59, 1)))
-                    self.search_count = 0
-
-        # 시작시간, 중간 쉬는 시간, 끝시간에 따른 대기.
-        if (self.start_time >= now) | (self.end_time <= now):
-            if self.start_time >= now:
-                print(str(datetime.datetime.now()) + "start break term start.")
-            elif self.end_time <= now:
-                print(str(datetime.datetime.now()) + "end break term start.")
-            self.report_error(msg="start break term start.")
-            while (self.start_time >= datetime.datetime.now().time()) | \
-                    (self.end_time <= datetime.datetime.now().time()):
-                time.sleep(10)
-            else:
-                print(str(datetime.datetime.now()) + "start/end break term end.")
-                self.report_error(msg="start break term end.")
-                self.search_count = 0
-                self.start_time = datetime.time(int(random.triangular(9, 10, 9)),
-                                                int(random.randrange(0, 59, 1)))
-                self.end_time = datetime.time(int(random.triangular(17, 19, 19)),
-                                              int(random.randrange(0, 59, 1)))
-                self.break_time = datetime.time(int(random.triangular(12, 13, 13)),
-                                                int(random.randrange(0, 30, 1)))
-                print((str(datetime.datetime.now()) + "break_time : " + str(self.break_time)))
-                print((str(datetime.datetime.now()) + "start_time : " + str(self.start_time)))
-                print((str(datetime.datetime.now()) + "end_time : " + str(self.end_time)))
-
-        elif (self.break_time < now) & \
-                ((datetime.datetime.combine(datetime.date.today(), self.break_time)
-                  + datetime.timedelta(minutes=30)).time() > now):
-            print(str(datetime.datetime.now()) + "middle break term start.")
-            self.report_error(msg="middle break term start.")
-            time.sleep(random.normalvariate(3000, 400))
-            print(str(datetime.datetime.now()) + "middle break term end.")
-            self.report_error(msg="middle break term end.")
-
-        # 랜덤 몇 초 더 대기.
-        random_value = random.randrange(1, 100, 1)
-        if random_value % 20 == 0:
-            print(str(datetime.datetime.now()) + "more sleep...")
-            time.sleep(random.triangular(wait_time, wait_time + term + 10, wait_time + term + 5))
-        # print(str(datetime.datetime.now()) + "...")
-        time.sleep(random.triangular(wait_time, wait_time + term, wait_time))
-        # 랜덤 3~5분 대기.
-        random_value3 = random.randrange(1, 100, 1)
-        if random_value3 % 100 == 0:
-            print(str(datetime.datetime.now()) + "3~5minute sleep")
-            self.report_error(msg="3~5minute sleep")
-            time.sleep(random.uniform(180, 300))
-        # 랜덤 10~20분 대기.
-        random_value2 = random.randrange(1, 1000, 1)
-        if random_value2 % 500 == 0:
-            print(str(datetime.datetime.now()) + "10~20minute sleep")
-            self.report_error(msg="10~20minute sleep")
-            time.sleep(random.uniform(600, 1200))
 
     def initial_setting(self):
         for i in range(10):
@@ -461,42 +478,7 @@ class NaverNewsSpider(scrapy.Spider):
                 self.click_element("//div[@id='lnb']/div[contains(@class,'lnb_group')]//ul[contains(@class,'base')]"
                                    "//a[contains(@class,'tab') and contains(text(),'뉴스')]", 2)
 
-                # 검색 조건 설정
-                self.click_element("//div[@id='snb']/div[contains(@class,'api_group_option_filter')]"
-                                   "//div[contains(@class,'option_filter')]/a", 2)
-                self.click_element(  # 기간 직접입력 클릭.
-                    "//div[@id='snb']/div[contains(@class,'api_group_option_sort')]/ul[contains(@class,'lst_option')]"
-                    "//strong[contains(@class,'tit') and contains(text(),'기간')]"
-                    "/following::div[contains(@class,'option')]/a[contains(text(),'직접입력')]", 2
-                )
-                set_term_xpath = "//div[@id='snb']/div[contains(@class,'api_group_option_sort')]/ul[contains(@class,'lst_option')]" \
-                                 "//strong[contains(@class,'tit') and contains(text(),'기간')]" \
-                                 "/following::div[contains(@class,'_calendar_select_layer')]"
-                self.click_element(set_term_xpath + "//a[contains(@class,'_start_trigger')]", 2)  # 시작일 선택 클릭.
-                self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 연 선택.
-                                                    "/div[1]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" +
-                                   self.start_date_arr[0] + "')]", 2)
-                self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 월 선택
-                                                    "/div[2]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" + str(
-                    int(self.start_date_arr[1])) + "')]", 2)
-                self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 일 선택.
-                                                    "/div[3]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" + str(
-                    int(self.start_date_arr[2])) + "')]", 2)
 
-                self.click_element(set_term_xpath + "//a[contains(@class,'_end_trigger')]", 2)  # 종료일 선택 클릭.
-                self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 연 선택.
-                                                    "/div[1]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" +
-                                   self.end_date_arr[0] + "')]", 2)
-                self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 월 선택
-                                                    "/div[2]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" + str(
-                    int(self.end_date_arr[1])) + "')]", 2)
-                self.click_element(set_term_xpath + "/div[contains(@class,'select_wrap')]"  # 일 선택.
-                                                    "/div[3]//ul[contains(@class,'lst_item')]/li[contains(@data-value,'" + str(
-                    int(self.end_date_arr[2])) + "')]", 2)
-
-                self.click_element(  # 적용.
-                    set_term_xpath + "/div[contains(@class,'btn_area')]/button", 2
-                )
                 self.click_element(  # 최신순 선택.
                     "//div[@id='snb']/div[contains(@class,'api_group_option_sort')]/ul[contains(@class,'lst_option')]"
                     "//strong[contains(@class,'tit') and contains(text(),'정렬')]"
@@ -505,7 +487,7 @@ class NaverNewsSpider(scrapy.Spider):
 
             except Exception as e:
                 date_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
-                with open(constant.error_file_path + "/naver_news_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
+                with open(constant.error_file_path + "/bbd_custom_naver_news_error_list_" + time.strftime("%Y-%m-%d", time.localtime(
                             time.time())) + ".txt",
                         "a", encoding="UTF-8") as f:
                     f.write(date_time + "_초기 세팅 실패.\n")
